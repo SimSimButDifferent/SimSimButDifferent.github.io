@@ -8,7 +8,7 @@ export default function Home() {
     <main>
       <div className="flex items-center justify-center h-screen bg-[./public/images/bambrella-umbrella.jpg]">
         <h1 className="text-4xl font-bold p-10">
-          Simeon Campbell - CAD Design
+          {"Simeon Campbell - CAD Design"}
         </h1>
       </div>
       <Image
@@ -19,9 +19,9 @@ export default function Home() {
         alt="Picture of the author"
       />
       <p>
-        I'm a software engineer and a student at the University of Waterloo.
+        {"I'm a software engineer and a student at the University of Waterloo."}
       </p>
-      <p>I'm currently working on </p>
+      <p>{"I'm currently working on"}</p>
     </main>
   );
 }
