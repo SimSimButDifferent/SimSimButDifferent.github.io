@@ -84,7 +84,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ../../my-portfolio/src/pages
+          path: ./out
 
   # Deployment job
   deploy:
