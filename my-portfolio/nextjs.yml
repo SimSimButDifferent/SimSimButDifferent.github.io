@@ -29,8 +29,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
-    run:
-      working-directory: ./my-portfolio/
+      run:
+        working-directory: ./my-portfolio/
     steps:
       - name: Checkout
         uses: actions/checkout@v3
