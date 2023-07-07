@@ -6,16 +6,14 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <main>
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="headings animate-fade-in fade-in">Cad Services</h1>
+      <div className="flex flex-col items-center justify-center h-screen bg-[url('/images/bambrella-umbrella.jpg')] bg-cover bg-no-repeat bg-center">
+        <h1 className="headings animate-fadeIn transition delay-2000">
+          Cad Services
+        </h1>
         <div className="flex flex-row">
-          <h2 className="subheading pl-2 animate-fadeInOut">
-            Industrial design
-          </h2>
-          <h2 className="subheading pl-2 animate-fadeInOut delay-2000">
-            Rapid Prototyping
-          </h2>
-          <h2 className="subheading pl-2 animate-fadeInOut delay-4000">
+          <h2 className="subheading pl-2 animate-fadeIn">Industrial design</h2>
+          <h2 className="subheading pl-2 animate-fadeIn">Rapid Prototyping</h2>
+          <h2 className="subheading pl-2 animate-fadeIn">
             Design for manufacturing
           </h2>
         </div>

@@ -8,12 +8,14 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        "header-background": "url('/images/bambrella-umbrella.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       animation: {
         fadeInOut: "fadeInOut 6s ease-in-out infinite",
+        fadeIn: "fadeIn 6s forwards",
       },
       keyframes: {
         fadeInOut: {
@@ -21,9 +23,13 @@ module.exports = {
           "50%": { opacity: "1" },
           "100%": { opacity: "0" },
         },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        transitionDelay: { 2000: "2000ms" },
+        plugins: [],
       },
-      transitionDelay: { 2000: "2000ms" },
-      plugins: [],
     },
   },
 };
