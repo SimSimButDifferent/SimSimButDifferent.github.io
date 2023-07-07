@@ -42,11 +42,11 @@ export default function Home() {
           3 and a half great years at Microworkshops, I have since been working
           on my own projects as a freelancer. I now mostly specialise in garden
           furniture design, pairing that with my plastic part design expertise,
-          I create 3D models that are parametric, easy to modify and make."
+          I create 3D models that are parametric, easy to modify and make.
         </p>
       </div>
       <div className="text flex items-center justify-center">
-        <p>I'm currently working on</p>
+        <p>I am currently working on</p>
       </div>
     </main>
   );
