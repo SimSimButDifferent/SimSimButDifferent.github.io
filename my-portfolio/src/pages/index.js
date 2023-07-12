@@ -6,14 +6,18 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <main>
-      <div className="flex flex-col items-center justify-center h-screen bg-[url('/images/bambrella-umbrella-purple.jpg')] bg-cover bg-no-repeat bg-center bg-fixed">
-        <h1 className="bg-blue headings animate-fadeIn transition delay-2000">
+      <div className="flex flex-col justify-center h-screen bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-cover bg-no-repeat bg-center bg-fixed">
+        <h1 className="bg-blue text-black headings animate-fadeIn transition delay-2000">
           Cad Services
         </h1>
         <div className="flex flex-row">
-          <h2 className="subheading pl-2 animate-fadeIn">Industrial design</h2>
-          <h2 className="subheading pl-2 animate-fadeIn">Rapid Prototyping</h2>
-          <h2 className="subheading pl-2 animate-fadeIn">
+          <h2 className="subheading text-black pl-2 animate-fadeIn">
+            Industrial design
+          </h2>
+          <h2 className="subheading text-black pl-2 animate-fadeIn">
+            Rapid Prototyping
+          </h2>
+          <h2 className="subheading text-black pl-2 animate-fadeIn">
             Design for manufacturing
           </h2>
         </div>
@@ -27,7 +31,7 @@ export default function Home() {
           alt="Picture of the author"
         />
       </div>
-      <div className="text flex items-center justify-center py-40 max-w-3xl text-justify mx-auto text-center">
+      <div className="text-black text flex items-center justify-center py-40 max-w-3xl text-justify mx-auto text-center">
         <p>
           I started my design career as an trainee/ intern at Microworkshops Ltd
           for over 3 years. Initially, helping with day to day tasks, including
