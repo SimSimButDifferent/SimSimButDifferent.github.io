@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-poppins)"],
+      },
       backgroundImage: {
         "header-background": "url('/images/bambrella-umbrella-hr.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
