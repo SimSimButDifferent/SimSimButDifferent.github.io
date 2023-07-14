@@ -25,14 +25,14 @@ export default function Home() {
               Dream InReality
             </h1>
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-row delay-4000">
             <h2 className="subheadings text-black pl-2 animate-fadeIn">
               Fluid Alteration - Seamless Development
             </h2>
           </div>
         </div>
-        <div className="flex flex-row">
-          <div className="flex items-center justify-center pl-60 pt-60">
+        <div className="flex h-screen">
+          <div className="flex mx-auto items-center">
             <Image
               className="rounded-full"
               src="/images/profile.jpg"
@@ -41,7 +41,7 @@ export default function Home() {
               alt="Picture of the author"
             />
           </div>
-          <div className="text-black text flex items-center justify-center pt-60 max-w-xl text-justify mx-auto text-center">
+          <div className="text-black text flex items-center justify-center max-w-xl text-justify mx-auto text-center">
             <p>
               I started my design career as an trainee/ intern at Microworkshops
               Ltd for over 3 years. Initially, helping with day to day tasks,
@@ -59,9 +59,6 @@ export default function Home() {
               and make.
             </p>
           </div>
-        </div>
-        <div className="text flex items-center justify-center">
-          <p>I am currently working on</p>
         </div>
       </main>
     </div>

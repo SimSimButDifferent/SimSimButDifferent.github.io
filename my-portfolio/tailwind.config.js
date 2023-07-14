@@ -18,7 +18,7 @@ module.exports = {
       },
       animation: {
         fadeInOut: "fadeInOut 6s ease-in-out infinite",
-        fadeIn: "fadeIn 6s forwards",
+        fadeIn: "fadeIn 20s forwards",
       },
       keyframes: {
         fadeInOut: {
