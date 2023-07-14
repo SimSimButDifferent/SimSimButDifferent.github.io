@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { Poppins } from "next/font/google";
+import Layout from "@/components/Layout";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -9,8 +10,8 @@ const poppins = Poppins({
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={`${poppins.variable} font-sans`}>
+    <Layout className={`${poppins.variable} font-sans`}>
       <Component {...pageProps} />
-    </main>
+    </Layout>
   );
 }
