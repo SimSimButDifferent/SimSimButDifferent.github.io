@@ -20,15 +20,28 @@ export default function Home() {
       </Head>
       <main>
         <div className="h-screen bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-cover bg-no-repeat bg-center bg-fixed">
-          <div>
-            <h1 className="headings text-black animate-fadeIn">
-              Dream InReality
-            </h1>
-          </div>
-          <div className="flex flex-row delay-4000">
-            <h2 className="subheadings text-black pl-2 animate-fadeIn">
-              Fluid Alteration - Seamless Development
-            </h2>
+          <div className="flex flex-row">
+            <div className="flex">
+              <Image
+                className=""
+                src="/images/dir_logo-01.svg"
+                height={150}
+                width={150}
+                alt="Picture of the author"
+              />
+            </div>
+            <div className="flex flex-col">
+              <div>
+                <h1 className="headings text-black animate-fadeIn">
+                  Dream InReality
+                </h1>
+              </div>
+              <div className="flex flex-row delay-4000">
+                <h2 className="subheadings text-black pl-2 animate-fadeIn">
+                  Fluid Alteration - Seamless Development
+                </h2>
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex h-screen">
