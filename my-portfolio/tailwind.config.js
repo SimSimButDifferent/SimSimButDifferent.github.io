@@ -30,7 +30,7 @@ module.exports = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
-        transitionDelay: { 2000: "2000ms" },
+        transitionDelay: { 2000: "2000ms", 4000: "4000ms" },
         plugins: [],
       },
     },
