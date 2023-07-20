@@ -16,7 +16,7 @@ const AboutPage = () => {
           />
         </div>
         <br></br>
-        <div className="text-black text items-center justify-center max-w-xl text-justify mx-auto text-center">
+        <div className="text-black textsml items-center justify-center max-w-xl text-justify mx-auto text-center">
           <p>
             My name is Simeon Campbell. I started my design career as an
             trainee/ intern at Microworkshops Ltd for over 3 years. Initially,

@@ -20,32 +20,20 @@ export default function Home() {
       </Head>
       <main>
         <div className="h-screen bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-cover bg-no-repeat bg-center bg-fixed">
-          <div className="flex flex-row pl-5">
-            <div className="flex">
+          <div className="flex">
+            <div className="px-5">
               <Image
                 className="animate-fadeIn"
-                src="/images/dir_logo-01.svg"
-                height={150}
-                width={150}
+                src="/images/dir_logo_full-01.svg"
+                height={800}
+                width={800}
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
               />
             </div>
-            <div className="flex flex-col pt-6 pl-10">
-              <div>
-                <h1 className="headings text-black animate-fadeIn">
-                  Dream InReality
-                </h1>
-              </div>
-              <div className="flex flex-row">
-                <h2 className="subheadings text-black pl-12 animate-fadeIn transitionDelay-4000">
-                  Fluid Alteration - Seamless Development
-                </h2>
-              </div>
-            </div>
           </div>
         </div>
-        <div className="flex h-screen">
-          <div className="flex mx-auto items-center">
+        <div className="h-screen grid lg:grid-cols-2 md:grid-cols-1 text-center">
+          <div className="flex mx-auto items-center p-10">
             <Image
               className=""
               src="/images/dir_logo-01.svg"
@@ -54,15 +42,18 @@ export default function Home() {
               alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
             />
           </div>
-          <div className="text-black text flex flex-col items-center justify-center max-w-xl text-justify mx-auto text-center">
-            <h2 className="sub-headings pb-5 htags">
+          <div className="text-black flex flex-col items-center justify-center text-justify max-w-xl p-10 mx-auto">
+            <h1 className="textlg pb-5 htags lg:text-4xl">
               3D Cad modelling Service
-            </h2>
-            <p>
-              At DreamIn Reality we understand the need for an efficient 3D cad
-              modelling, in the product design process. We achieve this by
-              optimising our cad modeling process for swift and seamless
-              alteration.
+            </h1>
+            <p className="textsm lg:text-xl">
+              At DreamIn Reality we understand the need for efficient 3D cad
+              modelling in the product design process. We achieve this by
+              optimising our cad modelling process for swift and seamless
+              alteration. All of our models are built with the desired
+              manufacture process in mind. Whether you need a rapid prototype or
+              detailed construction drawings for mass-production. We are here to
+              bring your Dream InReality
             </p>
           </div>
         </div>
