@@ -9,7 +9,6 @@ const AboutPage = () => {
       <div className="flex h-screen flex-col">
         <div className="flex justify-center">
           <Image
-            className=""
             src="/images/header-render-anaglyph.jpg"
             height={1000}
             width={1000}
@@ -22,7 +21,7 @@ const AboutPage = () => {
             Welcome to 3D CAD Modelling Services, where we specialize in
             providing high-quality 3D CAD modelling services for all your
             product design needs. Our team understands the importance of
-            efficiency in the design process, and that's why we have optimized
+            efficiency in the design process, and that is why we have optimized
             our 3D CAD modelling process to ensure swift and seamless
             alterations.
           </p>
@@ -32,7 +31,7 @@ const AboutPage = () => {
             meticulously crafted with the manufacturing process in mind. Whether
             you require a rapid prototype, detailed construction drawings, or a
             comprehensive end-to-end product development service, including
-            high-quality product renders, we've got you covered.
+            high-quality product renders, we have got you covered.
           </p>
           <br></br>
           <p>
