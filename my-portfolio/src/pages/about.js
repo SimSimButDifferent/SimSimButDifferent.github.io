@@ -19,21 +19,29 @@ const AboutPage = () => {
         <br></br>
         <div className="textsm items-center justify-center max-w-4xl text-justify mx-auto text-center p-10 lg:text-2xl md:text-xl">
           <p>
-            Welcome to DreamIn Reality, where we specialize in providing
-            high-quality 3D CAD modeling services for all your product design
-            needs. Our team understands the importance of efficiency in the
-            design process, and that's why we have optimized our 3D CAD modeling
-            process to ensure swift and seamless alterations. <br></br>
-            <br></br>When you partner with us, you can rest assured that our
-            models are meticulously crafted with the manufacturing process in
-            mind. Whether you require a rapid prototype, detailed construction
-            drawings, or a comprehensive end-to-end product development service,
-            including high-quality product renders, we've got you covered.
-            <br></br>
-            <br></br> Bring your dreams to life with DreamIn Reality's expert 3D
-            CAD modeling services. Let us help you transform your ideas into
-            reality.
-            <Link class="button text-center" href="./contact">
+            Welcome to 3D CAD Modelling Services, where we specialize in
+            providing high-quality 3D CAD modelling services for all your
+            product design needs. Our team understands the importance of
+            efficiency in the design process, and that's why we have optimized
+            our 3D CAD modelling process to ensure swift and seamless
+            alterations.
+          </p>
+          <br></br>
+          <p>
+            When you partner with us, you can rest assured that our models are
+            meticulously crafted with the manufacturing process in mind. Whether
+            you require a rapid prototype, detailed construction drawings, or a
+            comprehensive end-to-end product development service, including
+            high-quality product renders, we've got you covered.
+          </p>
+          <br></br>
+          <p>
+            Bring your dreams to life with our 3D CAD modelling experts. Let us
+            help you transform your ideas into reality.
+          </p>
+          <br></br>
+          <p className="text-center">
+            <Link class="button" href="./contact">
               Get in touch with us today!
             </Link>
           </p>
