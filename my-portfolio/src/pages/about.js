@@ -4,9 +4,9 @@ import Image from "next/image";
 const AboutPage = () => {
   return (
     <div className="text-black">
-      <h1 className="flex headings justify-center p-10">About</h1>
+      <h1 className="flex headings justify-center pt-10">About</h1>
       <div className="flex h-screen flex-col">
-        <div className="flex justify-center p-10">
+        <div className="flex justify-center">
           <Image
             className=""
             src="/images/header-render-anaglyph.jpg"

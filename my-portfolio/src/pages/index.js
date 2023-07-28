@@ -22,10 +22,10 @@ export default function Home() {
         <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] bg-contain bg-no-repeat bg-center bg-fixed">
           <div className="flex">
             <div className="px-5">
-              <Image className="animate-fadeIn"
+              <Image className="animate-fadeIn sm: pt-10 lg:pt-0 md:pt-0"
                 src="/images/dir-logo-full-01.svg"
-                height={800}
-                width={800}
+                height={600}
+                width={600}
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
               />
             </div>
