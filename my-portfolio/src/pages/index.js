@@ -22,13 +22,29 @@ export default function Home() {
         <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] bg-contain bg-no-repeat bg-center bg-fixed">
           <div className="flex">
             <div className="px-5">
-              <Image className="animate-fadeIn sm: pt-10 lg:pt-0 md:pt-0"
+              <Image
+                className="animate-fadeIn sm: pt-10 lg:pt-0 md:pt-0"
                 src="/images/dir-logo-full-01.svg"
                 height={600}
                 width={600}
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
               />
             </div>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center h-screen ">
+          <div className="headings text-center text-black pb-10">
+            3D CAD Modelling Services
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 text-center textlg">
+            <div className="bg-gray-400 p-4">Column 1</div>
+            <div className="bg-gray-400 p-4">Column 2</div>
+            <div className="bg-gray-400 p-4">Column 3</div>
+            <div className="bg-gray-400 p-4">Column 4</div>
+            <div className="bg-gray-400 p-4">Column 1</div>
+            <div className="bg-gray-400 p-4">Column 2</div>
+            <div className="bg-gray-400 p-4">Column 3</div>
+            <div className="bg-gray-400 p-4">Column 4</div>
           </div>
         </div>
         <div className="h-screen grid lg:grid-cols-2 md:grid-cols-1 text-center">
