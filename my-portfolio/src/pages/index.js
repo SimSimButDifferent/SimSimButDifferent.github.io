@@ -32,19 +32,50 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center h-screen ">
-          <div className="headings text-center text-black pb-10">
+        <div className="flex flex-col items-center justify-center h-screen bg-[url('/images/dir-logo-faded.svg')] bg-contain bg-no-repeat bg-center bg-fixed">
+          <p className="text-5xl pb-10 font-semibold">
+            We offer a wide range of
+          </p>
+          <h1 className="headings text-center  pb-20">
             3D CAD Modelling Services
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 text-center textlg">
-            <div className="bg-gray-400 p-4">Column 1</div>
-            <div className="bg-gray-400 p-4">Column 2</div>
-            <div className="bg-gray-400 p-4">Column 3</div>
-            <div className="bg-gray-400 p-4">Column 4</div>
-            <div className="bg-gray-400 p-4">Column 1</div>
-            <div className="bg-gray-400 p-4">Column 2</div>
-            <div className="bg-gray-400 p-4">Column 3</div>
-            <div className="bg-gray-400 p-4">Column 4</div>
+          </h1>
+          <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-20 text-center textlg">
+            <div className="gridboxes">
+              <h3>Parametric 3D Models</h3>
+              <p className="textsm p-2 text-justify">
+                Create precise and editable 3D models using parametric 3D CAD
+                modelling techniques. These models are defined for fast and
+                fluid alteration saving time and effort in the design process.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
+            <div className="gridboxes">
+              <h3>Column 1</h3>
+              <p>the sand is sandy.</p>
+            </div>
           </div>
         </div>
         <div className="h-screen grid lg:grid-cols-2 md:grid-cols-1 text-center">
@@ -57,7 +88,7 @@ export default function Home() {
               alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
             />
           </div>
-          <div className="text-black flex flex-col items-center justify-center text-justify max-w-xl p-10 mx-auto">
+          <div className="flex flex-col items-center justify-center text-justify max-w-xl p-10 mx-auto">
             <h1 className="textlg pb-5 htags lg:text-4xl sm:text-2xl">
               3D Cad modelling Services
             </h1>
