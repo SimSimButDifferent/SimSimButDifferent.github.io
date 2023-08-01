@@ -31,17 +31,25 @@ main {
   line-height: 1.5;
 }
 
+.phoneheadings {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 .headings {
   font-family: "Poppins", sans-serif;
   font-size: 4.25rem;
   line-height: 2.5rem;
-  font-weight: 200;
+  font-weight: 300;
   line-height: 1.5;
 }
 
 .subheadings {
   font-family: "Poppins", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 300;
   line-height: 1.5;
@@ -79,5 +87,9 @@ body {
 }
 
 .gridboxes {
-  @apply rounded-lg bg-gray-400 p-4 bg-opacity-75 text-white font-bold;
+  @apply rounded-lg bg-gray-200 text-black hover:invert p-4 font-bold;
+}
+
+.icons {
+  @apply p-2;
 }
