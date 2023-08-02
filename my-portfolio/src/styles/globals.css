@@ -83,11 +83,11 @@ body {
 }
 
 .button {
-  @apply inline-block px-4 py-2 rounded-lg bg-white text-black hover:bg-slate-100;
+  @apply inline-block px-4 py-2 rounded-lg text-black hover:shadow-md hover:bg-slate-100;
 }
 
 .gridboxes {
-  @apply rounded-lg bg-gray-200 text-black hover:invert p-4 font-bold;
+  @apply rounded-lg bg-gray-400 text-white p-4 font-bold shadow-xl hover:shadow-xl hover:bg-gray-500;
 }
 
 .icons {

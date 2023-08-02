@@ -23,7 +23,7 @@ export default function Home() {
           <div className="flex">
             <div className="px-5">
               <Image
-                className="animate-fadeIn sm: pt-10 lg:pt-0 md:pt-0"
+                className="animate-fadeIn sm:pt-10 lg:pt-0 md:pt-0"
                 src="/images/dir-logo-full-01.svg"
                 height={600}
                 width={600}
@@ -32,15 +32,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center md:h-screen lg:h-screen">
-          <h1 className="phoneheadings md:text-5xl lg:text-6xl text-center pb-20">
+        <div className="flex flex-col items-center justify-center lg:h-screen">
+          <h1 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
             3D CAD Modelling Services
           </h1>
           <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -56,7 +56,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -72,7 +72,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -88,7 +88,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -104,7 +104,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -121,7 +121,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -138,7 +138,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}
@@ -155,7 +155,7 @@ export default function Home() {
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
-                  className="icons"
+                  className="icons invert"
                   src="/images/dir-logo-01.svg"
                   height={80}
                   width={80}

@@ -14,8 +14,9 @@ const ContactPage = () => {
       </Head>
       <main>
         <h1 className="text-black flex headings justify-center">Contact</h1>
-        <div className="flex justify-center px-4">
-          <Map address="Sellindge, Ashford, UK" />
+        <div></div>
+        <div className="flex justify-center rounded px-4">
+          <Map address="Dream InReality, Sellindge, Ashford, UK" />
         </div>
       </main>
     </div>

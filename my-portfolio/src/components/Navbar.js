@@ -1,24 +1,25 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
   return (
     <div className="navbar text-black">
-      <div className="flex justify-end pr-10">
-        <ul className="flex flex-row justify-end pt-5">
-          <li>
+      <div className="flex flex-row justify-end pr-10">
+        <ul className="flex pt-4">
+          <li className="">
             <Link className="button px-10" href="/">
               Home
             </Link>
           </li>
-          <li>
-            <Link className="button pr-10" href="/contact">
-              Contact
+          <li className="">
+            <Link className="button pr-14" href="/about">
+              About
             </Link>
           </li>
-          <li>
-            <Link className="button pr-10" href="/about">
-              About
+          <li className="">
+            <Link className="button pr-10" href="/contact">
+              Contact
             </Link>
           </li>
         </ul>
