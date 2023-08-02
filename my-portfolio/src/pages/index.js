@@ -15,7 +15,7 @@ export default function Home() {
         <title>Dream InReality - 3D Cad Modelling Services</title>
         <meta
           name="description"
-          content="Fluid Alteration - Seamless Development"
+          content="3D CAD Modelling Services in the UK"
         ></meta>
       </Head>
       <main>
