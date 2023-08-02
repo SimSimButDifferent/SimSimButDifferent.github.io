@@ -51,6 +51,8 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+        env:
+          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
