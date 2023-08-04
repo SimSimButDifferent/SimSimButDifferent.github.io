@@ -6,7 +6,7 @@ function Map({ address }) {
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+      apiKey: "AIzaSyCembocg2y-9sUBjHaVcJlhKlFMjgTIkCo",
       version: "weekly",
     });
     loader.load().then(() => {

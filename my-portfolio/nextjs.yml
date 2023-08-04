@@ -31,8 +31,6 @@ jobs:
     defaults:
       run:
         working-directory: ./my-portfolio/
-    env:
-      NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
