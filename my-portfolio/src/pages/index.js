@@ -19,154 +19,23 @@ export default function Home() {
         ></meta>
       </Head>
       <main>
-        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] bg-contain bg-no-repeat bg-center">
-          <div className="flex">
-            <div className="px-5">
+        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center lg:bg-right lg:bg-70%">
+          <div className="flex flex-col">
+            <div className="px-5 lg:pb-10">
               <Image
-                className="animate-fadeIn sm:pt-10 lg:pt-0 md:pt-0"
-                src="/images/dir-logo-full-01.svg"
-                height={600}
-                width={600}
+                className="animate-fadeIn pt-10 lg:pt-0 md:pt-0"
+                src="/images/dream_inreality_logo_lg_logo.svg"
+                height={500}
+                width={500}
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
               />
             </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-center justify-center lg:h-screen">
-          <h1 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
-            3D CAD Modelling Services
-          </h1>
-          <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Parametric 3D Models</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Parametric 3D CAD modelling techniques to create 3D models that
-                allow easy alterations, saving time in the design process.
+            <div className="flex flex-col pl-5 pt-20 htags">
+              <p className="htags max-w-xl rounded-lg animate-fadeIn delay-[2000ms]">
+                We produce
               </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Rapid Prototyping</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Develop and build functional prototypes to test and validate
-                your product design concepts, through 3D printing.
-              </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Photo Realistic Rendering</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Generate stunning, life-like visualizations of your product
-                using advanced rendering techniques.
-              </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Construction Drawings</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Prepare detailed and accurate construction drawings to provide
-                the information needed to produce at scale.
-              </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Assembly Modelling</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Construct complex assembly models by integrating multiple
-                components into a single 3D model, ensuring proper fit and
-                functionality.
-              </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Reverse Engineering</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Create 3D models from existing physical objects or scanned data.
-                Reverse engineering is valuable for reproducing parts with
-                complex geometries.
-              </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">CAD File Conversion</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Convert CAD files between formats to ensure compatibility with
-                different software. Streamlining collaboration and exchange with
-                suppliers, and partners.
-              </p>
-            </div>
-            <div className="gridboxes">
-              <div className="flex justify-center">
-                <Image
-                  className="icons invert"
-                  src="/images/dir-logo-01.svg"
-                  height={80}
-                  width={80}
-                  alt="3d model icon in white"
-                />
-              </div>
-              <h3 className="text-xl">Design Optimization</h3>
-              <p className="textsm p-2 text-justify text-xl">
-                Analyze and refine existing designs to enhance performance,
-                reduce material usage, or optimize manufacturing processes.
-              </p>
+              <h1 className="font-bold py-5 text-sky-400">3D CAD Models</h1>
+              <p>for mass-production</p>
             </div>
           </div>
         </div>
@@ -195,6 +64,144 @@ export default function Home() {
               service. Optimised for fluid alteration and intuitive version
               control.
             </p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center lg:h-screen">
+          <h1 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
+            3D CAD Modelling Services
+          </h1>
+          <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Parametric 3D Models</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Parametric 3D CAD modelling techniques to create 3D models that
+                allow easy alterations, saving time in the design process.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Rapid Prototyping</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Develop and build functional prototypes to test and validate
+                your product design concepts, through 3D printing.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Photo Realistic Rendering</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Generate stunning, life-like visualizations of your product
+                using advanced rendering techniques.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Construction Drawings</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Prepare detailed and accurate construction drawings to provide
+                the information needed to produce at scale.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Assembly Modelling</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Construct complex assembly models by integrating multiple
+                components into a single 3D model, ensuring proper fit and
+                functionality.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Reverse Engineering</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Create 3D models from existing physical objects or scanned data.
+                Reverse engineering is valuable for reproducing parts with
+                complex geometries.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">CAD File Conversion</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Convert CAD files between formats to ensure compatibility with
+                different software. Streamlining collaboration and exchange with
+                suppliers, and partners.
+              </p>
+            </div>
+            <div className="gridboxes">
+              <div className="flex justify-center">
+                <Image
+                  className="icons"
+                  src="/images/dir-logo-01.svg"
+                  height={80}
+                  width={80}
+                  alt="3d model icon in white"
+                />
+              </div>
+              <h3 className="text-xl">Design Optimization</h3>
+              <p className="textsm p-2 text-justify text-xl">
+                Analyze and refine existing designs to enhance performance,
+                reduce material usage, or optimize manufacturing processes.
+              </p>
+            </div>
           </div>
         </div>
       </main>

@@ -16,6 +16,16 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      backgroundPosition: {
+        right: "top right",
+      },
+      backgroundSize: {
+        "50%": "50%",
+        "60%": "60%",
+        "70%": "70%",
+        "80%": "80%",
+        "90%": "90%",
+      },
       animation: {
         fadeInOut: "fadeInOut 6s ease-in-out infinite",
         fadeIn: "fadeIn 20s forwards",
