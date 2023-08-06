@@ -17,7 +17,8 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       backgroundPosition: {
-        right: "top right",
+        topright: "top right",
+        right: "right",
       },
       backgroundSize: {
         "50%": "50%",

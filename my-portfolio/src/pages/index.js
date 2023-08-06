@@ -19,7 +19,7 @@ export default function Home() {
         ></meta>
       </Head>
       <main>
-        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center lg:bg-right lg:bg-70%">
+        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center lg:bg-topright lg:bg-70%">
           <div className="flex flex-col">
             <div className="px-5 lg:pb-10">
               <Image
@@ -30,8 +30,8 @@ export default function Home() {
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
               />
             </div>
-            <div className="flex flex-col pl-5 pt-20 htags">
-              <p className="htags max-w-xl rounded-lg animate-fadeIn delay-[2000ms]">
+            <div className="flex flex-col pt-none pl-5 lg:pt-20 htags">
+              <p className="max-w-xl rounded-lg animate-fadeIn pt-5 lg:pt-20">
                 We produce
               </p>
               <h1 className="font-bold py-5 text-sky-400">3D CAD Models</h1>
@@ -70,7 +70,7 @@ export default function Home() {
           <h1 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
             3D CAD Modelling Services
           </h1>
-          <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
+          <div className="grid grid-cols-1 px-10 pb-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
