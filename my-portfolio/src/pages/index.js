@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import Head from "next/head";
+import Link from "next/link";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,23 +24,33 @@ export default function Home() {
           <div className="flex flex-col">
             <div className="px-5 lg:pb-10">
               <Image
-                className="animate-fadeIn pt-10 lg:pt-0 md:pt-0"
+                className="animate-fadeIn lg:pt-0 md:pt-0"
                 src="/images/dream_inreality_logo_lg_logo.svg"
                 height={500}
                 width={500}
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
               />
             </div>
-            <div className="flex flex-col pt-none pl-5 lg:pt-20 htags">
-              <p className="max-w-xl rounded-lg animate-fadeIn pt-5 lg:pt-20">
+            <div className="flex flex-col pt-none pl-5 lg:pt-10 htags animate-fadeIn">
+              <p className="max-w-xl rounded-lg pt-2 md:py-5 lg:pt-20">
                 We produce
               </p>
-              <h1 className="font-bold py-5 text-sky-400">3D CAD Models</h1>
+              <h1 className="font-bold py-2 md:pb-5 lg:pb-5 text-sky-400">
+                3D CAD Models
+              </h1>
               <p>for mass-production</p>
+              <a className="lg:pt-4 md:pt-4">
+                <Link
+                  href="/contact"
+                  className=" text-white text-2xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-4xl md:3xl"
+                >
+                  Contact
+                </Link>
+              </a>
             </div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 lg:h-screen md:grid-cols-1 text-center">
+        <div className="grid lg:grid-cols-2 lg:h-screen md:grid-cols-1 text-center bg-sky-400">
           <div className="flex mx-auto items-center p-10">
             <Image
               className=""
@@ -53,23 +64,25 @@ export default function Home() {
             <h2 className="textlg pb-5 htags lg:text-4xl sm:text-2xl">
               3D Cad modelling Services
             </h2>
-            <ul className="textsm lg:text-xl text-center">
-              <li>Parametric 3D cad modelling</li>
-              <li>Fluid design flow</li>
-              <li>Intuitive version control</li>
-            </ul>
-            <br></br>
             <p className="textsm lg:text-xl">
-              Parametric 3D cad models. Highly efficient 3d cad modelling
-              service. Optimised for fluid alteration and intuitive version
-              control.
+              Welcome to Dream InReality 3D CAD modelling services. Our
+              expertise lies in designing parametric 3D models that allow
+              effortless modifications, saving you valuable time and resources.
+              With advanced 3D CAD Design techniques, our experts ensure
+              precision and adaptability, in all our 3D CAD Models. Each
+              tailored to your project's unique needs. Experience fast paced
+              timelines and cost efficiency for product development. From
+              prototypes to construction drawings all the way to mass
+              production. Leverage our 3D CAD modelling services today, to
+              unleash the full potential of parametric modelling and bring your
+              dreams into reality.
             </p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center lg:h-screen">
-          <h1 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
+          <h2 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
             3D CAD Modelling Services
-          </h1>
+          </h2>
           <div className="grid grid-cols-1 px-10 pb-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
             <div className="gridboxes">
               <div className="flex justify-center">
