@@ -13,6 +13,15 @@ const AboutPage = () => {
           content="What we are about at Dream InReality!"
         ></meta>
       </Head>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTY7N2QF09"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FTY7N2QF09');
+      </script>
       <main>
         <h1 className="flex headings justify-center pt-10">About</h1>
         <div className="flex h-screen flex-col">

@@ -19,6 +19,15 @@ export default function Home() {
           content="3D CAD Modelling Services in the UK"
         ></meta>
       </Head>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTY7N2QF09"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FTY7N2QF09');
+      </script>
       <main>
         <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center lg:bg-topright lg:bg-70%">
           <div className="flex flex-col">

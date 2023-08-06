@@ -13,6 +13,15 @@ const ContactPage = () => {
           content="Contact us today for 3D CAD Modelling Services!"
         ></meta>
       </Head>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTY7N2QF09"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FTY7N2QF09');
+      </script>
       <main className="px-4">
         <h1 className="text-black flex headings justify-center">Contact</h1>
         <div className="flex flex-col text-center py-10">
