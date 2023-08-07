@@ -79,7 +79,7 @@ export default function Home() {
               effortless modifications, saving you valuable time and resources.
               With advanced 3D CAD Design techniques, our experts ensure
               precision and adaptability, in all our 3D CAD Models. Each
-              tailored to your project's unique needs. Experience fast paced
+              tailored to your projects unique needs. Experience fast paced
               timelines and cost efficiency for product development. From
               prototypes to construction drawings all the way to mass
               production. Leverage our 3D CAD modelling services today, to
