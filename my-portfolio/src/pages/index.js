@@ -50,38 +50,42 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 lg:h-screen md:grid-cols-1 text-center bg-sky-400">
+        <div className="grid lg:grid-cols-2 lg:h-screen md:grid-cols-1 text-center bg-sky-300 rounded-2xl background-origin-content p-10">
           <div className="flex mx-auto items-center p-10">
             <Image
-              className=""
+              className="invert"
               src="/images/dir-logo-01.svg"
               height={400}
               width={400}
               alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
             />
           </div>
-          <div className="flex flex-col items-center justify-center text-justify max-w-xl p-10 mx-auto">
-            <h2 className="textlg pb-5 htags lg:text-4xl sm:text-2xl">
-              3D Cad modelling Services
-            </h2>
-            <p className="textsm lg:text-xl">
-              Welcome to Dream InReality 3D CAD modelling services. Our
-              expertise lies in designing parametric 3D models that allow
-              effortless modifications, saving you valuable time and resources.
-              With advanced 3D CAD Design techniques, our experts ensure
-              precision and adaptability, in all our 3D CAD Models. Each
-              tailored to your projects unique needs. Experience fast paced
-              timelines and cost efficiency for product development. From
-              prototypes to construction drawings all the way to mass
-              production. Leverage our 3D CAD modelling services today, to
-              unleash the full potential of parametric modelling and bring your
-              dreams into reality.
-            </p>
+          <div className="flex flex-col items-center justify-center text-justify max-w-xl p-10">
+            <div className="bg-white rounded-2xl p-10 shadow-xl">
+              <h2 className="textlg text-sky-500 pb-5 htags lg:text-4xl sm:text-2xl">
+                3D Cad modelling Services
+              </h2>
+              <p className="textsm text-sky-500 lg:text-xl pb-4">
+                Welcome to Dream InReality 3D CAD modelling services. Our
+                expertise lies in designing parametric 3D models that allow
+                effortless modifications, saving you valuable time and
+                resources. With advanced 3D CAD Design techniques, our experts
+                ensure precision and adaptability, in all our 3D CAD Models.
+                Each tailored to your projects unique needs.
+              </p>
+              <p className="textsm text-sky-500 lg:text-xl">
+                Experience fast paced timelines and cost efficiency for product
+                development. From prototypes to construction drawings all the
+                way to mass production. Leverage our 3D CAD modelling services
+                today, to unleash the full potential of parametric modelling and
+                bring your dreams into reality.
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center lg:h-screen">
           <h2 className="phoneheadings md:text-5xl lg:text-6xl text-center p-20">
-            3D CAD Modelling Services
+            3D CAD Design Services UK
           </h2>
           <div className="grid grid-cols-1 px-10 pb-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
             <div className="gridboxes">
