@@ -60,7 +60,7 @@ export default function Home() {
               alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
             />
           </div>
-          <div className="flex flex-col items-center justify-center text-justify max-w-xl p-10">
+          <div className="flex flex-col items-center justify-center text-justify max-w-xl p-4">
             <div className="bg-white rounded-2xl p-10 shadow-xl">
               <h2 className="textlg text-sky-500 pb-5 htags lg:text-4xl sm:text-2xl">
                 3D Cad modelling Services

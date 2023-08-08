@@ -11,7 +11,6 @@ export default function Document() {
         ></Script>
         <Script
           id="google-analytics"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
           window.dataLayer = window.dataLayer || [];
