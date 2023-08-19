@@ -42,7 +42,7 @@ export default function Home() {
               <a className="lg:pt-4 md:pt-4">
                 <Link
                   href="/contact"
-                  className=" text-white text-2xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-4xl md:3xl"
+                  className="text-white text-2xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-4xl md:3xl"
                 >
                   Contact
                 </Link>

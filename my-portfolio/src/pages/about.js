@@ -50,7 +50,10 @@ const AboutPage = () => {
             </p>
             <br></br>
             <p className="text-center">
-              <Link class="button" href="./contact">
+              <Link
+                class="text-white text-xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-3xl md:2xl"
+                href="./contact"
+              >
                 Get in touch with us today!
               </Link>
             </p>

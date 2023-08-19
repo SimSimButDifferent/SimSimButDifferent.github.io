@@ -29,7 +29,7 @@ module.exports = {
       },
       animation: {
         fadeInOut: "fadeInOut 6s ease-in-out infinite",
-        fadeIn: "fadeIn 20s forwards",
+        fadeIn: "fadeIn 10s forwards",
       },
       keyframes: {
         fadeInOut: {
