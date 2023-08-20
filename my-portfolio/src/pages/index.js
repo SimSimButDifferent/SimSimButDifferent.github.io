@@ -28,7 +28,7 @@ export default function Home() {
                 src="/images/dream_inreality_logo_lg_logo.svg"
                 height={500}
                 width={500}
-                alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name and Hook underneath"
+                alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name on the right."
               />
             </div>
             <div className="flex flex-col pt-none pl-5 lg:pt-10 htags animate-fadeIn">
@@ -39,14 +39,14 @@ export default function Home() {
                 3D CAD Models
               </h1>
               <p>for mass-production</p>
-              <a className="lg:pt-4 md:pt-4">
+              <div className="lg:pt-4 md:pt-4">
                 <Link
                   href="/contact"
                   className="text-white text-2xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-4xl md:3xl"
                 >
                   Contact
                 </Link>
-              </a>
+              </div>
             </div>
           </div>
         </div>
