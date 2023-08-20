@@ -83,9 +83,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gridboxes items-center justify-center bg-gradient-to-r from-sky-200 to-sky-500 rounded-2xl background-origin-content lg:h-screen">
+        <div className="flex flex-col gridboxes items-center justify-center background-origin-content lg:h-screen">
           <div className="p-10 py-10">
-            <h2 className="phoneheadings bg-white md:text-5xl lg:text-6xl text-center p-5 rounded-2xl shadow-xl">
+            <h2 className="phoneheadings  md:text-5xl lg:text-6xl text-center p-5 rounded-2xl shadow-xl">
               3D CAD Design Services UK
             </h2>
           </div>

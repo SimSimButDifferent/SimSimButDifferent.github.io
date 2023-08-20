@@ -5,7 +5,7 @@ import Head from "next/head";
 
 const AboutPage = () => {
   return (
-    <div className="text-black">
+    <div>
       <Head>
         <title>Dream InReality - About</title>
         <meta
@@ -15,7 +15,7 @@ const AboutPage = () => {
       </Head>
       <main>
         <h1 className="flex headings justify-center pt-10">About</h1>
-        <div className="flex h-screen flex-col">
+        <div className="flex flex-col">
           <div className="flex justify-center">
             <Image
               src="/images/header-render-anaglyph.jpg"
@@ -49,7 +49,7 @@ const AboutPage = () => {
               us help you transform your ideas into reality.
             </p>
             <br></br>
-            <p className="text-center">
+            <p className="text-center pt-5">
               <Link
                 class="text-white text-xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-3xl md:2xl"
                 href="./contact"
