@@ -51,7 +51,7 @@ export default function Home() {
           </div>
         </div>
         <div className="grid lg:grid-cols-2 lg:h-screen md:grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-40">
-          <div className="flex mx-auto place-content-center bg-white rounded-2xl px-10 shadow-xl">
+          <div className="flex mx-auto place-content-center bg-slate-100 bg-opacity-95 rounded-2xl px-10 shadow-xl">
             <Image
               className=""
               src="/images/dir-logo-01.svg"
@@ -61,8 +61,8 @@ export default function Home() {
             />
           </div>
           <div className="flex flex-col items-center justify-center text-justify max-w-xl p-4">
-            <div className="bg-white rounded-2xl p-10 shadow-xl ">
-              <h2 className="textlg pb-5 htags lg:text-4xl sm:text-2xl">
+            <div className="bg-slate-100 bg-opacity-95 rounded-2xl p-10 shadow-xl ">
+              <h2 className="pb-5 htags lg:text-3xl sm:text-2xl">
                 3D Cad modelling Services
               </h2>
               <p className="textsm lg:text-xl pb-4">
@@ -83,9 +83,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gridboxes items-center justify-center background-origin-content lg:h-screen">
+        <div className="flex flex-col items-center bg-slate-100 shadow-xl justify-center background-origin-content lg:h-screen">
           <div className="p-10 py-10">
-            <h2 className="phoneheadings  md:text-5xl lg:text-6xl text-center p-5 rounded-2xl shadow-xl">
+            <h2 className="phoneheadings bg-white md:text-5xl lg:text-6xl text-center p-5 rounded-2xl shadow-xl">
               3D CAD Design Services UK
             </h2>
           </div>
