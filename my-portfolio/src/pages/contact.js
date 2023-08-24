@@ -13,9 +13,11 @@ const ContactPage = () => {
           content="Contact us today for 3D CAD Modelling Services!"
         ></meta>
       </Head>
-      <main className="px-4">
-        <h1 className="text-black flex headings justify-center">Contact</h1>
-        <div className="flex flex-col text-center py-10">
+      <main>
+        <h1 className="text-black flex headings justify-center px-4">
+          Contact
+        </h1>
+        <div className="flex flex-col text-center py-10 px-4">
           <p className="textlg md:htags lg:htags pb-10">
             For all Enquiries and more information on our services<br></br>
             Get in touch today!
@@ -36,7 +38,7 @@ const ContactPage = () => {
             dreaminrealitycad@gmail.com
           </Link>
         </div>
-        <div className="flex justify-center rounded p-4">
+        <div className="flex justify-center rounded px-4 pb-10 shadow-xl">
           <Map address="Dream InReality, Sellindge, Ashford, UK" />
         </div>
       </main>

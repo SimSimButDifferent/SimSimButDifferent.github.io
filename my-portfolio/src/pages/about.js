@@ -15,7 +15,7 @@ const AboutPage = () => {
       </Head>
       <main>
         <h1 className="flex headings justify-center pt-10">About</h1>
-        <div className="flex flex-col">
+        <div className="flex flex-col shadow-xl">
           <div className="flex justify-center">
             <Image
               src="/images/header-render-anaglyph.jpg"
