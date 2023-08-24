@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Map from "@/components/Map";
 import Link from "next/link";
+import Image from "next/image";
 
 const ContactPage = () => {
   return (
@@ -22,12 +23,21 @@ const ContactPage = () => {
             For all Enquiries and more information on our services<br></br>
             Get in touch today!
           </p>
-          <a
-            href="tel:+442476981341"
-            className="textlg md:htags lg:htags text-sky-400"
-          >
-            +44 (0)24 7698 1341
-          </a>
+          <div className="flex flex-row justify-center">
+            <Image
+              className=""
+              src="/images/Call.svg"
+              height={40}
+              width={40}
+              alt="Call icon of a phone from google icons"
+            ></Image>
+            <a
+              href="tel:+442476981341"
+              className="textlg md:htags lg:htags text-sky-400 pl-4"
+            >
+              +44 (0)24 7698 1341
+            </a>
+          </div>
           <p className="textlg md:htags lg:htags py-10">
             Or just drop us a message at
           </p>
