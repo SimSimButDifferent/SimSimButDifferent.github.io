@@ -26,7 +26,6 @@ const ContactPage = () => {
           <div className="flex flex-row justify-center">
             <a href="tel:+442476981341">
               <Image
-                href="tel:+442476981341"
                 src="/images/call_sky_400.svg"
                 height={40}
                 width={40}
@@ -43,12 +42,22 @@ const ContactPage = () => {
           <p className="textlg md:htags lg:htags py-10">
             Or just drop us a message at
           </p>
-          <Link
-            href="mailto:dreaminrealitycad@gmail.com"
-            className="textlg md:htags lg:htags text-sky-400"
-          >
-            dreaminrealitycad@gmail.com
-          </Link>
+          <div className="flex flex-row justify-center">
+            <a href="mailto:dreaminrealitycad@gmail.com" className="pr-3">
+              <Image
+                src="/images/mail_sky_400.svg"
+                height={40}
+                width={40}
+                alt="Call icon of a phone from google icons"
+              ></Image>
+            </a>
+            <Link
+              href="mailto:dreaminrealitycad@gmail.com"
+              className="textlg md:htags lg:htags text-sky-400"
+            >
+              dreaminrealitycad@gmail.com
+            </Link>
+          </div>
         </div>
         <div className="flex justify-center rounded px-4 pb-10 shadow-xl">
           <Map address="Dream InReality, Sellindge, Ashford, UK" />
