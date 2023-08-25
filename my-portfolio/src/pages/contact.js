@@ -24,13 +24,15 @@ const ContactPage = () => {
             Get in touch today!
           </p>
           <div className="flex flex-row justify-center">
-            <Image
-              className=""
-              src="/images/Call.svg"
-              height={40}
-              width={40}
-              alt="Call icon of a phone from google icons"
-            ></Image>
+            <a href="tel:+442476981341">
+              <Image
+                href="tel:+442476981341"
+                src="/images/call_sky_400.svg"
+                height={40}
+                width={40}
+                alt="Call icon of a phone from google icons"
+              ></Image>
+            </a>
             <a
               href="tel:+442476981341"
               className="textlg md:htags lg:htags text-sky-400 pl-4"
