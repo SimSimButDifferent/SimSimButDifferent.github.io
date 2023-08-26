@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<svg width="960" height="960" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g class="layer">
+  <title>Layer 1</title>
+  <path d="m262.38,810q-23,0 -39.19,-16.16q-16.19,-16.17 -16.19,-39.22l0,-609.24q0,-23 16.19,-39.19t39.19,-16.19l504.62,0l0,30.77l-112.38,0l0,36.92q0,11.62 -9.08,21.19q-9.08,9.58 -21.46,9.58l-242.93,0q-11.61,0 -20.69,-9.58q-9.08,-9.57 -9.08,-21.19l0,-36.92l-89,0q-10.77,0 -17.69,6.92t-6.92,17.69l0,609.24q0,10.76 6.92,17.69t17.69,6.92l168,0q-35.69,-20.61 -57.34,-53q-21.66,-32.38 -21.66,-82.31l0,-156.84l303.24,0l0,156.84q0,49.93 -22.16,82.31q-22.15,32.39 -57.08,53l191.62,0l0,30.77l-504.62,0zm240.12,-42.92q50.35,0 85.85,-35.92q35.5,-35.92 35.5,-87.24l0,-126.07l-241.7,0l0,126.07q0,51.32 35,87.24q35,35.92 85.35,35.92zm-0.12,-397.08q12.29,0 21.42,-8.9t9.12,-21.25q0,-12.35 -9.12,-21.25t-21.41,-8.91q-12.29,0 -21.42,8.91t-9.12,21.25q0,12.34 9.12,21.25t21.41,8.9zm0.24,147.85z" id="svg_1"/>
+  <line fill="none" id="svg_2" x1="655" x2="558.75" y1="192.5" y2="296.25"/>
+  <path d="m650,170.5l-147,231l-149.5,-234l296.5,3z" fill="#000000" id="svg_7"/>
+  <line fill="none" id="svg_9" x1="507" x2="611.5" y1="423.5" y2="451.5"/>
+  <text fill="#000000" font-family="Fantasy" font-size="24" id="svg_11" stroke-width="0" text-anchor="middle" transform="matrix(2.91623 0 0 5.44983 -963.866 -1847.61)" x="503" xml:space="preserve" y="429.55">I</text>
+  <text fill="#000000" font-family="Fantasy" font-size="24" id="svg_12" stroke-width="0" text-anchor="middle" transform="matrix(2.91623 0 0 5.44983 -1095.11 -1546.61)" x="503" xml:space="preserve" y="429.55">I</text>
+  <text fill="#000000" font-family="Fantasy" font-size="24" id="svg_13" stroke-width="0" text-anchor="middle" transform="matrix(2.91623 0 0 3.6735 -1066.11 -773.153)" x="503" xml:space="preserve" y="429.55">I</text>
+  <text fill="#000000" font-family="Fantasy" font-size="24" id="svg_14" stroke-width="0" text-anchor="middle" transform="matrix(2.91623 0 0 4.30233 -831.614 -1064.88)" x="503" xml:space="preserve" y="429.55">I</text>
+  <text fill="#000000" font-family="Fantasy" font-size="24" id="svg_15" stroke-width="0" text-anchor="middle" transform="matrix(1 0 0 1 0 0) matrix(2.91623 0 0 3.6735 -862.114 -774.787)" x="503" xml:space="preserve" y="429.55">I</text>
+  <rect height="194" id="svg_4" width="258" x="375" y="516"/>
+  <ellipse cx="506" cy="736" id="svg_6" rx="74" ry="41"/>
+  <rect height="66" id="svg_8" width="49" x="558" y="678"/>
+  <rect height="66" id="svg_10" transform="matrix(1 0 0 1 0 0)" width="59" x="398" y="682"/>
+  <rect fill="#0a0909" height="307" id="svg_16" width="305" x="351" y="482"/>
+ </g>
+</svg>

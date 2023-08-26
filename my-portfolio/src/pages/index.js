@@ -110,7 +110,7 @@ export default function Home() {
               <div className="flex justify-center">
                 <Image
                   className="icons"
-                  src="/images/dir-logo-01.svg"
+                  src="/images/prototyping_icon.svg"
                   height={80}
                   width={80}
                   alt="3d model icon in black"
@@ -155,12 +155,12 @@ export default function Home() {
               </p>
             </div>
             <div className="gridboxes">
-              <div className="flex justify-center">
+              <div className="flex justify-center pt-2 pb-4">
                 <Image
                   className="icons"
                   src="/images/assembly_icon.svg"
-                  height={80}
-                  width={80}
+                  height={60}
+                  width={60}
                   alt="two rings interlinking in black"
                 />
               </div>
