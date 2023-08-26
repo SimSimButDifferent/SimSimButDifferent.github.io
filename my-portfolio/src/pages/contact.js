@@ -27,14 +27,14 @@ const ContactPage = () => {
             <a href="tel:+442476981341">
               <Image
                 src="/images/call_sky_400.svg"
-                height={40}
-                width={40}
+                height={30}
+                width={30}
                 alt="Call icon of a phone from google icons"
               ></Image>
             </a>
             <a
               href="tel:+442476981341"
-              className="textlg md:htags lg:htags text-sky-400 pl-4"
+              className="textlg md:htags lg:htags text-sky-400 pl-3"
             >
               +44 (0)24 7698 1341
             </a>
@@ -43,11 +43,11 @@ const ContactPage = () => {
             Or just drop us a message at
           </p>
           <div className="flex flex-row justify-center">
-            <a href="mailto:dreaminrealitycad@gmail.com" className="pr-3">
+            <a href="mailto:dreaminrealitycad@gmail.com" className="pr-3 pt-1">
               <Image
                 src="/images/mail_sky_400.svg"
-                height={40}
-                width={40}
+                height={30}
+                width={30}
                 alt="Call icon of a phone from google icons"
               ></Image>
             </a>
