@@ -94,10 +94,10 @@ export default function Home() {
               <div className="flex justify-center">
                 <Image
                   className="icons"
-                  src="/images/dir-logo-01.svg"
+                  src="/images/parametric_icon.svg"
                   height={80}
                   width={80}
-                  alt="3d model icon in black"
+                  alt="A square with a small square on each corner, with a capital A in the middle, in black"
                 />
               </div>
               <h3 className="text-xl">Parametric 3D Models</h3>
@@ -129,7 +129,7 @@ export default function Home() {
                   src="/images/render_icon.svg"
                   height={80}
                   width={80}
-                  alt="3d model icon in black"
+                  alt="Camera shutter icon"
                 />
               </div>
               <h3 className="text-xl">Photo Realistic Rendering</h3>
@@ -142,7 +142,7 @@ export default function Home() {
               <div className="flex justify-center">
                 <Image
                   className="icons"
-                  src="/images/dir-logo-01.svg"
+                  src="/images/drawings_icon.svg"
                   height={80}
                   width={80}
                   alt="Camera shutter icon"
@@ -158,10 +158,10 @@ export default function Home() {
               <div className="flex justify-center">
                 <Image
                   className="icons"
-                  src="/images/dir-logo-01.svg"
+                  src="/images/assembly_icon.svg"
                   height={80}
                   width={80}
-                  alt="3d model icon in black"
+                  alt="two rings interlinking in black"
                 />
               </div>
               <h3 className="text-xl">Assembly Modelling</h3>
@@ -175,7 +175,7 @@ export default function Home() {
               <div className="flex justify-center">
                 <Image
                   className="icons"
-                  src="/images/dir-logo-01.svg"
+                  src="/images/reverse_engineering_icon.svg"
                   height={80}
                   width={80}
                   alt="3d model icon in black"
@@ -209,10 +209,10 @@ export default function Home() {
               <div className="flex justify-center">
                 <Image
                   className="icons"
-                  src="/images/dir-logo-01.svg"
+                  src="/images/design_optimization.svg"
                   height={80}
                   width={80}
-                  alt="3d model icon in black"
+                  alt="Upwards arrow in black"
                 />
               </div>
               <h3 className="text-xl">Design Optimization</h3>
