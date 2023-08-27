@@ -28,9 +28,9 @@ const AboutPage = () => {
           <div className="textsm items-center justify-center max-w-4xl text-justify mx-auto text-center p-10 lg:text-2xl md:text-xl">
             <p>
               Welcome to Dream InReality - 3D CAD Modelling Services, where we
-              specialize in providing high-quality 3D CAD modelling services for
+              specialize in providing high-quality 3D CAD design services for
               all your product design needs. Our team understands the importance
-              of efficiency in the design process, and that is why we have
+              of efficiency in the CAD design process, and that is why we have
               optimized our 3D CAD modelling process to ensure swift and
               seamless alterations.
             </p>
@@ -46,7 +46,7 @@ const AboutPage = () => {
             <br></br>
             <p>
               Bring your dreams to life with our 3D CAD modelling experts. Let
-              us help you transform your ideas into reality.
+              us help you transform your dreams into reality.
             </p>
             <br></br>
             <p className="text-center pt-5">

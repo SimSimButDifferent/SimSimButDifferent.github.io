@@ -14,10 +14,7 @@ export default function Home() {
     <div>
       <Head>
         <title>Dream InReality - 3D Cad Modelling Services</title>
-        <meta
-          name="description"
-          content="3D CAD Modelling Services in the UK"
-        ></meta>
+        <meta name="description" content="3D CAD Modelling Services UK"></meta>
       </Head>
       <main>
         <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center lg:bg-topright lg:bg-70%">
@@ -63,7 +60,7 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center text-justify max-w-xl p-4">
             <div className="bg-slate-100 bg-opacity-95 rounded-2xl p-10 shadow-xl ">
               <h2 className="pb-5 htags lg:text-3xl sm:text-2xl">
-                3D Cad modelling Services
+                3D Cad modelling Services UK
               </h2>
               <p className="textsm lg:text-xl pb-4">
                 Welcome to Dream InReality 3D CAD modelling services. Our
@@ -83,10 +80,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center bg-slate-100 shadow-xl justify-center background-origin-content lg:h-screen">
+        <div className="flex flex-col items-center bg-sky-200 shadow-xl justify-center background-origin-content lg:h-screen">
           <div className="p-10 py-10">
             <h2 className="phoneheadings bg-white md:text-5xl lg:text-6xl text-center p-5 rounded-2xl shadow-xl">
-              3D CAD Design Services UK
+              Our 3D CAD Design Services
             </h2>
           </div>
           <div className="grid grid-cols-1 px-10 pb-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
@@ -220,6 +217,43 @@ export default function Home() {
                 Analyze and refine existing designs to enhance performance,
                 reduce material usage, or optimize manufacturing processes.
               </p>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-col h-screen bg-violet-200 shadow-2xl justify-center items-center px-4">
+          <div className="bg-violet-300 rounded-2xl p-10 shadow-2xl">
+            <div className="pb-10">
+              <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl max-w-prose">
+                Testemonials
+              </h3>
+            </div>
+            <div className="flex flex-row justify-between bg-violet-100 rounded-2xl shadow-2xl">
+              <div className="flex">
+                <div className="p-5">
+                  <div className="bg-white p-5 rounded-2xl max-w-md">
+                    <h4 className="flex textlg rounded-2xl p-2">
+                      Elliot Colley @ Microworkshops
+                    </h4>
+                    <p className="textsm italic bg-slate-100 rounded-2xl p-2">
+                      "one day i saw a fish and the fish was huge, it had
+                      unmanly large teeth and liked to eat eggs and bacon"
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex">
+                <div className="p-5">
+                  <div className="bg-white p-5 rounded-2xl max-w-md">
+                    <h4 className="flex textlg rounded-2xl p-2">
+                      Elliot Colley @ Microworkshops
+                    </h4>
+                    <p className="textsm italic bg-slate-100 rounded-2xl p-2">
+                      "one day i saw a fish and the fish was huge, it had
+                      unmanly large teeth and liked to eat eggs and bacon"
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
