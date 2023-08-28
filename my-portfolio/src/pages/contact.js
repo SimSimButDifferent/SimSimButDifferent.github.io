@@ -15,14 +15,18 @@ const ContactPage = () => {
         ></meta>
       </Head>
       <main className="pt-4">
-        <div className="bg-[url('/images/contact_header3.webp')] bg-no-repeat bg-contain bg-center bg-fixed pt-10 pb-80">
-          <h1 className="text-white flex headings justify-center px-4 pb-10">
-            Contact
-          </h1>
+        <div className="object-center">
+          <Image
+            src="/images/contact_header3.jpg"
+            width={1920}
+            height={1920}
+            alt="A hand holding a phone with some contact icons above it, made form light. "
+          />
         </div>
         <div className="flex flex-col bg-slate-100 p-10 lg:flex-row md:flex-row pb-10 lg:shadow-xl md:shadow-xl justify-around">
           <div className="flex flex-col text-center py-10 px-4">
-            <p className="textlg md:htags lg:htags pb-10 text-left">
+            <h1 className="flex headings justify-center px-4 pb-5">Contact</h1>
+            <p className="textlg md:htags lg:htags pb-5 text-left">
               If you would like to discuss a project of yours<br></br>
               Get in touch today!
             </p>
@@ -42,7 +46,7 @@ const ContactPage = () => {
                 +44 (0)24 7698 1341
               </a>
             </div>
-            <p className="textlg md:htags lg:htags py-10 text-left">
+            <p className="textlg md:htags lg:htags py-5 text-left">
               Or just drop us a message at
             </p>
             <div className="flex flex-row justify-start">
