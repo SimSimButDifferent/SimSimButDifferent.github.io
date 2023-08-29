@@ -220,24 +220,42 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid grid-col h-screen bg-violet-200 shadow-2xl justify-center items-center px-4">
+        <div className="grid grid-col h-screen bg-violet-200 shadow-xl justify-center items-center px-4">
           <div className="bg-violet-300 rounded-2xl p-10 shadow-2xl">
             <div className="pb-10">
               <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl max-w-prose">
                 Testemonials
               </h3>
             </div>
-            <div className="flex flex-row justify-between bg-violet-100 rounded-2xl shadow-2xl">
+            <div className="flex flex-row justify-between bg-violet-100 rounded-2xl shadow-xl">
               <div className="flex">
                 <div className="p-5">
-                  <div className="bg-white p-5 rounded-2xl max-w-md">
-                    <h4 className="flex textlg rounded-2xl p-2">
+                  <div className="bg-white p-5 rounded-2xl max-w-md skew-y--3 shadow-xl">
+                    <div className="flex justify-center">
+                      <Image
+                        className="icons rounded-full"
+                        src="/images/Elliot_profile.jpg"
+                        height={150}
+                        width={150}
+                        alt="A picture of Elliot, The owner of Microworkshops"
+                      />
+                    </div>
+                    <h4 className="flex textlg rounded-2xl p-5">
                       Elliot Colley @ Microworkshops
                     </h4>
-                    <p className="textsm italic bg-slate-100 rounded-2xl p-2">
-                      "one day i saw a fish and the fish was huge, it had
-                      unmanly large teeth and liked to eat eggs and bacon"
-                    </p>
+                    <div className="textsm italic bg-slate-100 rounded-2xl">
+                      <p className="p-2">
+                        "After doing several smaller jobs he was then
+                        responsible for the company's two main CAD accounts
+                        which worked really well. This happened faster than my
+                        own progression which proved to me he is a fast learner.
+                      </p>
+                      <p>
+                        Simeon has tons of good qualities but the ones I
+                        appreciate the most are his consistency, honesty and
+                        sense of decency. True team player."
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
