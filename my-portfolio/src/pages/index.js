@@ -17,7 +17,7 @@ export default function Home() {
         <meta name="description" content="3D CAD Modelling Services UK"></meta>
       </Head>
       <main>
-        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center lg:bg-topright lg:bg-70%">
+        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center sm:bg-bottomright lg:bg-topright lg:bg-70%">
           <div className="flex flex-col">
             <div className="px-5 lg:pb-10">
               <Image
@@ -28,15 +28,11 @@ export default function Home() {
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name on the right."
               />
             </div>
-            <div className="flex flex-col pt-none pl-5 lg:pt-10 htags animate-fadeIn">
-              <p className="max-w-xl rounded-lg pt-2 md:py-5 lg:pt-20">
-                We produce
-              </p>
-              <h1 className="font-bold py-2 md:pb-5 lg:pb-5 text-sky-400">
-                3D CAD Models
-              </h1>
+            <div className="flex flex-col pt-none pl-5 sm:pt-10 lg:pt-10 htags animate-fadeIn">
+              <p className="max-w-xl rounded-lg pt-2 lg:pt-20">We produce</p>
+              <h1 className="font-bold py-2 text-sky-400">3D CAD Models</h1>
               <p>for mass-production</p>
-              <div className="lg:pt-4 md:pt-4">
+              <div className="lg:pt-5">
                 <Link
                   href="/contact"
                   className="text-white text-2xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-4xl md:3xl"
@@ -47,7 +43,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 lg:h-screen md:grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-40">
+        <div className="grid lg:grid-cols-2 lg:h-screen xl:h-screen 2xl:h-screen md:grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center lg:py-10 xl:py-15 2xl:py-20">
           <div className="flex mx-auto place-content-center bg-slate-100 bg-opacity-95 rounded-2xl px-10 shadow-xl">
             <Image
               className=""
@@ -59,10 +55,8 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center justify-center text-justify max-w-xl p-4">
             <div className="bg-slate-100 bg-opacity-95 rounded-2xl p-10 shadow-xl ">
-              <h2 className="pb-5 htags lg:text-3xl sm:text-2xl">
-                3D Cad modelling Services UK
-              </h2>
-              <p className="textsm lg:text-xl pb-4">
+              <h2 className="pb-5 htags">3D Cad modelling Services UK</h2>
+              <p className="textsm lg:text-xl  pb-4">
                 Welcome to Dream InReality 3D CAD modelling services. Our
                 expertise lies in designing parametric 3D models that allow
                 effortless modifications, saving you valuable time and
@@ -80,13 +74,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center bg-sky-200 shadow-xl justify-center background-origin-content lg:h-screen">
+        <div className="flex flex-col items-center bg-sky-200 shadow-xl justify-center background-origin-content">
           <div className="p-10 py-10">
-            <h2 className="phoneheadings bg-white md:text-5xl lg:text-6xl text-center p-5 rounded-2xl shadow-xl">
+            <h2 className="phoneheadings bg-white md:text-2xl lg:text-4xl xl:5xl text-center p-5 rounded-2xl shadow-xl">
               Our 3D CAD Design Services
             </h2>
           </div>
-          <div className="grid grid-cols-1 px-10 pb-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center textlg">
+          <div className="grid grid-cols-1 px-10 pb-10 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
             <div className="gridboxes">
               <div className="flex justify-center">
                 <Image
@@ -97,8 +91,10 @@ export default function Home() {
                   alt="A square with a small square on each corner, with a capital A in the middle, in black"
                 />
               </div>
-              <h3 className="text-xl">Parametric 3D Models</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <h3 className="text-xl lg:text-md 2xl:text-2xl">
+                Parametric 3D Models
+              </h3>
+              <p className="textboxes p-2 text-justify xl:text-sm 2xl:text-xl">
                 Parametric 3D CAD modelling techniques to create 3D models that
                 allow easy alterations, saving time in the design process.
               </p>
@@ -114,7 +110,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Rapid Prototyping</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Develop and build functional prototypes to test and validate
                 your product design concepts, through 3D printing.
               </p>
@@ -130,7 +126,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Photo Realistic Rendering</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Generate stunning, life-like visualizations of your product
                 using advanced rendering techniques.
               </p>
@@ -146,7 +142,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Construction Drawings</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Prepare detailed and accurate construction drawings to provide
                 the information needed to produce at scale.
               </p>
@@ -162,7 +158,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Assembly Modelling</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Construct complex assembly models by integrating multiple
                 components into a single 3D model, ensuring proper fit and
                 functionality.
@@ -179,7 +175,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Reverse Engineering</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Create 3D models from existing physical objects or scanned data.
                 Reverse engineering is valuable for reproducing parts with
                 complex geometries.
@@ -196,7 +192,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">CAD File Conversion</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Convert CAD files between formats to ensure compatibility with
                 different software. Streamlining collaboration and exchange with
                 suppliers, and partners.
@@ -213,15 +209,15 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Design Optimization</h3>
-              <p className="textsm p-2 text-justify text-xl">
+              <p className="textboxes p-2 text-justify text-xl">
                 Analyze and refine existing designs to enhance performance,
                 reduce material usage, or optimize manufacturing processes.
               </p>
             </div>
           </div>
         </div>
-        <div className="grid grid-col h-screen bg-violet-200 shadow-xl justify-center items-center px-4">
-          <div className="bg-violet-300 rounded-2xl p-10 shadow-2xl">
+        <div className="grid grid-col bg-violet-200 shadow-xl justify-center items-center px-4">
+          <div className="bg-violet-300 rounded-2xl p-10 shadow-xl">
             <div className="pb-10">
               <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl max-w-prose">
                 Testemonials

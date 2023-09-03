@@ -21,6 +21,7 @@ main {
   line-height: 2rem;
   font-weight: 200;
   color: black;
+  width: 100vw;
 }
 
 .navbar {
@@ -61,13 +62,11 @@ main {
   line-height: 2rem;
   font-weight: 300;
   line-height: 1.5;
-
-  @apply lg:text-5xl md:text-4xl;
 }
 
+html,
 body {
-  color: black;
-  background: white;
+  overflow-x: hidden;
 }
 
 .textlg {
@@ -82,6 +81,17 @@ body {
   font-size: 1.1rem;
   font-weight: 300;
   line-height: 1.5;
+
+  @apply lg:text-base xl:text-sm 2xl:text-xl;
+}
+
+.textboxes {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.5;
+
+  @apply xl:text-sm 2xl:text-xl;
 }
 
 .button {
