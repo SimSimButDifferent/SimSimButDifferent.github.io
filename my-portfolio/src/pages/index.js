@@ -241,15 +241,14 @@ export default function Home() {
                     </h4>
                     <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
                       <p className="p-2">
-                        "After doing several smaller jobs he was then
-                        responsible for the company's two main CAD accounts
-                        which worked really well. This happened faster than my
-                        own progression which proved to me he is a fast learner.
+                        {
+                          '"After doing several smaller jobs he was then responsible for the company\'s two main CAD accounts which worked really well. This happened faster than my own progression which proved to me he is a fast learner."'
+                        }
                       </p>
                       <p className="p-2">
-                        Simeon has tons of good qualities but the ones I
-                        appreciate the most are his consistency, honesty and
-                        sense of decency. True team player."
+                        {
+                          '"Simeon has tons of good qualities but the ones I appreciate the most are his consistency, honesty and sense of decency. True team player."'
+                        }
                       </p>
                     </div>
                   </div>
@@ -272,13 +271,14 @@ export default function Home() {
                     </h4>
                     <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
                       <p className="p-2">
-                        "We have worked with Simeon Campbell on a number of
-                        design projects. Simeon completed any design work we
-                        sent to him quickly and to a consistently high standard.
+                        {
+                          '"We have worked with Simeon Campbell on a number of design projects. Simeon completed any design work we sent to him quickly and to a consistently high standard."'
+                        }
                       </p>
                       <p className="p-2">
-                        We would certainly recommend him and would be happy to
-                        work with him again."
+                        {
+                          '"We would certainly recommend him and would be happy to work with him again."'
+                        }
                       </p>
                     </div>
                   </div>
