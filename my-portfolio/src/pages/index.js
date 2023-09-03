@@ -74,7 +74,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center bg-sky-200 shadow-xl justify-center background-origin-content">
+        <div className="flex flex-col items-center bg-sky-300 shadow-xl justify-center background-origin-content">
           <div className="p-10 py-10">
             <h2 className="phoneheadings bg-white md:text-2xl lg:text-4xl xl:5xl text-center p-5 rounded-2xl shadow-xl">
               Our 3D CAD Design Services
@@ -216,37 +216,37 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid grid-col bg-violet-200 shadow-xl justify-center items-center px-4">
-          <div className="bg-violet-300 rounded-2xl p-10 shadow-xl">
+        <div className="grid grid-col shadow-xl justify-center items-center px-4 py-10">
+          <div className="bg-gray-300 rounded-2xl p-10 shadow-xl">
             <div className="pb-10">
               <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl max-w-prose">
                 Testemonials
               </h3>
             </div>
-            <div className="flex flex-row justify-between bg-violet-100 rounded-2xl shadow-xl">
+            <div className="flex flex-col justify-between bg-slate-200 rounded-2xl shadow-xl">
               <div className="flex">
                 <div className="p-5">
-                  <div className="bg-white p-5 rounded-2xl max-w-md skew-y--3 shadow-xl">
-                    <div className="flex justify-center">
+                  <div className="bg-white p-5 rounded-2xl shadow-xl">
+                    <div className="flex justify-start pl-10">
                       <Image
                         className="icons rounded-full"
-                        src="/images/Elliot_profile.jpg"
-                        height={150}
-                        width={150}
-                        alt="A picture of Elliot, The owner of Microworkshops"
+                        src="/images/mws_logo.png"
+                        height={200}
+                        width={200}
+                        alt="Microworkshops 3D printing ninja's logo. A cartoon ninja next to the company name in 3d text."
                       />
                     </div>
                     <h4 className="flex textlg rounded-2xl p-5">
-                      Elliot Colley @ Microworkshops
+                      Elliot @ Microworkshops
                     </h4>
-                    <div className="textsm italic bg-slate-100 rounded-2xl">
+                    <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
                       <p className="p-2">
                         "After doing several smaller jobs he was then
                         responsible for the company's two main CAD accounts
                         which worked really well. This happened faster than my
                         own progression which proved to me he is a fast learner.
                       </p>
-                      <p>
+                      <p className="p-2">
                         Simeon has tons of good qualities but the ones I
                         appreciate the most are his consistency, honesty and
                         sense of decency. True team player."
@@ -257,14 +257,30 @@ export default function Home() {
               </div>
               <div className="flex">
                 <div className="p-5">
-                  <div className="bg-white p-5 rounded-2xl max-w-md">
-                    <h4 className="flex textlg rounded-2xl p-2">
-                      Elliot Colley @ Microworkshops
+                  <div className="bg-white p-5 rounded-2xl shadow-xl">
+                    <div className="flex justify-end pr-20">
+                      <Image
+                        className="icons rounded-full"
+                        src="/images/shade_spec.png"
+                        height={150}
+                        width={150}
+                        alt="Shade Specialists Logo"
+                      />
+                    </div>
+                    <h4 className="flex textlg justify-end rounded-2xl p-5">
+                      Rupert @ Bambrella / ShadeSpecialists
                     </h4>
-                    <p className="textsm italic bg-slate-100 rounded-2xl p-2">
-                      "one day i saw a fish and the fish was huge, it had
-                      unmanly large teeth and liked to eat eggs and bacon"
-                    </p>
+                    <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
+                      <p className="p-2">
+                        "We have worked with Simeon Campbell on a number of
+                        design projects. Simeon completed any design work we
+                        sent to him quickly and to a consistently high standard.
+                      </p>
+                      <p className="p-2">
+                        We would certainly recommend him and would be happy to
+                        work with him again."
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
