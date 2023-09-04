@@ -99,7 +99,7 @@ body {
 }
 
 .gridboxes {
-  @apply rounded-lg bg-white text-black p-4 font-bold shadow-xl hover:shadow-xl hover:bg-gray-100;
+  @apply rounded-lg bg-white text-black p-4 font-bold shadow-xl hover:shadow-xl hover:bg-gray-100 hover:bg-opacity-95 bg-opacity-95;
 }
 
 .icons {

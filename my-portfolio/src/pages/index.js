@@ -43,13 +43,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 lg:h-screen xl:h-screen 2xl:h-screen md:grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center lg:py-10 xl:py-15 2xl:py-20">
-          <div className="flex mx-auto place-content-center bg-slate-100 bg-opacity-95 rounded-2xl px-10 shadow-xl">
+        <div className="grid lg:grid-cols-2 lg:h-screen xl:h-screen 2xl:h-screen md:grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-4 lg:py-10 xl:py-15 2xl:py-20">
+          <div className="flex mx-auto place-content-center bg-slate-100 bg-opacity-95 rounded-2xl shadow-xl p-10">
             <Image
               className=""
               src="/images/dir-logo-01.svg"
-              height={400}
-              width={400}
+              height={350}
+              width={350}
               alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
             />
           </div>
@@ -74,7 +74,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center bg-sky-300 shadow-xl justify-center background-origin-content">
+        <div className="flex flex-col items-center shadow-xl justify-center background-origin-content bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center">
           <div className="p-10 py-10">
             <h2 className="phoneheadings bg-white md:text-2xl lg:text-4xl xl:5xl text-center p-5 rounded-2xl shadow-xl">
               Our 3D CAD Design Services
@@ -240,12 +240,12 @@ export default function Home() {
                       Elliot @ Microworkshops
                     </h4>
                     <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
-                      <p className="p-2">
+                      <p className="p-4">
                         {
                           '"After doing several smaller jobs he was then responsible for the company\'s two main CAD accounts which worked really well. This happened faster than my own progression which proved to me he is a fast learner."'
                         }
                       </p>
-                      <p className="p-2">
+                      <p className="p-4">
                         {
                           '"Simeon has tons of good qualities but the ones I appreciate the most are his consistency, honesty and sense of decency. True team player."'
                         }
@@ -270,12 +270,12 @@ export default function Home() {
                       Rupert @ Bambrella / ShadeSpecialists
                     </h4>
                     <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
-                      <p className="p-2">
+                      <p className="p-4">
                         {
                           '"We have worked with Simeon Campbell on a number of design projects. Simeon completed any design work we sent to him quickly and to a consistently high standard."'
                         }
                       </p>
-                      <p className="p-2">
+                      <p className="p-4">
                         {
                           '"We would certainly recommend him and would be happy to work with him again."'
                         }
