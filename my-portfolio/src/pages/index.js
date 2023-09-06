@@ -219,7 +219,7 @@ export default function Home() {
         <div className="grid grid-col shadow-xl justify-center items-center px-4 py-10">
           <div className="bg-gray-300 rounded-2xl p-10 shadow-xl">
             <div className="pb-10">
-              <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl max-w-prose">
+              <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl">
                 Testemonials
               </h3>
             </div>
