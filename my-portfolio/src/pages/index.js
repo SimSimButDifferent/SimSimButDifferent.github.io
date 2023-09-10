@@ -17,7 +17,7 @@ export default function Home() {
         <meta name="description" content="3D CAD Modelling Services UK"></meta>
       </Head>
       <main>
-        <div className="h-screen bg-[url('/images/header-assembly-render.jpg')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center sm:bg-bottomright lg:bg-topright lg:bg-70%">
+        <div className="h-screen bg-[url('/images/header-assembly-blue.png')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center bg-origin-content pb-20 bg-bottom sm:bg-right sm:bg-70% lg:bg-right-bottom lg:bg-70% xl:bg-80%">
           <div className="flex flex-col">
             <div className="px-5 lg:pb-10">
               <Image
@@ -28,14 +28,18 @@ export default function Home() {
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name on the right."
               />
             </div>
-            <div className="flex flex-col pt-none pl-5 sm:pt-10 lg:pt-10 htags animate-fadeIn">
-              <p className="max-w-xl rounded-lg pt-2 lg:pt-20">We produce</p>
-              <h1 className="font-bold py-2 text-sky-400">3D CAD Models</h1>
-              <p>for mass-production</p>
+            <div className="flex flex-col pt-none pl-5 htags animate-fadeIn">
+              <p className="headertext max-w-xl rounded-lg pt-2 md:pt-20">
+                We produce
+              </p>
+              <h1 className="headertext font-bold py-2 text-sky-400">
+                3D CAD Models
+              </h1>
+              <p className="headertext">for mass-production</p>
               <div className="lg:pt-5">
                 <Link
                   href="/contact"
-                  className="text-white text-2xl font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600 lg:text-4xl md:3xl"
+                  className="headertext text-white font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600"
                 >
                   Contact
                 </Link>
@@ -125,7 +129,7 @@ export default function Home() {
                   alt="Camera shutter icon"
                 />
               </div>
-              <h3 className="text-xl">Photo Realistic Rendering</h3>
+              <h3 className="text-xl rounded-2xl">Photo Realistic Rendering</h3>
               <p className="textboxes p-2 text-justify text-xl">
                 Generate stunning, life-like visualizations of your product
                 using advanced rendering techniques.
@@ -217,13 +221,13 @@ export default function Home() {
           </div>
         </div>
         <div className="grid grid-col shadow-xl justify-center items-center px-4 py-10">
-          <div className="bg-gray-300 rounded-2xl p-10 shadow-xl">
+          <div className="bg-sky-100 rounded-2xl p-10 shadow-xl">
             <div className="pb-10">
               <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl">
                 Testemonials
               </h3>
             </div>
-            <div className="flex flex-col justify-between bg-slate-200 rounded-2xl shadow-xl">
+            <div className="flex flex-col justify-between bg-sky-300 rounded-2xl shadow-xl">
               <div className="flex">
                 <div className="p-5">
                   <div className="bg-white p-5 rounded-2xl shadow-xl">
@@ -239,7 +243,7 @@ export default function Home() {
                     <h4 className="flex textlg rounded-2xl p-5">
                       Elliot @ Microworkshops
                     </h4>
-                    <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
+                    <div className="textsm italic bg-sky-200 rounded-2xl shadow-xl">
                       <p className="p-4">
                         {
                           '"After doing several smaller jobs he was then responsible for the company\'s two main CAD accounts which worked really well. This happened faster than my own progression which proved to me he is a fast learner."'
@@ -269,7 +273,7 @@ export default function Home() {
                     <h4 className="flex textlg justify-end rounded-2xl p-5">
                       Rupert @ Bambrella / ShadeSpecialists
                     </h4>
-                    <div className="textsm italic bg-slate-200 rounded-2xl shadow-xl">
+                    <div className="textsm italic bg-sky-200 rounded-2xl shadow-xl">
                       <p className="p-4">
                         {
                           '"We have worked with Simeon Campbell on a number of design projects. Simeon completed any design work we sent to him quickly and to a consistently high standard."'

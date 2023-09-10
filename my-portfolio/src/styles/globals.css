@@ -112,3 +112,7 @@ body {
 .footersect {
   @apply flex flex-col py-5 justify-between items-center;
 }
+
+.headertext {
+  @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl;
+}
