@@ -61,19 +61,18 @@ export default function Home() {
             <div className="bg-slate-100 bg-opacity-95 rounded-2xl p-10 shadow-xl ">
               <h2 className="pb-5 htags">3D Cad modelling Services UK</h2>
               <p className="textsm lg:text-xl  pb-4">
-                Welcome to Dream InReality 3D CAD modelling services. Our
-                expertise lies in designing parametric 3D models that allow
-                effortless modifications, saving you valuable time and
-                resources. With advanced 3D CAD Design techniques, our experts
-                ensure precision and adaptability, in all our 3D CAD Models.
-                Each tailored to your projects unique needs.
+                Welcome to Dream InReality 3D CAD modelling services. We help
+                people create consumer products. Whether electronic or
+                mechanical, we can take you through the product development
+                process, with our 3D CAD modelling services. We create 3D models
+                that are parametric, easy to modify and make.
               </p>
               <p className="textsm lg:text-xl">
-                Experience fast paced timelines and cost efficiency for product
-                development. From prototypes to construction drawings all the
-                way to mass production. Leverage our 3D CAD modelling services
-                today, to unleash the full potential of parametric modelling and
-                bring your dreams into reality.
+                Our 3D CAD modelling services begin with your idea, through the
+                prototyping and testing, with 3D printing. Then finalise
+                designs, outputting construction drawings and bill of materials
+                for manufacturers. We can also output photorealistic renders to
+                bring your product to life.
               </p>
             </div>
           </div>

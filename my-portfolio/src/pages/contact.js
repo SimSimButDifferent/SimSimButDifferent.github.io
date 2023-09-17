@@ -3,6 +3,7 @@ import Head from "next/head";
 import Map from "@/components/Map";
 import Link from "next/link";
 import Image from "next/image";
+import MapReact from "@/components/MapReact";
 
 const ContactPage = () => {
   return (
@@ -15,7 +16,7 @@ const ContactPage = () => {
         ></meta>
       </Head>
       <main className="pt-4">
-        <div className="object-center">
+        <div className="object-center ">
           <Image
             src="/images/contact_header3.jpg"
             width={1920}
