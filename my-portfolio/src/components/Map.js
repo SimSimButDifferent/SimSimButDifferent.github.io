@@ -31,6 +31,6 @@ function Map({ address }) {
     });
   }, [address]);
 
-  return <div style={{ height: "400px", width: "800px" }} ref={mapRef} />;
+  return <div className="mapContainer" ref={mapRef} />;
 }
 export default Map;

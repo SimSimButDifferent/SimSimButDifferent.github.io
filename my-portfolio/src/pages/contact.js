@@ -3,7 +3,6 @@ import Head from "next/head";
 import Map from "@/components/Map";
 import Link from "next/link";
 import Image from "next/image";
-import MapReact from "@/components/MapReact";
 
 const ContactPage = () => {
   return (
@@ -70,7 +69,7 @@ const ContactPage = () => {
               </Link>
             </div>
           </div>
-          <div className="px-4 p-5 rounded-2xl">
+          <div className="mapContainer px-4 p-5 rounded-2xl">
             <Map address="Dream InReality, Sellindge, Ashford, UK" />
           </div>
         </div>
