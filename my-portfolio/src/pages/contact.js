@@ -21,6 +21,7 @@ const ContactPage = () => {
             width={1920}
             height={1920}
             alt="A hand holding a phone with some contact icons above it, made form light. "
+            priority
           />
         </div>
         <div className="flex flex-col bg-slate-100 p-10 md:flex-row pb-10 lg:shadow-xl md:shadow-xl justify-around">

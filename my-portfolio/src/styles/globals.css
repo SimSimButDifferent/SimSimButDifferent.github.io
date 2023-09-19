@@ -107,6 +107,9 @@ body {
 }
 
 .footersect {
+  height:100%;
+  width: auto;
+
   @apply flex flex-col py-5 justify-between items-center;
 }
 
