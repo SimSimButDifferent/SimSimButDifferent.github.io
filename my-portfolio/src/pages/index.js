@@ -17,9 +17,9 @@ export default function Home() {
         <meta name="description" content="3D CAD Modelling Services UK"></meta>
       </Head>
       <main>
-        <div className="h-screen bg-[url('/images/header-assembly-blue.png')] p-none bg-pr-20 bg-contain bg-no-repeat bg-center bg-origin-content pb-20 bg-bottom sm:bg-right sm:bg-70% lg:bg-right-bottom lg:bg-70% xl:bg-80%">
+        <div className="h-screen bg-[url('/images/header-assembly-blue.png')] p-none bg-pr-20 bg-contain bg-no-repeat bg-bottom bg-origin-content pb-20 sm:bg-right sm:bg-70% lg:bg-right-bottom lg:bg-70% xl:bg-80%">
           <div className="flex flex-col">
-            <div className="px-5 lg:pb-10">
+            <div className="px-5 pt-10 lg:pb-10">
               <Image
                 className="animate-fadeIn lg:pt-0 md:pt-0"
                 src="/images/dream_inreality_logo_lg_logo.svg"
