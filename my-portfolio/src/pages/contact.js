@@ -23,8 +23,8 @@ const ContactPage = () => {
             alt="A hand holding a phone with some contact icons above it, made form light. "
           />
         </div>
-        <div className="flex flex-col bg-slate-100 p-10 lg:flex-row md:flex-row pb-10 lg:shadow-xl md:shadow-xl justify-around">
-          <div className="flex flex-col text-center py-10 px-4">
+        <div className="flex flex-col bg-slate-100 p-10 md:flex-row pb-10 lg:shadow-xl md:shadow-xl justify-around">
+          <div className="flex flex-col text-center pb-10 px-4">
             <h1 className="flex headings justify-center px-4 pb-5">Contact</h1>
             <p className="textlg md:htags lg:htags pb-5 text-left">
               If you would like to discuss a project of yours<br></br>
@@ -69,7 +69,7 @@ const ContactPage = () => {
               </Link>
             </div>
           </div>
-          <div className="mapContainer px-4 p-5 rounded-2xl">
+          <div className="mapContainer px-4 rounded-2xl">
             <Map address="Dream InReality, Sellindge, Ashford, UK" />
           </div>
         </div>
