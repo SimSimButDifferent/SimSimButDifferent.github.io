@@ -94,6 +94,15 @@ body {
   @apply xl:text-sm 2xl:text-xl;
 }
 
+.contactText {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
+
+  @apply text-center md:text-start md:text-xl lg:text-2xl;
+}
+
 .button {
   @apply inline-block px-4 py-2 rounded-lg text-black hover:shadow-md hover:bg-slate-100;
 }

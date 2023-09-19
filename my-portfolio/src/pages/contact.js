@@ -25,13 +25,13 @@ const ContactPage = () => {
           />
         </div>
         <div className="flex flex-col bg-slate-100 p-10 md:flex-row pb-10 lg:shadow-xl md:shadow-xl justify-around">
-          <div className="flex flex-col text-center pb-10 px-4">
+          <div className="flex flex-col text-center pb-10 px-4 lg:px-10 xl:px-20">
             <h1 className="flex headings justify-center px-4 pb-5">Contact</h1>
-            <p className="textlg md:htags lg:htags pb-5 text-left">
+            <p className="contactText md:htags lg:htags pb-5 text-left">
               If you would like to discuss a project of yours<br></br>
               Get in touch today!
             </p>
-            <div className="flex flex-row justify-start hover">
+            <div className="flex flex-row justify-center md:justify-start hover">
               <a href="tel:+442476981341">
                 <Image
                   src="/images/call_sky_400.svg"
@@ -42,15 +42,15 @@ const ContactPage = () => {
               </a>
               <a
                 href="tel:+442476981341"
-                className="textlg md:htags lg:htags text-sky-400 pl-3"
+                className="contactText md:htags lg:htags text-sky-400 pl-3"
               >
                 +44 (0)24 7698 1341
               </a>
             </div>
-            <p className="textlg md:htags lg:htags py-5 text-left">
+            <p className="contactText md:htags lg:htags py-5 text-left">
               Or just drop us a message at
             </p>
-            <div className="flex flex-row justify-start">
+            <div className="flex flex-row justify-center md:justify-start">
               <a
                 href="mailto:dreaminrealitycad@gmail.com"
                 className="pr-3 pt-1"
@@ -64,7 +64,7 @@ const ContactPage = () => {
               </a>
               <Link
                 href="mailto:dreaminrealitycad@gmail.com"
-                className="textlg md:htags lg:htags text-sky-400"
+                className="contactText md:htags lg:htags text-sky-400"
               >
                 dreaminrealitycad@gmail.com
               </Link>
