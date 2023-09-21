@@ -117,7 +117,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl">Rapid Prototyping</h3>
               <p className="textboxes">
-                Develop and build functioenal prototypes to test and validate
+                Develop and build functional prototypes to test and validate
                 your product design concepts, through 3D printing.
               </p>
             </div>

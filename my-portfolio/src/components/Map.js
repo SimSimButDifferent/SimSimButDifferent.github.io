@@ -31,6 +31,6 @@ function Map({ address }) {
     });
   }, [address]);
 
-  return <div style={{ height: "100%", width: "100%" }} ref={mapRef} />;;
+  return <div className="rounded-2xl shadow-2xl" style={{ height: "100%", width: "100%" }} ref={mapRef} />;;
 }
 export default Map;
