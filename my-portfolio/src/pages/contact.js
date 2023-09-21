@@ -26,11 +26,11 @@ const ContactPage = () => {
         </div>
         <div className="flex flex-col bg-slate-100 p-10 md:flex-row pb-10 lg:shadow-xl md:shadow-xl justify-around">
           <div className="flex flex-col text-center pb-10 px-4 lg:px-10 xl:px-20">
-            <h1 className="flex headings justify-center px-4 pb-5">Contact</h1>
+            <h1 className="flex headings justify-center pb-5">Contact</h1>
             <p className="contactText md:htags lg:htags pb-5 text-left">
-              If you would like to discuss a project of yours<br></br>
-              Get in touch today!
+              If you would like to discuss a project of yours
             </p>
+            <p className="contactText md:htags lg:htags pb-5 text-left">Get in touch today!</p>
             <div className="flex flex-row justify-center md:justify-start hover">
               <a href="tel:+442476981341">
                 <Image
@@ -70,7 +70,7 @@ const ContactPage = () => {
               </Link>
             </div>
           </div>
-          <div className="mapContainer px-4 rounded-2xl">
+          <div className="mapContainer lg:px-10 xl:px-20 rounded-2xl">
             <Map address="Dream InReality, Sellindge, Ashford, UK" />
           </div>
         </div>

@@ -47,8 +47,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 lg:h-screen xl:h-screen 2xl:h-screen md:grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-4 lg:py-10 xl:py-15 2xl:py-20">
-          <div className="flex mx-auto place-content-center bg-slate-100 bg-opacity-95 rounded-2xl shadow-xl p-10">
+        <div className="grid lg:grid-cols-2 grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-4 lg:py-10 xl:py-15 2xl:py-20">
+          <div className="flex mx-auto place-content-center bg-white rounded-2xl shadow-xl p-10">
             <Image
               className=""
               src="/images/dir-logo-01.svg"
@@ -57,23 +57,26 @@ export default function Home() {
               alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
             />
           </div>
-          <div className="flex flex-col items-center justify-center text-justify max-w-xl p-4">
-            <div className="bg-slate-100 bg-opacity-95 rounded-2xl p-10 shadow-xl ">
+          <div className="flex justify-center items-center text-justify lg:max-w-xl p-4">
+            <div className="bg-white rounded-2xl p-10 shadow-xl ">
               <h2 className="pb-5 htags">3D Cad modelling Services UK</h2>
-              <p className="textsm lg:text-xl  pb-4">
-                Welcome to Dream InReality 3D CAD modelling services. We help
-                people create consumer products. Whether electronic or
-                mechanical, we can take you through the product development
-                process, with our 3D CAD modelling services. We create 3D models
-                that are parametric, easy to modify and make.
-              </p>
-              <p className="textsm lg:text-xl">
-                Our 3D CAD modelling services begin with your idea, through the
-                prototyping and testing, with 3D printing. Then finalise
-                designs, outputting construction drawings and bill of materials
-                for manufacturers. We can also output photorealistic renders to
-                bring your product to life.
-              </p>
+              <div className="bg-sky-200 p-4 rounded-2xl shadow-xl">
+                <p className="textsm lg:text-xl  pb-4">
+                  Welcome to Dream InReality 3D CAD modelling services. We help
+                  people create consumer products by creating 3D models
+                  that are parametric, easy to modify and make.
+                </p>
+                <p className="textsm lg:text-xl  pb-4"> Whether electronic or
+                  mechanical, we can take you through the product development
+                  process, with our 3D CAD modelling services.</p>
+                <p className="textsm lg:text-xl">
+                  Our 3D CAD modelling services begin with your idea, through the
+                  prototyping and testing, with 3D printing. Then finalise
+                  designs, outputting construction drawings and bill of materials
+                  for manufacturers. We can also output photorealistic renders to
+                  bring your product to life.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -94,10 +97,10 @@ export default function Home() {
                   alt="A square with a small square on each corner, with a capital A in the middle, in black"
                 />
               </div>
-              <h3 className="text-xl lg:text-md 2xl:text-2xl">
+              <h3 className="text-xl">
                 Parametric 3D Models
               </h3>
-              <p className="textboxes p-2 text-justify xl:text-sm 2xl:text-xl">
+              <p className="textboxes">
                 Parametric 3D CAD modelling techniques to create 3D models that
                 allow easy alterations, saving time in the design process.
               </p>
@@ -113,8 +116,8 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Rapid Prototyping</h3>
-              <p className="textboxes p-2 text-justify text-xl">
-                Develop and build functional prototypes to test and validate
+              <p className="textboxes">
+                Develop and build functioenal prototypes to test and validate
                 your product design concepts, through 3D printing.
               </p>
             </div>
@@ -128,24 +131,24 @@ export default function Home() {
                   alt="Camera shutter icon"
                 />
               </div>
-              <h3 className="text-xl rounded-2xl">Photo Realistic Rendering</h3>
-              <p className="textboxes p-2 text-justify text-xl">
+              <h3 className="text-xl">Photo Realistic Rendering</h3>
+              <p className="textboxes">
                 Generate stunning, life-like visualizations of your product
                 using advanced rendering techniques.
               </p>
             </div>
             <div className="gridboxes">
-              <div className="flex justify-center">
+              <div className="flex justify-center background-white">
                 <Image
                   className="icons"
                   src="/images/drawings_icon.svg"
                   height={80}
                   width={80}
-                  alt="Camera shutter icon"
+                  alt="A factory icon"
                 />
               </div>
               <h3 className="text-xl">Construction Drawings</h3>
-              <p className="textboxes p-2 text-justify text-xl">
+              <p className="textboxes">
                 Prepare detailed and accurate construction drawings to provide
                 the information needed to produce at scale.
               </p>
@@ -161,7 +164,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Assembly Modelling</h3>
-              <p className="textboxes p-2 text-justify text-xl">
+              <p className="textboxes">
                 Construct complex assembly models by integrating multiple
                 components into a single 3D model, ensuring proper fit and
                 functionality.
@@ -178,7 +181,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Reverse Engineering</h3>
-              <p className="textboxes p-2 text-justify text-xl">
+              <p className="textboxes">
                 Create 3D models from existing physical objects or scanned data.
                 Reverse engineering is valuable for reproducing parts with
                 complex geometries.
@@ -195,7 +198,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">CAD File Conversion</h3>
-              <p className="textboxes p-2 text-justify text-xl">
+              <p className="textboxes">
                 Convert CAD files between formats to ensure compatibility with
                 different software. Streamlining collaboration and exchange with
                 suppliers, and partners.
@@ -212,7 +215,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl">Design Optimization</h3>
-              <p className="textboxes p-2 text-justify text-xl">
+              <p className="textboxes">
                 Analyze and refine existing designs to enhance performance,
                 reduce material usage, or optimize manufacturing processes.
               </p>

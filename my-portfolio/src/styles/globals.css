@@ -64,6 +64,10 @@ main {
   line-height: 1.5;
 }
 
+h3 {
+  @apply lg:text-lg 2xl:text-2xl pb-2;
+}
+
 html,
 body {
   overflow-x: hidden;
@@ -91,7 +95,7 @@ body {
   font-weight: 300;
   line-height: 1.5;
 
-  @apply xl:text-sm 2xl:text-xl;
+  @apply 2xl:text-lg bg-sky-200 rounded-xl p-4 text-justify shadow-xl;
 }
 
 .contactText {
@@ -108,7 +112,7 @@ body {
 }
 
 .gridboxes {
-  @apply rounded-lg bg-white text-black p-4 font-bold shadow-xl hover:shadow-xl hover:bg-gray-100 hover:bg-opacity-95 bg-opacity-95;
+  @apply rounded-lg bg-white text-black p-4 font-bold shadow-xl hover:shadow-xl hover:bg-gray-100;
 }
 
 .icons {
