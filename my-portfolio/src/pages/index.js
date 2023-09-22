@@ -50,7 +50,7 @@ export default function Home() {
         <div className="grid lg:grid-cols-2 grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-4 lg:py-10 xl:py-15 2xl:py-20">
           <div className="flex mx-auto outerBox place-content-center bg-white rounded-2xl shadow-xl p-10">
             <Image
-              className="bg-white rounded-xl"
+              className="bg-white rounded-xl p-4 shadow-xl"
               src="/images/dir-logo-01.svg"
               height={350}
               width={350}
@@ -59,30 +59,35 @@ export default function Home() {
           </div>
           <div className="flex justify-center items-center text-justify lg:max-w-xl p-4">
             <div className="outerBox">
-                <div className="bg-white rounded-2xl p-4 shadow-xl ">
-                <h2 className="pb-5 htags">3D Cad modelling Services UK</h2>
+              <div className="bg-white rounded-2xl p-4 lg:p-2 shadow-xl ">
+                <h2 className="pb-5 htags text-center">
+                  3D Cad modelling Services UK
+                </h2>
                 <div className="bg-sky-200 p-4 rounded-2xl shadow-xl">
                   <p className="textsm lg:text-xl  pb-4">
-                    Welcome to Dream InReality 3D CAD modelling services. We help
-                    people create consumer products by creating 3D models
+                    Welcome to Dream InReality 3D CAD modelling services. We
+                    help people create consumer products by creating 3D models
                     that are parametric, easy to modify and make.
                   </p>
-                  <p className="textsm lg:text-xl  pb-4"> Whether electronic or
-                    mechanical, we can take you through the product development
-                    process, with our 3D CAD modelling services.</p>
+                  <p className="textsm lg:text-xl  pb-4">
+                    {" "}
+                    Whether electronic or mechanical, we can take you through
+                    the product development process, with our 3D CAD modelling
+                    services.
+                  </p>
                   <p className="textsm lg:text-xl">
-                    Our 3D CAD modelling services begin with your idea, through the
-                    prototyping and testing, with 3D printing. Then finalise
-                    designs, outputting construction drawings and bill of materials
-                    for manufacturers. We can also output photorealistic renders to
-                    bring your product to life.
+                    Our 3D CAD modelling services begin with your idea, through
+                    the prototyping and testing, with 3D printing. Then finalise
+                    designs, outputting construction drawings and bill of
+                    materials for manufacturers. We can also output
+                    photorealistic renders to bring your product to life.
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center shadow-xl justify-center background-origin-content bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center">
+        <div className="flex flex-col items-center pb-4 shadow-xl justify-center background-origin-content bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center">
           <div className="p-10 py-10 outerBox">
             <h2 className="phoneheadings bg-white md:text-2xl lg:text-4xl xl:5xl text-center p-5 rounded-2xl shadow-xl">
               Our 3D CAD Design Services
@@ -100,12 +105,11 @@ export default function Home() {
                     alt="A square with a small square on each corner, with a capital A in the middle, in black"
                   />
                 </div>
-                <h3 className="text-xl">
-                  Parametric 3D Models
-                </h3>
+                <h3 className="text-xl">Parametric 3D Models</h3>
                 <p className="textboxes">
-                  Parametric 3D CAD modelling techniques to create 3D models that
-                  allow easy alterations, saving time in the design process.
+                  Parametric 3D CAD modelling techniques to create 3D models
+                  that allow easy alterations, saving time in the design
+                  process.
                 </p>
               </div>
             </div>
@@ -195,9 +199,9 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl">Reverse Engineering</h3>
                 <p className="textboxes">
-                  Create 3D models from existing physical objects or scanned data.
-                  Reverse engineering is valuable for reproducing parts with
-                  complex geometries.
+                  Create 3D models from existing physical objects or scanned
+                  data. Reverse engineering is valuable for reproducing parts
+                  with complex geometries.
                 </p>
               </div>
             </div>
@@ -215,8 +219,8 @@ export default function Home() {
                 <h3 className="text-xl">CAD File Conversion</h3>
                 <p className="textboxes">
                   Convert CAD files between formats to ensure compatibility with
-                  different software. Streamlining collaboration and exchange with
-                  suppliers, and partners.
+                  different software. Streamlining collaboration and exchange
+                  with suppliers, and partners.
                 </p>
               </div>
             </div>
@@ -240,7 +244,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="grid grid-col shadow-xl justify-center items-center px-4 py-10">
+        <div className="grid grid-col shadow-xl justify-center items-center p-4">
           <div className="bg-sky-100 rounded-2xl p-10 shadow-xl">
             <div className="pb-10">
               <h3 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl">
