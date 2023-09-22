@@ -19,6 +19,11 @@ module.exports = {
       backgroundPosition: {
         topright: "top right",
         right: "right",
+        'bottom-10': 'center bottom 10%',
+        'bottom-20': 'center bottom 20%',
+        'bottom-25': 'center bottom 25%',
+        'bottom-30': 'center bottom 30%',
+        'bottom-40': 'center bottom 40%',
       },
       backgroundSize: {
         "50%": "50%",
