@@ -133,3 +133,7 @@ body {
   height: 450px;
   width: 100%;
 }
+
+.outerBox {
+  @apply bg-sky-300 p-4 rounded-2xl shadow-xl;
+}
