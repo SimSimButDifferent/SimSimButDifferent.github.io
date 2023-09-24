@@ -25,8 +25,8 @@ const ContactPage = () => {
           />
         </div>
         <div className="flex flex-col bg-white p-10 md:flex-row pb-10 md:shadow-xl justify-around">
-          <div className="outerBox">
-            <div className="flex flex-col bg-white rounded-2xl shadow-xl text-center p-2">
+          <div className="bg-sky-300 p-4 rounded-2xl shadow-xl">
+            <div className="flex flex-col bg-white rounded-2xl shadow-xl text-center p-4">
               <h1 className="flex headings justify-center">Contact</h1>
               <div className="textboxes">
                 <p className="pb-5 text-center lg:text-left">
