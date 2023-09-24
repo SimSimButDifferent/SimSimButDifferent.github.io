@@ -28,14 +28,14 @@ export default function Home() {
                 alt="Dream InReality Logo - An illusion of a 3D cube overlapping with the Company name on the right."
               />
             </div>
-            <div className="flex flex-col pt-none pl-5 htags animate-fadeIn">
-              <p className="headertext max-w-xl rounded-lg pt-2 pt-10 md:pt-20">
+            <div className="flex flex-col pt-none pl-5 animate-fadeIn">
+              <p className="headertext max-w-xl font-light rounded-lg pt-2 pt-10 md:pt-20">
                 We produce
               </p>
               <h1 className="headertext font-bold py-2 text-sky-400">
                 3D CAD Models
               </h1>
-              <p className="headertext">for mass-production</p>
+              <p className="headertext font-light">for mass-production</p>
               <div className="lg:pt-5">
                 <Link
                   href="/contact"
@@ -48,9 +48,9 @@ export default function Home() {
           </div>
         </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-4 lg:py-10 xl:py-15 2xl:py-20">
-          <div className="flex mx-auto outerBox place-content-center bg-white rounded-2xl shadow-xl p-10">
+          <div className="flex mx-auto bg-white opacity-90 lg:bg-sky-300 p-4 place-content-center rounded-2xl shadow-xl">
             <Image
-              className="bg-white rounded-xl p-4 shadow-xl"
+              className="bg-white opacity-95 rounded-xl p-4 lg:shadow-xl"
               src="/images/dir-logo-01.svg"
               height={350}
               width={350}
@@ -58,12 +58,12 @@ export default function Home() {
             />
           </div>
           <div className="flex justify-center items-center text-justify lg:max-w-xl p-4">
-            <div className="outerBox">
-              <div className="bg-white rounded-2xl p-4 lg:p-2 shadow-xl ">
+            <div className="opacity-90 outerBox lg:p-4">
+              <div className="bg-white rounded-2xl p-4 shadow-xl">
                 <h2 className="pb-5 htags text-center">
                   3D Cad modelling Services UK
                 </h2>
-                <div className="bg-sky-200 p-4 rounded-2xl shadow-xl">
+                <div className="bg-sky-200 p-4 p-4 rounded-2xl shadow-xl">
                   <p className="textsm lg:text-xl  pb-4">
                     Welcome to Dream InReality 3D CAD modelling services. We
                     help people create consumer products by creating 3D models
@@ -255,7 +255,10 @@ export default function Home() {
               <div className="flex">
                 <div className="p-5">
                   <div className="bg-white p-5 rounded-2xl shadow-xl">
-                    <div className="flex justify-start pl-10">
+                    <a
+                      href="https://microworkshops.co.uk/"
+                      className="flex justify-start pl-10"
+                    >
                       <Image
                         className="icons rounded-full"
                         src="/images/mws_logo.png"
@@ -263,7 +266,7 @@ export default function Home() {
                         width={200}
                         alt="Microworkshops 3D printing ninja's logo. A cartoon ninja next to the company name in 3d text."
                       />
-                    </div>
+                    </a>
                     <h4 className="flex textlg rounded-2xl p-5">
                       Elliot @ Microworkshops
                     </h4>
@@ -285,7 +288,10 @@ export default function Home() {
               <div className="flex">
                 <div className="p-5">
                   <div className="bg-white p-5 rounded-2xl shadow-xl">
-                    <div className="flex justify-end pr-20">
+                    <a
+                      href="https://shadespecialists.co.uk/"
+                      className="flex justify-end pr-20"
+                    >
                       <Image
                         className="icons rounded-full"
                         src="/images/shade_spec.png"
@@ -293,10 +299,12 @@ export default function Home() {
                         width={150}
                         alt="Shade Specialists Logo"
                       />
-                    </div>
-                    <h4 className="flex textlg justify-end rounded-2xl p-5">
-                      Rupert @ Bambrella / ShadeSpecialists
-                    </h4>
+                    </a>
+                    <a href="https://bambrella.co.uk/">
+                      <h4 className="flex textlg justify-end rounded-2xl p-5">
+                        Rupert @ Bambrella / ShadeSpecialists
+                      </h4>
+                    </a>
                     <div className="textsm italic bg-sky-200 rounded-2xl shadow-xl">
                       <p className="p-4">
                         {
