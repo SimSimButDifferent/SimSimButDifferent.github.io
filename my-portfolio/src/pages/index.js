@@ -36,7 +36,7 @@ export default function Home() {
                 3D CAD Models
               </h1>
               <p className="headertext font-light">for mass-production</p>
-              <div className="lg:pt-5">
+              <div className="pt-3 xl:pt-5">
                 <Link
                   href="/contact"
                   className="headertext text-white font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600"
