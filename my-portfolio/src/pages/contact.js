@@ -17,7 +17,7 @@ const ContactPage = () => {
       <main className="pt-4">
         <div className="object-center ">
           <Image
-            src="/images/contact_header3.jpg"
+            src="/images/contact_header.png"
             width={1920}
             height={1920}
             alt="A hand holding a phone with some contact icons above it, made form light. "
