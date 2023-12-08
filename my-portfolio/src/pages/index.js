@@ -48,9 +48,9 @@ export default function Home() {
           </div>
         </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center p-4 lg:py-10 xl:py-15 2xl:py-20">
-          <div className="flex mx-auto bg-white opacity-90 lg:bg-sky-300 p-4 place-content-center rounded-2xl shadow-xl">
+          <div className="flex mx-auto bg-white opacity-90 p-4 place-content-center rounded-2xl shadow-xl bg-gray-100">
             <Image
-              className="bg-white opacity-95 rounded-xl p-4 lg:shadow-xl"
+              className="bg-white opacity-95 rounded-xl p-4 bg-gray-100"
               src="/images/dir-logo-01.svg"
               height={350}
               width={350}
@@ -58,12 +58,12 @@ export default function Home() {
             />
           </div>
           <div className="flex justify-center items-center text-justify lg:max-w-xl p-4">
-            <div className="opacity-90 outerBox lg:p-4">
-              <div className="bg-white rounded-2xl p-4 shadow-xl">
+            <div className="opacity-90 lg:p-4">
+              <div className="bg-gray-100 rounded-2xl p-4 shadow-xl">
                 <h2 className="pb-5 htags text-center">
                   3D Cad modelling Services UK
                 </h2>
-                <div className="bg-sky-200 p-4 p-4 rounded-2xl shadow-xl">
+                <div className="p-4 p-4 rounded-2xl">
                   <p className="textsm lg:text-xl  pb-4">
                     Welcome to Dream InReality 3D CAD modelling services. We
                     help people create consumer products by creating 3D models
@@ -88,13 +88,13 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col items-center pb-4 shadow-xl justify-center background-origin-content bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center">
-          <div className="p-10 py-10 outerBox">
-            <h2 className="phoneheadings bg-white md:text-2xl lg:text-4xl xl:5xl text-center p-5 rounded-2xl shadow-xl">
+          <div className="p-10 py-10">
+            <h2 className="phoneheadings bg-gray-100 bg-opacity-95 md:text-2xl lg:text-4xl xl:5xl text-center p-5 rounded-2xl shadow-xl">
               Our 3D CAD Design Services
             </h2>
           </div>
           <div className="grid grid-cols-1 px-10 pt-4 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center">
                   <Image
@@ -113,7 +113,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center">
                   <Image
@@ -131,7 +131,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center">
                   <Image
@@ -149,7 +149,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center background-white">
                   <Image
@@ -167,7 +167,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center pt-2 pb-4">
                   <Image
@@ -186,7 +186,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center">
                   <Image
@@ -205,7 +205,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center">
                   <Image
@@ -224,7 +224,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="outerBox">
+            <div className="">
               <div className="gridboxes">
                 <div className="flex justify-center">
                   <Image

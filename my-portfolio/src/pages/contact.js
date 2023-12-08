@@ -15,7 +15,7 @@ const ContactPage = () => {
         ></meta>
       </Head>
       <main className="pt-4">
-        <div className="object-center ">
+        <div className="object-center">
           <Image
             src="/images/contact_header.png"
             width={1920}

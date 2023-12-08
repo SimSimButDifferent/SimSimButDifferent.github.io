@@ -95,7 +95,7 @@ body {
   font-weight: 300;
   line-height: 1.5;
 
-  @apply 2xl:text-lg bg-sky-200 rounded-xl p-4 text-justify shadow-xl font-normal;
+  @apply 2xl:text-lg rounded-xl p-4 text-justify font-normal bg-opacity-95;
 }
 
 .contactText {
@@ -112,7 +112,7 @@ body {
 }
 
 .gridboxes {
-  @apply rounded-lg bg-white text-black p-4 lg:p-2 font-bold shadow-xl hover:shadow-xl hover:bg-gray-100;
+  @apply rounded-lg bg-gray-100 bg-opacity-95 text-black p-4 lg:p-2 font-bold shadow-xl hover:shadow-xl hover:bg-gray-200 hover:bg-opacity-95;
 }
 
 .icons {
