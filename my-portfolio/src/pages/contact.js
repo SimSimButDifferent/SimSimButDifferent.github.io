@@ -101,7 +101,7 @@ const ContactPage = () => {
             </div>
           </motion.div>
           <motion.div
-            className="mapContainer max-w-6xl py-10 md:py-0 md:px-10 xl:px-20 rounded-2xl"
+            className="mapContainer w-full max-w-2xl py-10 md:py-0 md:px-10 xl:px-20"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
