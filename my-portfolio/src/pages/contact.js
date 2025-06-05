@@ -109,18 +109,6 @@ const ContactPage = () => {
             <Map address="Dream InReality, Sellindge, Ashford, UK" />
           </motion.div>
         </div>
-        <motion.div
-          className="flex flex-col shadow-xl p-10 justify-center items-center"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <div className="outerBox">
-            <p className="contactText p-2 text-white font-bold">
-              Opening hours: 9:00AM - 5:00PM
-            </p>
-          </div>
-        </motion.div>
       </main>
     </div>
   );

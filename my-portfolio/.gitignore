@@ -19,6 +19,7 @@
 .DS_Store
 *.pem
 ANIMATION_GUIDE.md
+.cursorrules
 
 # debug
 npm-debug.log*

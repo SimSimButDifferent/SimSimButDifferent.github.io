@@ -116,7 +116,7 @@ export default function Home() {
                   transition={{ duration: 0.3 }}
                 >
                   <motion.h2
-                    className="textlg text-center mb-6"
+                    className="htags-light text-center mb-6"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >

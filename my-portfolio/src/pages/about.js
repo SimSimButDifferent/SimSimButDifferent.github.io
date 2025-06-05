@@ -32,7 +32,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="phoneheadings lg:text-4xl xl:text-5xl">
+            <h1 className="phoneheadings lg:text-2xl xl:text-4xl">
               About Dream InReality
             </h1>
           </motion.div>
@@ -56,7 +56,7 @@ export default function About() {
 
             <motion.div className="space-y-6">
               <motion.p
-                className="textsm"
+                className="textsm lg:text-base"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -70,21 +70,22 @@ export default function About() {
               </motion.p>
 
               <motion.p
-                className="textsm"
+                className="textsm lg:text-base"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
                 Before establishing Dream InReality, Simeon worked for a 3D
-                printing company in Fulham. During that time, he designed and
-                produced 3D models for a wide array of industries, from
-                architects to jewellery makers. Simeon developed an
+                printing company in London. During that time, he designed and
+                produced 3D models for a wide array of industries, from garden
+                furniture to musical equipment. Simeon developed an
                 understanding for what can make a good 3D model for 3D printing,
-                and how to produce detailed construction drawings.
+                and how to produce detailed construction drawings for mass
+                production.
               </motion.p>
 
               <motion.p
-                className="textsm"
+                className="textsm lg:text-base"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
@@ -108,7 +109,7 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <motion.p
-                className="textsm"
+                className="textsm lg:text-base"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -122,7 +123,7 @@ export default function About() {
               </motion.p>
 
               <motion.p
-                className="textsm"
+                className="textsm lg:text-base"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
@@ -136,7 +137,7 @@ export default function About() {
               </motion.p>
 
               <motion.p
-                className="textsm"
+                className="textsm lg:text-base"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
