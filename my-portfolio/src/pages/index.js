@@ -7,6 +7,7 @@ import {
   useScrollAnimation,
   animationVariants,
 } from "../hooks/useScrollAnimation";
+import AnimatedLogo from "../components/AnimatedLogo";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -100,13 +101,7 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
                 style={{ perspective: 1000 }}
               >
-                <Image
-                  className="bg-white opacity-95 rounded-xl p-4 bg-gray-100"
-                  src="/images/dir-logo-01.svg"
-                  height={350}
-                  width={350}
-                  alt="Dream InReality Logo - An illusion of a 3D cube overlapping"
-                />
+                <AnimatedLogo />
               </motion.div>
             </div>
           </ScrollReveal>
