@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+ANIMATION_GUIDE.md
 
 # debug
 npm-debug.log*

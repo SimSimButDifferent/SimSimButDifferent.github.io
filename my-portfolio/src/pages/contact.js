@@ -3,6 +3,7 @@ import Head from "next/head";
 import Map from "@/components/Map";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const ContactPage = () => {
   return (
@@ -25,9 +26,22 @@ const ContactPage = () => {
           />
         </div>
         <div className="flex flex-col bg-white p-10 md:flex-row pb-10 md:shadow-xl justify-around">
-          <div className="bg-sky-300 p-4 rounded-2xl shadow-xl">
+          <motion.div
+            className="bg-sky-300 p-4 rounded-2xl shadow-xl"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ scale: 1.02 }}
+          >
             <div className="flex flex-col bg-white rounded-2xl shadow-xl text-center p-4">
-              <h1 className="flex headings justify-center">Contact</h1>
+              <motion.h1
+                className="flex headings justify-center"
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                Contact
+              </motion.h1>
               <div className="textboxes">
                 <p className="pb-5 text-center lg:text-left">
                   If you would like to discuss a project of yours
@@ -77,11 +91,28 @@ const ContactPage = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="mapContainer max-w-6xl py-10 md:py-0 md:px-10 xl:px-20 rounded-2xl">
+          </motion.div>
+          <motion.div
+            className="mapContainer max-w-6xl py-10 md:py-0 md:px-10 xl:px-20 rounded-2xl"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <Map address="Dream InReality, Sellindge, Ashford, UK" />
-          </div>
+          </motion.div>
         </div>
+        <motion.div
+          className="flex flex-col shadow-xl p-10 justify-center items-center"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <div className="outerBox">
+            <p className="contactText p-2 text-white font-bold">
+              Opening hours: 9:00AM - 5:00PM
+            </p>
+          </div>
+        </motion.div>
       </main>
     </div>
   );
