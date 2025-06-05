@@ -6,16 +6,17 @@ import { Poppins } from "next/font/google";
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
-  weight: ["100", "600", "900"],
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
+  display: "swap",
 });
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <div className={poppins.variable}>
       <Navbar />
       {children}
       <Footer />
-    </>
+    </div>
   );
 };
 export default Layout;
