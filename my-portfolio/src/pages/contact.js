@@ -4,10 +4,18 @@ import Map from "@/components/Map";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
+  display: "swap",
+});
 
 const ContactPage = () => {
   return (
-    <div>
+    <div className={poppins.variable}>
       <Head>
         <title>Dream InReality - Contact</title>
         <meta

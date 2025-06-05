@@ -12,7 +12,8 @@ import AnimatedLogo from "../components/AnimatedLogo";
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
-  weight: ["100", "600", "900"],
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
+  display: "swap",
 });
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <div>
+    <div className={poppins.variable}>
       <Head>
         <title>Dream InReality - 3D Cad Modelling Services</title>
         <meta name="description" content="3D CAD Modelling Services UK"></meta>

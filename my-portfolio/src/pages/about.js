@@ -3,14 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import { motion } from "framer-motion";
+import { Poppins } from "next/font/google";
 import {
   useScrollAnimation,
   animationVariants,
 } from "../hooks/useScrollAnimation";
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
+  display: "swap",
+});
+
 export default function About() {
   return (
-    <div>
+    <div className={poppins.variable}>
       <Head>
         <title>About - Dream InReality</title>
         <meta name="description" content="About Dream InReality"></meta>

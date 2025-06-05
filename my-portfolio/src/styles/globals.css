@@ -28,9 +28,9 @@ html {
 }
 
 main {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   line-height: 2rem;
-  font-weight: 200;
+  font-weight: 300;
   color: black;
   width: 100vw;
   /* Add perspective for 3D effects */
@@ -38,42 +38,42 @@ main {
 }
 
 .navbar {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1.25rem;
   line-height: 2rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 .phoneheadings {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 2rem;
   line-height: 2.5rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
 }
 
 .headings {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 4.25rem;
   line-height: 2.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 .subheadings {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1.5rem;
   line-height: 2rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 .htags {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1.75rem;
   line-height: 2rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
 }
 
@@ -98,37 +98,38 @@ body {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
 }
 
 .textlg {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 .textsm {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5;
 
   @apply lg:text-base xl:text-sm 2xl:text-xl;
 }
 
 .textboxes {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1.1rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
 
   @apply 2xl:text-lg rounded-xl p-4 text-justify font-normal bg-opacity-95;
 }
 
 .contactText {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5;
 
   @apply text-center md:text-start md:text-xl lg:text-2xl;
