@@ -146,7 +146,7 @@ const MapTest = () => {
             <li>Better performance and rendering</li>
             <li>Enhanced customization options</li>
             <li>Clean, minimal design</li>
-            <li>Google's official recommendation</li>
+            <li>Google&apos;s official recommendation</li>
           </ul>
         </div>
       </div>
