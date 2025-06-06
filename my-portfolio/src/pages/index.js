@@ -10,6 +10,7 @@ import {
 import AnimatedLogo from "../components/AnimatedLogo";
 import TiltBox from "../components/TiltBox";
 import { useRef } from "react";
+import useWindowSize from "../hooks/useWindowSize";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +28,11 @@ export default function Home() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  const { width } = useWindowSize();
+  const isLgScreen = width >= 1024; // Tailwind's 'lg' breakpoint
+
   function handleMouseMove({ clientX, clientY, currentTarget }) {
+    if (!isLgScreen) return;
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
     const x = clientX - left;
     const y = clientY - top;
@@ -126,6 +131,7 @@ export default function Home() {
                 tiltDirection="right"
                 mouseX={mouseX}
                 mouseY={mouseY}
+                isTiltEnabled={isLgScreen}
                 className="rounded-2xl"
               >
                 <div className="flex bg-white opacity-90 h-full place-content-center items-center shadow-xl bg-gray-100 rounded-2xl p-4">
@@ -139,6 +145,7 @@ export default function Home() {
                 tiltDirection="left"
                 mouseX={mouseX}
                 mouseY={mouseY}
+                isTiltEnabled={isLgScreen}
                 className="rounded-2xl"
               >
                 <div className="flex flex-col justify-center items-center h-full p-4 bg-gray-100 rounded-2xl shadow-xl opacity-90">

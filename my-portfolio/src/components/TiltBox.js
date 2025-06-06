@@ -7,8 +7,21 @@ const TiltBox = ({
   tiltDirection = "none",
   mouseX,
   mouseY,
+  isTiltEnabled = true,
 }) => {
-  // Use spring for smooth transitions
+  if (!isTiltEnabled) {
+    // For smaller screens, apply a simple hover effect
+    return (
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        className={`h-full ${className}`}
+      >
+        {children}
+      </motion.div>
+    );
+  }
+
+  // Use spring for smooth transitions for the tilt effect
   const smoothOptions = { stiffness: 300, damping: 20, mass: 0.5 };
   const smoothMouseX = useSpring(mouseX, smoothOptions);
   const smoothMouseY = useSpring(mouseY, smoothOptions);
@@ -44,8 +57,8 @@ const TiltBox = ({
       style={{
         ...baseStyle,
         perspective: 1000,
-        rotateY: tiltDirection !== "none" ? rotateY : 0,
-        rotateX: tiltDirection !== "none" ? rotateX : 0,
+        rotateY,
+        rotateX,
       }}
       className={`h-full ${className}`}
     >
