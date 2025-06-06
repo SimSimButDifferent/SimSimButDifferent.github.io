@@ -20,6 +20,8 @@
 *.pem
 ANIMATION_GUIDE.md
 .cursorrules
+ANIMATION_GUIDE.md
+GOOGLE_MAPS_API_KEY.md
 
 # debug
 npm-debug.log*
