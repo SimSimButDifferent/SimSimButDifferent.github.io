@@ -2,12 +2,14 @@ import Image from "next/image";
 import { Poppins } from "next/font/google";
 import Head from "next/head";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import {
   useScrollAnimation,
   animationVariants,
 } from "../hooks/useScrollAnimation";
 import AnimatedLogo from "../components/AnimatedLogo";
+import TiltBox from "../components/TiltBox";
+import { useRef } from "react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,6 +22,24 @@ export default function Home() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  const gridRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ clientX, clientY, currentTarget }) {
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = clientX - left;
+    const y = clientY - top;
+    // Normalize to [-0.5, 0.5] so 0 is the center
+    mouseX.set(x / width - 0.5);
+    mouseY.set(y / height - 0.5);
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
 
   return (
     <div className={poppins.variable}>
@@ -94,59 +114,64 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 grid-cols-1 bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center  min-h-screen">
-          <ScrollReveal variant="fadeInLeft">
-            <div className="flex mx-auto bg-white opacity-90 h-full place-content-center items-center shadow-xl bg-gray-100">
-              <motion.div
-                whileHover={{ rotateY: 15 }}
-                transition={{ duration: 0.3 }}
-                style={{ perspective: 1000 }}
+        <div
+          ref={gridRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center min-h-screen p-4 md:p-10 flex items-center"
+        >
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-16 max-w-7xl mx-auto">
+            <ScrollReveal variant="fadeInLeft">
+              <TiltBox
+                tiltDirection="right"
+                mouseX={mouseX}
+                mouseY={mouseY}
+                className="rounded-2xl"
               >
-                <AnimatedLogo />
-              </motion.div>
-            </div>
-          </ScrollReveal>
+                <div className="flex bg-white opacity-90 h-full place-content-center items-center shadow-xl bg-gray-100 rounded-2xl p-4">
+                  <AnimatedLogo />
+                </div>
+              </TiltBox>
+            </ScrollReveal>
 
-          <ScrollReveal variant="fadeInRight">
-            <div className="flex flex-col justify-center items-center h-full p-4">
-              <div className="opacity-90 lg:p-4 max-w-xl">
-                <motion.div
-                  className="bg-gray-100 rounded-2xl p-4 shadow-xl"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.h2
-                    className="htags-light text-center mb-6"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    3D Cad modelling Services UK
-                  </motion.h2>
-                  <div className="p-4 rounded-2xl">
-                    <p className="textsm lg:text-xl pb-4">
-                      Welcome to Dream InReality 3D CAD modelling services. We
-                      help people create consumer products by creating 3D models
-                      that are parametric, easy to modify and make.
-                    </p>
-                    <p className="textsm lg:text-xl pb-4">
-                      {" "}
-                      Whether electronic or mechanical, we can take you through
-                      the product development process, with our 3D CAD modelling
-                      services.
-                    </p>
-                    <p className="textsm lg:text-xl">
-                      Our 3D CAD modelling services begin with your idea,
-                      through the prototyping and testing, with 3D printing.
-                      Then finalise designs, outputting construction drawings
-                      and bill of materials for manufacturers. We can also
-                      output photorealistic renders to bring your product to
-                      life.
-                    </p>
+            <ScrollReveal variant="fadeInRight">
+              <TiltBox
+                tiltDirection="left"
+                mouseX={mouseX}
+                mouseY={mouseY}
+                className="rounded-2xl"
+              >
+                <div className="flex flex-col justify-center items-center h-full p-4 bg-gray-100 rounded-2xl shadow-xl opacity-90">
+                  <div className="lg:p-4 max-w-xl">
+                    <h2 className="htags-light text-center mb-6">
+                      3D Cad modelling Services UK
+                    </h2>
+                    <div className="p-4 rounded-2xl">
+                      <p className="textsm lg:text-xl pb-4">
+                        Welcome to Dream InReality 3D CAD modelling services. We
+                        help people create consumer products by creating 3D
+                        models that are parametric, easy to modify and make.
+                      </p>
+                      <p className="textsm lg:text-xl pb-4">
+                        {" "}
+                        Whether electronic or mechanical, we can take you
+                        through the product development process, with our 3D CAD
+                        modelling services.
+                      </p>
+                      <p className="textsm lg:text-xl">
+                        Our 3D CAD modelling services begin with your idea,
+                        through the prototyping and testing, with 3D printing.
+                        Then finalise designs, outputting construction drawings
+                        and bill of materials for manufacturers. We can also
+                        output photorealistic renders to bring your product to
+                        life.
+                      </p>
+                    </div>
                   </div>
-                </motion.div>
-              </div>
-            </div>
-          </ScrollReveal>
+                </div>
+              </TiltBox>
+            </ScrollReveal>
+          </div>
         </div>
 
         <div className="flex flex-col items-center pb-4 shadow-xl justify-center background-origin-content bg-[url('/images/bambrella-umbrella-hr.jpg')] bg-fixed bg-no-repeat bg-center">

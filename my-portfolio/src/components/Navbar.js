@@ -12,7 +12,7 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="flex flex-row justify-center pr-none lg:justify-end md:justify-end lg:pr-10 md:pr-10">
-        <ul className="flex pt-4 items-center">
+        <ul className="flex py-4 items-center">
           {/* Logo as part of navigation */}
           <motion.li
             className="pr-8"
