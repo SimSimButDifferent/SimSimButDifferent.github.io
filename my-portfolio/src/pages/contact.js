@@ -59,7 +59,7 @@ const ContactPage = () => {
                       </p>
                       <p className="pb-5 text-center">Get in touch today!</p>
                       <div className="flex flex-row justify-center">
-                        <a href="tel:+442476981341">
+                        <a href="tel:+441233234583">
                           <Image
                             src="/images/call_sky_400.svg"
                             height={30}
@@ -68,10 +68,10 @@ const ContactPage = () => {
                           ></Image>
                         </a>
                         <a
-                          href="tel:+442476981341"
+                          href="tel:+441233234583"
                           className="text-sky-400 hover:text-sky-600 pl-3"
                         >
-                          +44 (0)24 7698 1341
+                          +44 (0)1233 234583
                         </a>
                       </div>
                       <p className="py-5 text-center">
