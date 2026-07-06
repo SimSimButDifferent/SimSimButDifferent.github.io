@@ -1,11 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { services } from "../data/services";
 
 const Navbar = () => {
+  const [servicesOpen, setServicesOpen] = useState(false);
+
   return (
     <motion.div
       className="navbar text-black"
@@ -39,6 +42,38 @@ const Navbar = () => {
             <Link className="button px-10" href="/">
               Home
             </Link>
+          </motion.li>
+          <motion.li
+            className="relative"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+          >
+            <button
+              type="button"
+              className="button pr-14"
+              aria-expanded={servicesOpen}
+              onClick={() => setServicesOpen(!servicesOpen)}
+            >
+              Services
+            </button>
+            {servicesOpen && (
+              <ul className="absolute top-full left-0 z-50 min-w-max bg-white rounded-lg shadow-xl py-2">
+                {services.map(({ slug, title }) => (
+                  <li key={slug}>
+                    <Link
+                      href={slug}
+                      className="block px-4 py-2 hover:bg-sky-100"
+                      onClick={() => setServicesOpen(false)}
+                    >
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </motion.li>
           <motion.li
             className=""
