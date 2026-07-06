@@ -69,7 +69,7 @@ const Footer = () => {
               </a>
             </motion.p>
             <motion.p whileHover={{ scale: 1.05 }}>
-              <a href="tel:+442476981341">+44 (0) 24-7698-1341</a>
+              <a href="tel:+441233234583">+44 (0)1233 234583</a>
             </motion.p>
           </div>
         </motion.div>
