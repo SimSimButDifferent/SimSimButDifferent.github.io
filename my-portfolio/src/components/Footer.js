@@ -39,7 +39,7 @@ const Footer = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h3 className="font-bold pb-3">Pages</h3>
+          <h2 className="font-bold pb-3">Pages</h2>
           <div>
             <ul className="text-center">
               <motion.li whileHover={{ scale: 1.05 }}>
@@ -61,7 +61,7 @@ const Footer = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="pb-3 font-bold">Contact Info</h3>
+          <h2 className="pb-3 font-bold">Contact Info</h2>
           <div className="text-center">
             <motion.p className="py-1" whileHover={{ scale: 1.05 }}>
               <a href="mailto:dreaminrealitycad@gmail.com">
@@ -79,7 +79,7 @@ const Footer = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <h3 className="pb-3 font-bold">Company Location:</h3>
+          <h2 className="pb-3 font-bold">Company Location:</h2>
           <div className="text-center">
             <p>Swan Lane</p>
             <p>Sellindge, Ashford</p>
