@@ -1,5 +1,7 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
+import ScrollReveal from "@/components/ScrollReveal";
+import DfmReviewSketch from "@/components/DfmReviewSketch";
 
 const description =
   "DFM reviews for UK product businesses: manufacturability checks on your CAD models, with a written report and revised SLDPRT/SLDASM files and PDF drawings.";
@@ -61,98 +63,123 @@ export default function DfmConsultancy() {
       />
       <JsonLd schema={faqPageSchema(faqs)} />
 
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center mb-8">
-          DFM Consultancy UK
-        </h1>
-
-        <p className="textsm lg:text-base pb-4">
-          A design for manufacture (DFM) review examines your CAD models and
-          drawings against the process that will make them — injection
-          moulding, CNC machining, sheet metal or 3D printing — and returns a
-          written report of the changes that will reduce tooling cost, unit
-          cost and scrap. It is for product businesses that have a design and
-          want it checked before committing to tooling or a production order.
-        </p>
-
-        <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-        <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
-          <li>
-            A written DFM report (PDF) listing each issue found — wall
-            thickness, draft angles, undercuts, tolerance stack-ups,
-            fastener and assembly problems — with a recommended fix for each.
-          </li>
-          <li>
-            Revised part and assembly models as native SLDPRT/SLDASM files,
-            with STEP exports for other CAD systems.
-          </li>
-          <li>
-            Updated dimensioned PDF drawings where the changes affect an
-            existing drawing pack, with DXF profiles for sheet-metal or
-            flat-cut parts.
-          </li>
-        </ul>
-
-        <h2 className="htags-light pt-6 pb-3">How it works</h2>
-        <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
-          <li>
-            Send your CAD files (SolidWorks or STEP), drawings and intended
-            manufacturing process through the{" "}
-            <Link href="/contact" className="text-sky-500 hover:text-sky-600">
-              contact page
-            </Link>
-            .
-          </li>
-          <li>You receive a quote and an agreed delivery date.</li>
-          <li>
-            The review runs against your chosen process and volume; questions
-            are raised as they arise, not saved for the end.
-          </li>
-          <li>
-            You receive the report, revised models and updated drawings, with
-            a call to walk through the findings if you want one.
-          </li>
-        </ol>
-
-        <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-        <p className="textsm lg:text-base pb-4">
-          Product startups preparing for a first production run, small
-          manufacturers taking on a design from a client, workshop businesses
-          moving a one-off into batch production, and inventors who have a
-          working prototype and need it made repeatably. If the design work
-          itself is still to be done,{" "}
-          <Link
-            href="/services/solidworks-design"
-            className="text-sky-500 hover:text-sky-600"
-          >
-            SolidWorks design
-          </Link>{" "}
-          covers the modelling, and a{" "}
-          <Link
-            href="/services/construction-drawings"
-            className="text-sky-500 hover:text-sky-600"
-          >
-            construction drawing pack
-          </Link>{" "}
-          takes the reviewed design to the factory.
-        </p>
-
-        <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-        <div className="space-y-4 pb-8">
-          {faqs.map(({ question, answer }) => (
-            <div key={question}>
-              <h3 className="textsm lg:text-base font-bold pb-1">
-                {question}
-              </h3>
-              <p className="textsm lg:text-base">{answer}</p>
+      <div className="container mx-auto px-4 max-w-5xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center pb-6">
+          <div>
+            <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center lg:text-left mb-8">
+              DFM Consultancy UK
+            </h1>
+            <p className="textsm lg:text-base pb-4">
+              A design for manufacture (DFM) review examines your CAD models
+              and drawings against the process that will make them — injection
+              moulding, CNC machining, sheet metal or 3D printing — and
+              returns a written report of the changes that will reduce tooling
+              cost, unit cost and scrap. It is for product businesses that
+              have a design and want it checked before committing to tooling
+              or a production order.
+            </p>
+          </div>
+          <ScrollReveal variant="fadeInRight">
+            <div className="bg-sky-300 p-4 rounded-2xl shadow-xl">
+              <div className="bg-white rounded-2xl shadow-xl p-4">
+                <DfmReviewSketch />
+              </div>
             </div>
-          ))}
+          </ScrollReveal>
         </div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-4xl">
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
+          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
+            <li>
+              A written DFM report (PDF) listing each issue found — wall
+              thickness, draft angles, undercuts, tolerance stack-ups,
+              fastener and assembly problems — with a recommended fix for
+              each.
+            </li>
+            <li>
+              Revised part and assembly models as native SLDPRT/SLDASM files,
+              with STEP exports for other CAD systems.
+            </li>
+            <li>
+              Updated dimensioned PDF drawings where the changes affect an
+              existing drawing pack, with DXF profiles for sheet-metal or
+              flat-cut parts.
+            </li>
+          </ul>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">How it works</h2>
+          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
+            <li>
+              Send your CAD files (SolidWorks or STEP), drawings and intended
+              manufacturing process through the{" "}
+              <Link
+                href="/contact"
+                className="text-sky-400 hover:text-sky-600"
+              >
+                contact page
+              </Link>
+              .
+            </li>
+            <li>You receive a quote and an agreed delivery date.</li>
+            <li>
+              The review runs against your chosen process and volume;
+              questions are raised as they arise, not saved for the end.
+            </li>
+            <li>
+              You receive the report, revised models and updated drawings,
+              with a call to walk through the findings if you want one.
+            </li>
+          </ol>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
+          <p className="textsm lg:text-base pb-4">
+            Product startups preparing for a first production run, small
+            manufacturers taking on a design from a client, workshop
+            businesses moving a one-off into batch production, and inventors
+            who have a working prototype and need it made repeatably. If the
+            design work itself is still to be done,{" "}
+            <Link
+              href="/services/solidworks-design"
+              className="text-sky-400 hover:text-sky-600"
+            >
+              SolidWorks design
+            </Link>{" "}
+            covers the modelling, and a{" "}
+            <Link
+              href="/services/construction-drawings"
+              className="text-sky-400 hover:text-sky-600"
+            >
+              construction drawing pack
+            </Link>{" "}
+            takes the reviewed design to the factory.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
+          <div className="space-y-4 pb-8">
+            {faqs.map(({ question, answer }) => (
+              <div key={question}>
+                <h3 className="textsm lg:text-base font-bold pb-1">
+                  {question}
+                </h3>
+                <p className="textsm lg:text-base">{answer}</p>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
 
         <div className="text-center pt-4 pb-8">
           <Link
             href="/contact"
-            className="contactText button bg-sky-300 p-4 text-black font-light hover:bg-sky-500 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-sky-400 px-4 py-2 text-white font-bold hover:bg-sky-600 rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Send your brief
           </Link>
