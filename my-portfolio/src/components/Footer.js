@@ -7,6 +7,7 @@ import {
   useScrollAnimation,
   animationVariants,
 } from "../hooks/useScrollAnimation";
+import { services } from "../data/services";
 
 const Footer = () => {
   const { ref, isInView } = useScrollAnimation();
@@ -52,6 +53,23 @@ const Footer = () => {
                 <Link href="/contact">Contact</Link>
               </motion.li>
               {/* Add more page links as needed */}
+            </ul>
+          </div>
+        </motion.div>
+        <motion.div
+          className="footersect"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.25 }}
+        >
+          <h2 className="font-bold pb-3">Services</h2>
+          <div>
+            <ul className="text-center">
+              {services.map(({ slug, title }) => (
+                <motion.li key={slug} whileHover={{ scale: 1.05 }}>
+                  <Link href={slug}>{title}</Link>
+                </motion.li>
+              ))}
             </ul>
           </div>
         </motion.div>
