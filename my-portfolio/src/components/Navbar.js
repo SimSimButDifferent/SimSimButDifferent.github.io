@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <motion.div
-      className="navbar text-black"
+      className="navbar text-black relative z-50"
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -43,22 +43,22 @@ const Navbar = () => {
               Home
             </Link>
           </motion.li>
-          <motion.li
+          <li
             className="relative"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
             onMouseEnter={() => setServicesOpen(true)}
             onMouseLeave={() => setServicesOpen(false)}
           >
-            <button
+            <motion.button
               type="button"
               className="button pr-14"
               aria-expanded={servicesOpen}
               onClick={() => setServicesOpen(!servicesOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
             >
               Services
-            </button>
+            </motion.button>
             {servicesOpen && (
               <ul className="absolute top-full left-0 z-50 min-w-max bg-white rounded-lg shadow-xl py-2">
                 {services.map(({ slug, title }) => (
@@ -74,7 +74,7 @@ const Navbar = () => {
                 ))}
               </ul>
             )}
-          </motion.li>
+          </li>
           <motion.li
             className=""
             whileHover={{ scale: 1.05 }}
