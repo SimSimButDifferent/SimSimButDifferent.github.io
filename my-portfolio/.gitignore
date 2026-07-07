@@ -38,3 +38,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# WSL download artifacts
+*:Zone.Identifier
+
+# local Claude settings
+.claude/settings.local.json
