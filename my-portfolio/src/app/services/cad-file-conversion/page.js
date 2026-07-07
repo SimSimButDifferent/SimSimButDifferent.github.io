@@ -1,5 +1,7 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
+import ScrollReveal from "@/components/ScrollReveal";
+import FormatFlow from "@/components/FormatFlow";
 
 const description =
   "CAD file conversion between STEP, IGES, DXF and native SolidWorks formats, checked before delivery so parts open cleanly in your supplier's software.";
@@ -63,85 +65,101 @@ export default function CadFileConversion() {
 
         <p className="textsm lg:text-base pb-4">
           Conversion between native SolidWorks formats (SLDPRT/SLDASM/SLDDRW)
-          and the neutral formats suppliers ask for — STEP, IGES, Parasolid
-          and DXF. Every file is opened and checked before delivery, because
-          a conversion that fails on your supplier&apos;s machine means
-          another round of back-and-forth before anything gets cut.
+          and the neutral formats suppliers ask for — STEP, IGES, Parasolid and
+          DXF. Every file is opened and checked before delivery, because a
+          conversion that fails on your supplier&apos;s machine means another
+          round of back-and-forth before anything gets cut.
         </p>
 
-        <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-        <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
-          <li>
-            Converted files in the formats your suppliers and partners need:
-            STEP, IGES, Parasolid, DXF or native SolidWorks.
-          </li>
-          <li>
-            DXF flat patterns and profiles from sheet-metal parts, ready for
-            laser or plasma cutting.
-          </li>
-          <li>
-            A note of anything found and fixed during checking — missing
-            faces, broken surfaces, wrong units — so you know the state of
-            what was sent.
-          </li>
-        </ul>
-
-        <h2 className="htags-light pt-6 pb-3">How it works</h2>
-        <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
-          <li>
-            Send your files and the formats you need through the{" "}
-            <Link href="/contact" className="text-sky-500 hover:text-sky-600">
-              contact page
-            </Link>
-            .
-          </li>
-          <li>You receive a quote — for one file or a batch.</li>
-          <li>
-            Files are converted, then opened and inspected for geometry
-            errors before anything is sent back.
-          </li>
-          <li>You receive the checked files with the inspection note.</li>
-        </ol>
-
-        <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-        <p className="textsm lg:text-base pb-4">
-          Businesses whose supplier needs a format their CAD system cannot
-          produce, teams consolidating legacy files into a current format,
-          and anyone who has been sent geometry they cannot open. If what you
-          actually need is an editable parametric model rather than converted
-          geometry,{" "}
-          <Link
-            href="/services/solidworks-design"
-            className="text-sky-500 hover:text-sky-600"
-          >
-            SolidWorks design
-          </Link>{" "}
-          or{" "}
-          <Link
-            href="/services/reverse-engineering"
-            className="text-sky-500 hover:text-sky-600"
-          >
-            reverse engineering
-          </Link>{" "}
-          is the right service.
-        </p>
-
-        <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-        <div className="space-y-4 pb-8">
-          {faqs.map(({ question, answer }) => (
-            <div key={question}>
-              <h3 className="textsm lg:text-base font-bold pb-1">
-                {question}
-              </h3>
-              <p className="textsm lg:text-base">{answer}</p>
+        <ScrollReveal variant="scale">
+          <div className="bg-sky-300 p-4 rounded-2xl shadow-xl my-6">
+            <div className="bg-white rounded-2xl shadow-xl p-5">
+              <FormatFlow />
             </div>
-          ))}
-        </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
+          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
+            <li>
+              Converted files in the formats your suppliers and partners need:
+              STEP, IGES, Parasolid, DXF or native SolidWorks.
+            </li>
+            <li>
+              DXF flat patterns and profiles from sheet-metal parts, ready for
+              laser or plasma cutting.
+            </li>
+            <li>
+              A note of anything found and fixed during checking — missing
+              faces, broken surfaces, wrong units — so you know the state of
+              what was sent.
+            </li>
+          </ul>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">How it works</h2>
+          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
+            <li>
+              Send your files and the formats you need through the{" "}
+              <Link href="/contact" className="text-sky-400 hover:text-sky-600">
+                contact page
+              </Link>
+              .
+            </li>
+            <li>You receive a quote — for one file or a batch.</li>
+            <li>
+              Files are converted, then opened and inspected for geometry errors
+              before anything is sent back.
+            </li>
+            <li>You receive the checked files with the inspection note.</li>
+          </ol>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
+          <p className="textsm lg:text-base pb-4">
+            Businesses whose supplier needs a format their CAD system cannot
+            produce, teams consolidating legacy files into a current format, and
+            anyone who has been sent geometry they cannot open. If what you
+            actually need is an editable parametric model rather than converted
+            geometry,{" "}
+            <Link
+              href="/services/solidworks-design"
+              className="text-sky-400 hover:text-sky-600"
+            >
+              SolidWorks design
+            </Link>{" "}
+            or{" "}
+            <Link
+              href="/services/reverse-engineering"
+              className="text-sky-400 hover:text-sky-600"
+            >
+              reverse engineering
+            </Link>{" "}
+            is the right service.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeInUp">
+          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
+          <div className="space-y-4 pb-8">
+            {faqs.map(({ question, answer }) => (
+              <div key={question}>
+                <h3 className="textsm lg:text-base font-bold pb-1">
+                  {question}
+                </h3>
+                <p className="textsm lg:text-base">{answer}</p>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
 
         <div className="text-center pt-4 pb-8">
           <Link
             href="/contact"
-            className="contactText button bg-sky-300 p-4 text-black font-light hover:bg-sky-500 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-sky-400 px-4 py-2 text-white font-bold hover:bg-sky-600 rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Send your file list
           </Link>
