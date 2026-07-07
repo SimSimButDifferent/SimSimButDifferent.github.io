@@ -60,7 +60,7 @@ Pattern: **headings 400–600, body 300, emphasis via inline `font-bold`**, line
 
 ## 3. Spacing and layout rhythm
 
-- **Containers:** `max-w-7xl mx-auto` section container (home + contact). Text columns cap at `max-w-xl`. Service pages use a `max-w-4xl` reading column.
+- **Containers:** `max-w-7xl mx-auto` section container (home + contact). Text columns cap at `max-w-xl`. Service pages use a `max-w-4xl` reading column; pages with a two-column hero (text left, signature visual right) may widen the hero row to `max-w-5xl`, then return to `max-w-4xl` for the body.
 - **Section padding:** `p-4 md:p-10` or flat `p-10`; hero `px-5 pt-10`. `pb-10`/`py-10` between headings and content. No single sitewide vertical token — padding lives on wrapper divs (`p-4`, `p-5`, `p-10` recur).
 - **Card padding:** sky-300 frame `p-4`; inner white card `p-4`–`p-5`; large feature panels `p-10`.
 - **Grids:** two-column split `grid lg:grid-cols-2 grid-cols-1 gap-16` or `flex flex-col md:flex-row gap-6 md:gap-10`. Services grid `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-10 pt-4 text-center` (StaggeredGrid).
@@ -79,7 +79,8 @@ Framer Motion throughout; character is **soft, ease-out, 0.5–0.8s entrances, s
 - **Parallax:** hero background y 0→150px over 500px scroll, strapline opacity fade; `bg-fixed` photographic parallax on later sections.
 - **3D tilt:** `TiltBox` — desktop-only, rotateY ±15° / rotateX −10°, ±5° mouse-follow spring `{ stiffness: 300, damping: 20, mass: 0.5 }`, scale 1.05.
 - **SVG draw-on:** `AnimatedLogo` draws the wireframe cube via `pathLength` 0→1 over 2s easeInOut, 0.1s stagger, replaying on scroll. This is the signature "CAD sketch resolving" motif.
-- **CSS-side:** smooth scroll; `.gridboxes`/`.button`/`.icons` 0.2–0.3s ease transitions; full `prefers-reduced-motion` kill-switch (globals.css:165–174) — every new animation must respect it (framer-motion animations are covered by the global media query).
+- **CSS-side:** smooth scroll; `.gridboxes`/`.button`/`.icons` 0.2–0.3s ease transitions; `prefers-reduced-motion` kill-switch (globals.css:165–174) for CSS animations/transitions.
+- **Reduced motion for JS animations:** the CSS kill-switch does **not** reach Framer-Motion-driven animation (`pathLength`, transforms, opacity set via JS). Every component that choreographs its own entrance must call `useReducedMotion()` and render the final state immediately when it returns true (`initial={reduceMotion ? false : "hidden"}`). `ScrollReveal` and all service-page signature components do this — copy that pattern for new work.
 
 ## 5. Components
 
@@ -117,3 +118,4 @@ Recorded so new pages follow the dominant convention rather than copying an outl
 5. **Dead/typo classes in existing markup** (`xl:5xl`, `pt-2 pt-10`, `p-10 py-10`, undefined `footer` class, `width: 100vw` on main) — pre-existing; fix opportunistically when a file is already being edited.
 6. **Accent drift** — map pin hard-codes sky-500; interactive accent is sky-400. Use sky-400/600 for anything new.
 7. **Emoji in UI** — the map overlay's 📍 is an outlier; icon language is SVG only.
+8. **Construction-drawings drawing sheet** — `/services/construction-drawings` deliberately breaks §5's "no border utilities" rule: its signature element is a ruled drawing sheet (`border-2 border-black` frame + title-block grid), where real border lines *are* the subject matter. Sanctioned for that page only — do not copy borders elsewhere, and do not "fix" them away there. The title-block field labels carry sky-400 so the hero keeps the brand accent.
