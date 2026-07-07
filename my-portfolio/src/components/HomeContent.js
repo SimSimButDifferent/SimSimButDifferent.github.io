@@ -182,30 +182,35 @@ export default function HomeContent() {
             icon="/images/parametric_icon.svg"
             iconAlt="A square with a small square on each corner, with a capital A in the middle, in black"
             title="Parametric 3D Models"
+            href="/services/solidworks-design"
             description="Parametric SolidWorks models, delivered as native SLDPRT/SLDASM files with STEP exports, built so dimensions and features can be altered without rework."
           />
           <ServiceCard
             icon="/images/prototyping_icon.svg"
             iconAlt="3D printed prototype part icon in black"
             title="Rapid Prototyping"
+            href="/services/solidworks-design"
             description="Functional prototypes to test and validate your design, 3D printed from STL files produced directly from your CAD model."
           />
           <ServiceCard
             icon="/images/render_icon.svg"
             iconAlt="Camera shutter icon"
             title="Photorealistic Rendering"
+            href="/services/photorealistic-rendering"
             description="Photorealistic visualisations of your product from the CAD model, supplied as high-resolution images for listings, pitches and packaging."
           />
           <ServiceCard
             icon="/images/drawings_icon.svg"
             iconAlt="A factory icon"
             title="Construction Drawings"
+            href="/services/construction-drawings"
             description="Drawing packs for manufacture: dimensioned and toleranced PDF drawings, DXF profiles and a bill of materials."
           />
           <ServiceCard
             icon="/images/assembly_icon.svg"
             iconAlt="two rings interlinking in black"
             title="Assembly Modelling"
+            href="/services/solidworks-design"
             description="Multi-part SolidWorks assemblies (SLDASM) that integrate your components into a single 3D model and check fit and clearance before anything is made."
             iconSize={60}
             extraPadding
@@ -214,18 +219,21 @@ export default function HomeContent() {
             icon="/images/reverse_engineering_icon.svg"
             iconAlt="Reverse engineering icon in black"
             title="Reverse Engineering"
+            href="/services/reverse-engineering"
             description="Measured or scanned parts rebuilt as parametric SolidWorks models — useful when drawings are lost or a legacy part needs reproducing."
           />
           <ServiceCard
             icon="/images/file_conversion.svg"
             iconAlt="folder icon with an arrow in black"
             title="CAD File Conversion"
+            href="/services/cad-file-conversion"
             description="Conversion between STEP, IGES, DXF and native SolidWorks formats, so your files open cleanly in your suppliers' software."
           />
           <ServiceCard
             icon="/images/design_optimization.svg"
             iconAlt="Upwards arrow in black"
             title="Design Optimisation"
+            href="/services/dfm-consultancy"
             description="Analyse and refine existing designs to improve performance, reduce material use or simplify manufacture. Delivered as updated SLDPRT/SLDASM files with revised PDF drawings."
           />
         </StaggeredGrid>
