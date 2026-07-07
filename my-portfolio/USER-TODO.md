@@ -6,9 +6,13 @@ Tasks only you can do — assets, content and business confirmations. Claude add
 
 Every page currently uses the 512×512 favicon as its link-preview image. Create a **1200×630 PNG** — e.g. a photorealistic render with the Dream InReality logo — and save it as `public/og-image.png`. Once it exists, ask Claude to swap it into every page's OpenGraph metadata.
 
-## 2. Confirm DFM page FAQ claims
+## 2. Confirm service page FAQ claims
 
-`/services/dfm-consultancy` states: (a) a quote and agreed delivery date come before any work starts, and (b) NDAs are routinely signed. Confirm both match how you actually work, or tell Claude how to reword them.
+Confirm these match how you actually work, or tell Claude how to reword them:
+
+- `/services/dfm-consultancy`: (a) a quote and agreed delivery date come before any work starts, and (b) NDAs are routinely signed.
+- `/services/solidworks-design` and `/services/photorealistic-rendering`: clients own all delivered files with **no licence conditions** (renders usable "without restriction"). Check this matches your actual terms of business.
+- `/services/solidworks-design`: the FAQ uses an illustrative "a 400 mm version of a 300 mm part is an edit, not a redraw" example — fine if you're happy with hypothetical dimensions.
 
 ## 3. Provide Thailand liaison service details
 

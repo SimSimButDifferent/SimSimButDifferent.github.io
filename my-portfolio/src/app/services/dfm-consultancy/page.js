@@ -120,13 +120,21 @@ export default function DfmConsultancy() {
           manufacturers taking on a design from a client, workshop businesses
           moving a one-off into batch production, and inventors who have a
           working prototype and need it made repeatably. If the design work
-          itself is still to be done, parametric modelling and construction
-          drawing services are also available — see the services listed on
-          the{" "}
-          <Link href="/" className="text-sky-500 hover:text-sky-600">
-            home page
-          </Link>
-          .
+          itself is still to be done,{" "}
+          <Link
+            href="/services/solidworks-design"
+            className="text-sky-500 hover:text-sky-600"
+          >
+            SolidWorks design
+          </Link>{" "}
+          covers the modelling, and a{" "}
+          <Link
+            href="/services/construction-drawings"
+            className="text-sky-500 hover:text-sky-600"
+          >
+            construction drawing pack
+          </Link>{" "}
+          takes the reviewed design to the factory.
         </p>
 
         <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
