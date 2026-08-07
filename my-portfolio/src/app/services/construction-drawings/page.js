@@ -94,7 +94,7 @@ export default function ConstructionDrawings() {
                       i >= 2 ? "max-md:border-t max-md:border-l-0" : ""
                     } ${i === 3 ? "max-md:border-l" : ""}`}
                   >
-                    <p className="text-xs uppercase text-sky-400">{label}</p>
+                    <p className="text-xs uppercase text-ink">{label}</p>
                     <p className="textsm">{value}</p>
                   </div>
                 ))}
@@ -127,13 +127,13 @@ export default function ConstructionDrawings() {
             <li>
               Send your CAD files and the intended manufacturing process through
               the{" "}
-              <Link href="/contact" className="text-sky-400 hover:text-sky-600">
+              <Link href="/contact" className="text-accent hover:text-accent-hover">
                 contact page
               </Link>
               . No model yet?{" "}
               <Link
                 href="/services/reverse-engineering"
-                className="text-sky-400 hover:text-sky-600"
+                className="text-accent hover:text-accent-hover"
               >
                 Reverse engineering
               </Link>{" "}
@@ -162,7 +162,7 @@ export default function ConstructionDrawings() {
             against the process, a{" "}
             <Link
               href="/services/dfm-consultancy"
-              className="text-sky-400 hover:text-sky-600"
+              className="text-accent hover:text-accent-hover"
             >
               DFM review
             </Link>{" "}
@@ -188,7 +188,7 @@ export default function ConstructionDrawings() {
         <div className="text-center pt-4 pb-8">
           <Link
             href="/contact"
-            className="contactText button bg-sky-400 px-4 py-2 text-white font-bold hover:bg-sky-600 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Send your model or brief
           </Link>

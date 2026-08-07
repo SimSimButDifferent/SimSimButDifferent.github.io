@@ -36,7 +36,7 @@ const GoogleMap = ({
             <div className="text-center">
               <div className="mb-4">
                 <svg
-                  className="w-16 h-16 mx-auto text-sky-400"
+                  className="w-16 h-16 mx-auto text-accent-visual"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -55,20 +55,20 @@ const GoogleMap = ({
                   />
                 </svg>
               </div>
-              <p className="text-sky-700 font-medium mb-2">
+              <p className="text-ink font-medium mb-2">
                 Google Maps API Key Required
               </p>
-              <p className="text-sky-600 text-sm max-w-sm">
+              <p className="text-muted text-sm max-w-sm">
                 To display the map, please add your Google Maps API key to the
                 environment variables.
               </p>
-              <p className="text-xs text-sky-500 mt-3">
+              <p className="text-xs text-muted mt-3">
                 Visit{" "}
                 <a
                   href="https://console.cloud.google.com/google/maps-apis/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-sky-700"
+                  className="text-accent underline hover:text-accent-hover"
                 >
                   Google Cloud Console
                 </a>{" "}
@@ -136,7 +136,7 @@ const GoogleMap = ({
               {/* AdvancedMarker with custom Pin styling */}
               <AdvancedMarker position={center} title={address}>
                 <Pin
-                  background="#0ea5e9"
+                  background="#0e7490"
                   borderColor="#ffffff"
                   glyphColor="#ffffff"
                   scale={1.2}
@@ -147,8 +147,8 @@ const GoogleMap = ({
 
           {/* Address overlay */}
           <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg max-w-xs">
-            <p className="text-sm font-medium text-gray-800">{address}</p>
-            <p className="text-xs text-gray-600">📍 Interactive Map</p>
+            <p className="text-sm font-medium text-ink">{address}</p>
+            <p className="text-xs text-muted">📍 Interactive Map</p>
           </div>
         </div>
       </div>

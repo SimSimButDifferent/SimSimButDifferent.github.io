@@ -74,7 +74,7 @@ export default function ReverseEngineering() {
             </p>
           </div>
           <ScrollReveal variant="fadeInRight">
-            <div className="bg-sky-300 p-4 rounded-2xl shadow-xl">
+            <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl">
               <div className="bg-white rounded-2xl shadow-xl p-4">
                 <ExplodedView />
               </div>
@@ -99,7 +99,7 @@ export default function ReverseEngineering() {
               putting the part back into production — the same output as the{" "}
               <Link
                 href="/services/construction-drawings"
-                className="text-sky-400 hover:text-sky-600"
+                className="text-accent hover:text-accent-hover"
               >
                 construction drawings
               </Link>{" "}
@@ -116,7 +116,7 @@ export default function ReverseEngineering() {
               itself, measurements, scan data, old drawings) through the{" "}
               <Link
                 href="/contact"
-                className="text-sky-400 hover:text-sky-600"
+                className="text-accent hover:text-accent-hover"
               >
                 contact page
               </Link>
@@ -143,7 +143,7 @@ export default function ReverseEngineering() {
             part is heading back to a factory, a{" "}
             <Link
               href="/services/dfm-consultancy"
-              className="text-sky-400 hover:text-sky-600"
+              className="text-accent hover:text-accent-hover"
             >
               DFM review
             </Link>{" "}
@@ -169,7 +169,7 @@ export default function ReverseEngineering() {
         <div className="text-center pt-4 pb-8">
           <Link
             href="/contact"
-            className="contactText button bg-sky-400 px-4 py-2 text-white font-bold hover:bg-sky-600 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Describe your part
           </Link>

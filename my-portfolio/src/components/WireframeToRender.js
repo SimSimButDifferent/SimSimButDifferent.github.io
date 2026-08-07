@@ -56,16 +56,16 @@ const WireframeToRender = () => {
       >
         <defs>
           <linearGradient id="renderTop" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#e0f2fe" />
-            <stop offset="100%" stopColor="#bae6fd" />
+            <stop offset="0%" stopColor="#cffafe" />
+            <stop offset="100%" stopColor="#a5f3fc" />
           </linearGradient>
           <linearGradient id="renderLeft" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#7dd3fc" />
-            <stop offset="100%" stopColor="#38bdf8" />
+            <stop offset="0%" stopColor="#67e8f9" />
+            <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
           <linearGradient id="renderRight" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#38bdf8" />
-            <stop offset="100%" stopColor="#0284c7" />
+            <stop offset="0%" stopColor="#22d3ee" />
+            <stop offset="100%" stopColor="#0891b2" />
           </linearGradient>
         </defs>
 

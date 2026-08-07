@@ -51,7 +51,7 @@ export default function TestimonialCard({
           >
             {name}
           </h3>
-          <div className="textsm italic bg-sky-200 rounded-2xl shadow-xl">
+          <div className="textsm italic bg-cyan-200 rounded-2xl shadow-xl">
             {quotes.map((quote, index) => (
               <p key={index} className="p-4">
                 {quote}

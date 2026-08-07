@@ -60,7 +60,7 @@ const MapTest = () => {
       <div className="mb-6">
         <button
           onClick={() => setUseStaticMap(!useStaticMap)}
-          className="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
+          className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors"
         >
           Switch to {useStaticMap ? "Interactive AdvancedMarker" : "Static"} Map
         </button>
@@ -70,7 +70,7 @@ const MapTest = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Contact Box for Size Reference */}
         <div className="flex-shrink-0">
-          <div className="bg-sky-300 p-4 rounded-2xl shadow-xl">
+          <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl">
             <div className="flex flex-col bg-white rounded-2xl shadow-xl text-center p-4">
               <h3 className="text-xl font-semibold mb-4">
                 Contact Box Reference

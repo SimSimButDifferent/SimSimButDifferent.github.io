@@ -101,7 +101,7 @@ const ParametricFamily = () => {
               variants={outlineVariants}
             />
             <motion.path
-              className="fill-none stroke-sky-400 stroke-[3px]"
+              className="fill-none stroke-cyan-400 stroke-[3px]"
               style={strokeStyle}
               d={dim}
               variants={dimensionVariants}
@@ -111,7 +111,7 @@ const ParametricFamily = () => {
               y={290}
               textAnchor="middle"
               fontSize="22"
-              className="fill-sky-400"
+              className="fill-ink"
               variants={labelVariants}
             >
               {label}

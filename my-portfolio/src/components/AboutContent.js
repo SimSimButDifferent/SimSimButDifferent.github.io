@@ -113,7 +113,7 @@ export default function AboutContent() {
         >
           <Link
             href="/contact"
-            className="contactText button bg-sky-300 p-4 text-black font-light hover:bg-sky-500 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-accent p-4 text-white font-light hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Get In Touch
           </Link>

@@ -259,13 +259,13 @@ export default function HomeContent() {
 
       <div className="grid grid-col shadow-xl justify-center items-center p-4">
         <ScrollReveal variant="fadeInUp">
-          <div className="bg-sky-100 rounded-2xl p-10 shadow-xl">
+          <div className="bg-cyan-100 rounded-2xl p-10 shadow-xl">
             <div className="pb-10">
               <h2 className="phoneheadings bg-white md:text-3xl lg:text-4xl text-center p-5 rounded-2xl shadow-xl">
                 Testimonials
               </h2>
             </div>
-            <motion.div className="flex flex-col justify-between bg-sky-300 rounded-2xl shadow-xl">
+            <motion.div className="flex flex-col justify-between bg-cyan-300 rounded-2xl shadow-xl">
               <TestimonialCard
                 logo="/images/mws_logo.png"
                 logoAlt="Microworkshops logo - a cartoon ninja next to the company name in 3D text."

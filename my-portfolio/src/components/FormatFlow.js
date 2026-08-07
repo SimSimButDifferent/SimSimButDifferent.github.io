@@ -44,7 +44,7 @@ const Arrow = () => (
   >
     <path
       d="M 4,12 L 48,12 M 40,4 L 50,12 L 40,20"
-      className="fill-none stroke-sky-400 stroke-[4px]"
+      className="fill-none stroke-cyan-400 stroke-[4px]"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -54,7 +54,7 @@ const Arrow = () => (
 const Badge = ({ children, accent = false }) => (
   <motion.span
     className={`inline-block rounded-lg shadow-xl px-4 py-2 font-bold ${
-      accent ? "bg-sky-100" : "bg-gray-100 bg-opacity-95"
+      accent ? "bg-cyan-100" : "bg-gray-100 bg-opacity-95"
     }`}
     variants={badgeVariants}
   >
@@ -103,11 +103,11 @@ const FormatFlow = () => {
             cx="12"
             cy="12"
             r="10"
-            className="fill-none stroke-sky-400 stroke-2"
+            className="fill-none stroke-cyan-400 stroke-2"
           />
           <path
             d="M 7,12.5 L 10.5,16 L 17,8.5"
-            className="fill-none stroke-sky-400 stroke-2"
+            className="fill-none stroke-cyan-400 stroke-2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

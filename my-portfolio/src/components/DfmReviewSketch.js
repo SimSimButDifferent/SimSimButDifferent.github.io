@@ -82,7 +82,7 @@ const DfmReviewSketch = () => {
 
         {/* Annotation 1: wall thickness dimension */}
         <motion.path
-          className="fill-none stroke-sky-400 stroke-[3px]"
+          className="fill-none stroke-cyan-400 stroke-[3px]"
           style={annotationStroke}
           d="M 150,102 L 150,80 M 215,102 L 215,80 M 150,88 L 215,88 M 158,84 L 150,88 L 158,92 M 207,84 L 215,88 L 207,92"
           variants={annotationVariants}
@@ -92,7 +92,7 @@ const DfmReviewSketch = () => {
           y="62"
           textAnchor="middle"
           fontSize="21"
-          className="fill-sky-400"
+          className="fill-ink"
           variants={labelVariants}
         >
           wall thickness
@@ -100,7 +100,7 @@ const DfmReviewSketch = () => {
 
         {/* Annotation 2: draft angle against a dashed vertical reference */}
         <motion.line
-          className="fill-none stroke-sky-400 stroke-[3px]"
+          className="fill-none stroke-cyan-400 stroke-[3px]"
           style={{ ...annotationStroke, strokeDasharray: "8 8" }}
           x1="150"
           y1="110"
@@ -109,7 +109,7 @@ const DfmReviewSketch = () => {
           variants={annotationVariants}
         />
         <motion.path
-          className="fill-none stroke-sky-400 stroke-[3px]"
+          className="fill-none stroke-cyan-400 stroke-[3px]"
           style={annotationStroke}
           d="M 150,290 A 44 44 0 0 0 171,286 M 160,300 L 128,338"
           variants={annotationVariants}
@@ -119,7 +119,7 @@ const DfmReviewSketch = () => {
           y="362"
           textAnchor="middle"
           fontSize="21"
-          className="fill-sky-400"
+          className="fill-ink"
           variants={labelVariants}
         >
           draft angle
@@ -127,7 +127,7 @@ const DfmReviewSketch = () => {
 
         {/* Annotation 3: corner radius leader into the cavity */}
         <motion.path
-          className="fill-none stroke-sky-400 stroke-[3px]"
+          className="fill-none stroke-cyan-400 stroke-[3px]"
           style={annotationStroke}
           d="M 240,250 L 302,192"
           variants={annotationVariants}
@@ -137,7 +137,7 @@ const DfmReviewSketch = () => {
           y="186"
           textAnchor="start"
           fontSize="21"
-          className="fill-sky-400"
+          className="fill-ink"
           variants={labelVariants}
         >
           corner radius

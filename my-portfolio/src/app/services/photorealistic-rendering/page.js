@@ -73,7 +73,7 @@ export default function PhotorealisticRendering() {
             </p>
           </div>
           <ScrollReveal variant="fadeInRight">
-            <div className="bg-sky-300 p-4 rounded-2xl shadow-xl">
+            <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl">
               <div className="bg-white rounded-2xl shadow-xl p-4">
                 <WireframeToRender />
               </div>
@@ -108,14 +108,14 @@ export default function PhotorealisticRendering() {
               Send your CAD files and material references through the{" "}
               <Link
                 href="/contact"
-                className="text-sky-400 hover:text-sky-600"
+                className="text-accent hover:text-accent-hover"
               >
                 contact page
               </Link>
               . No CAD model yet?{" "}
               <Link
                 href="/services/solidworks-design"
-                className="text-sky-400 hover:text-sky-600"
+                className="text-accent hover:text-accent-hover"
               >
                 SolidWorks modelling
               </Link>{" "}
@@ -140,7 +140,7 @@ export default function PhotorealisticRendering() {
             pair with a{" "}
             <Link
               href="/services/construction-drawings"
-              className="text-sky-400 hover:text-sky-600"
+              className="text-accent hover:text-accent-hover"
             >
               construction drawing pack
             </Link>{" "}
@@ -166,7 +166,7 @@ export default function PhotorealisticRendering() {
         <div className="text-center pt-4 pb-8">
           <Link
             href="/contact"
-            className="contactText button bg-sky-400 px-4 py-2 text-white font-bold hover:bg-sky-600 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Send your model and references
           </Link>

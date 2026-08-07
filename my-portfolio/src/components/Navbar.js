@@ -65,7 +65,7 @@ const Navbar = () => {
                   <li key={slug}>
                     <Link
                       href={slug}
-                      className="block px-4 py-2 hover:bg-sky-100"
+                      className="block px-4 py-2 hover:bg-cyan-100"
                       onClick={() => setServicesOpen(false)}
                     >
                       {title}

@@ -72,7 +72,7 @@ export default function CadFileConversion() {
         </p>
 
         <ScrollReveal variant="scale">
-          <div className="bg-sky-300 p-4 rounded-2xl shadow-xl my-6">
+          <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl my-6">
             <div className="bg-white rounded-2xl shadow-xl p-5">
               <FormatFlow />
             </div>
@@ -103,7 +103,7 @@ export default function CadFileConversion() {
           <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
             <li>
               Send your files and the formats you need through the{" "}
-              <Link href="/contact" className="text-sky-400 hover:text-sky-600">
+              <Link href="/contact" className="text-accent hover:text-accent-hover">
                 contact page
               </Link>
               .
@@ -127,14 +127,14 @@ export default function CadFileConversion() {
             geometry,{" "}
             <Link
               href="/services/solidworks-design"
-              className="text-sky-400 hover:text-sky-600"
+              className="text-accent hover:text-accent-hover"
             >
               SolidWorks design
             </Link>{" "}
             or{" "}
             <Link
               href="/services/reverse-engineering"
-              className="text-sky-400 hover:text-sky-600"
+              className="text-accent hover:text-accent-hover"
             >
               reverse engineering
             </Link>{" "}
@@ -159,7 +159,7 @@ export default function CadFileConversion() {
         <div className="text-center pt-4 pb-8">
           <Link
             href="/contact"
-            className="contactText button bg-sky-400 px-4 py-2 text-white font-bold hover:bg-sky-600 rounded-lg transition-all duration-300 hover:shadow-lg"
+            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Send your file list
           </Link>

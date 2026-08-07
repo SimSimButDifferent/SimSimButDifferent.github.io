@@ -52,7 +52,7 @@ const ExplodedView = () => {
       >
         {/* Dashed centreline */}
         <motion.line
-          className="fill-none stroke-sky-400 stroke-[3px]"
+          className="fill-none stroke-cyan-400 stroke-[3px]"
           style={{ ...strokeStyle, strokeDasharray: "10 10" }}
           x1="200"
           y1="30"

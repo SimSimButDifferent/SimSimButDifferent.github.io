@@ -12,7 +12,7 @@ export default function ContactContent() {
           src="/images/contact_header.png"
           width={1920}
           height={1920}
-          alt="A hand holding a phone with some contact icons above it, made from light."
+          alt="The word CONTACT rendered as glossy 3D glass lettering in pale cyan and white."
           priority
         />
       </div>
@@ -26,7 +26,7 @@ export default function ContactContent() {
               transition={{ duration: 0.6, delay: 0.2 }}
               whileHover={{ scale: 1.02 }}
             >
-              <div className="bg-sky-300 p-4 rounded-2xl shadow-xl h-full">
+              <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl h-full">
                 <div className="flex flex-col bg-white rounded-2xl shadow-xl text-center p-4 h-full justify-center">
                   <motion.h1
                     className="flex headings justify-center"
@@ -45,7 +45,7 @@ export default function ContactContent() {
                     <div className="flex flex-row justify-center">
                       <a href="tel:+441233234583">
                         <Image
-                          src="/images/call_sky_400.svg"
+                          src="/images/call_cyan_400.svg"
                           height={30}
                           width={30}
                           alt="Call Dream InReality"
@@ -53,7 +53,7 @@ export default function ContactContent() {
                       </a>
                       <a
                         href="tel:+441233234583"
-                        className="text-sky-400 hover:text-sky-600 pl-3"
+                        className="text-accent hover:text-accent-hover pl-3"
                       >
                         +44 (0)1233 234583
                       </a>
@@ -67,7 +67,7 @@ export default function ContactContent() {
                         className="pr-3"
                       >
                         <Image
-                          src="/images/mail_sky_400.svg"
+                          src="/images/mail_cyan_400.svg"
                           height={30}
                           width={30}
                           alt="Email Dream InReality"
@@ -75,7 +75,7 @@ export default function ContactContent() {
                       </a>
                       <a
                         href="mailto:dreaminrealitycad@gmail.com"
-                        className="text-sky-400 hover:text-sky-600 break-all"
+                        className="text-accent hover:text-accent-hover break-all"
                       >
                         dreaminrealitycad@gmail.com
                       </a>
