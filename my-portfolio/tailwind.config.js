@@ -7,6 +7,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        // Semantic brand tokens — values are stock Tailwind colours only
+        // (slate for structure, cyan for the brand blue from the 3D logo render).
+        paper: "#f8fafc", // slate-50 — page background
+        ink: "#0f172a", // slate-900 — primary text on light surfaces
+        "ink-inverse": "#f8fafc", // slate-50 — text on the navy band
+        muted: "#475569", // slate-600 — secondary text
+        "muted-inverse": "#94a3b8", // slate-400 — secondary text on navy
+        accent: "#0e7490", // cyan-700 — interactive: links, CTAs, focus rings (AA on paper)
+        "accent-hover": "#155e75", // cyan-800 — hover state for accent
+        "accent-visual": "#22d3ee", // cyan-400 — decorative only, never link/body text on light
+        navy: "#0f172a", // slate-900 — dark section band background
+      },
       fontFamily: {
         sans: ["var(--font-poppins)"],
       },

@@ -10,30 +10,42 @@ Extracted from:
 
 ## 1. Palette
 
-No custom colours in `tailwind.config.js` — default Tailwind tokens only. The brand axis is **sky blue on white/light grey with black text**.
+The brand blue comes from the 3D logo render (`public/images/3d-logo/DIR-logo-3d-Beauty.png`) — a cool, glossy ice blue. It is encoded as the **stock Tailwind cyan scale** plus semantic tokens defined in `tailwind.config.js` `theme.extend.colors`. Every token value is a stock Tailwind colour (cyan for brand, slate for structure) — no invented hexes.
+
+**Site structure:** light theme on a near-white base. Dark appears as *sections*, not site-wide — the homepage hero is a deep navy band (`navy`) so the pale render sits on the dark surface it needs. Service pages keep light backgrounds.
+
+### Semantic tokens (tailwind.config.js)
+| Token | Hex | Source | Role |
+|---|---|---|---|
+| `paper` | `#f8fafc` | slate-50 | Page background |
+| `ink` | `#0f172a` | slate-900 | Primary text on light surfaces |
+| `ink-inverse` | `#f8fafc` | slate-50 | Text on the navy band |
+| `muted` | `#475569` | slate-600 | Secondary text |
+| `muted-inverse` | `#94a3b8` | slate-400 | Secondary text on navy |
+| `accent` | `#0e7490` | cyan-700 | **Interactive**: links, CTA backgrounds, focus rings. 5.1:1 on paper; white text on it 5.4:1 — both AA |
+| `accent-hover` | `#155e75` | cyan-800 | Hover state for `accent` |
+| `accent-visual` | `#22d3ee` | cyan-400 | **Decorative only**: SVG line-work, icon fills, signature-visual strokes |
+| `navy` | `#0f172a` | slate-900 | Dark section band background |
+
+### Decorative cyan family (raw stock utilities, no tokens)
+| Token | Hex | Role |
+|---|---|---|
+| `cyan-100` | `#cffafe` | Section wrapper washes (testimonials); dropdown item hover |
+| `cyan-200` | `#a5f3fc` | Quote block background in testimonial cards |
+| `cyan-300` | `#67e8f9` | "Frame" colour: outer wrapper around white cards (contact card frame, testimonials band, `.outerBox`) |
 
 ### Structural
-| Token | Hex | Role | Where |
-|---|---|---|---|
-| `black` | `#000000` | Body text, all copy (`main` rule, globals.css:34); logo strokes | everywhere |
-| `white` / `bg-white` | `#ffffff` | Card inner surfaces, nav dropdown, contact card inner, map card, testimonial card | HomeContent.js:125, ContactContent.js:19,30, Navbar.js |
-| `gray-100` | `#f3f4f6` | Card/panel surface (usually `bg-opacity-95`), service card background via `.gridboxes` | globals.css:106, HomeContent.js:125,139,174 |
-| `gray-200` (hover) | `#e5e7eb` | `.gridboxes` hover surface | globals.css:106 |
-| `slate-100` (hover) | `#f1f5f9` | `.button` (nav link) hover surface | globals.css:149 |
-
-### Accent (sky family — the only brand colour)
-| Token | Hex | Role | Where |
-|---|---|---|---|
-| `sky-100` | `#e0f2fe` | Section wrapper background (testimonials); dropdown item hover | HomeContent.js:236, Navbar.js |
-| `sky-200` | `#bae6fd` | Quote block background in testimonial cards | TestimonialCard.js:54 |
-| `sky-300` | `#7dd3fc` | "Frame" colour: outer wrapper around white cards (contact card frame, testimonials band, `.outerBox`) | ContactContent.js:29, HomeContent.js:242, globals.css:193 |
-| `sky-400` | `#38bdf8` | Primary accent: hero keyword text, CTA button background, contact link text, icon fill | HomeContent.js:76,101; ContactContent.js:56,78 |
-| `sky-500` | `#0ea5e9` | Map pin background (hard-coded hex) — accent drift, do not extend | Map.js:139 |
-| `sky-600` | `#0284c7` | Hover state for sky-400 (`hover:bg-sky-600`, `hover:text-sky-600`) | HomeContent.js:101, ContactContent.js:56,78 |
+| Token | Hex | Role |
+|---|---|---|
+| `black` | `#000000` | Body text (`main` rule, globals.css); logo strokes |
+| `white` / `bg-white` | `#ffffff` | Card inner surfaces, nav dropdown, testimonial card |
+| `gray-100` | `#f3f4f6` | Card/panel surface (usually `bg-opacity-95`), `.gridboxes` |
+| `gray-200` (hover) | `#e5e7eb` | `.gridboxes` hover surface |
+| `slate-100` (hover) | `#f1f5f9` | `.button` (nav link) hover surface |
 
 Utility only (not brand): `red-400/600/700` and `gray-800/600` in Map.js states.
 
-**Encoded rule:** black text on white/gray-100 cards; sky-300 frames white content; **sky-400 is the interactive/emphasis colour with sky-600 hover**.
+**Encoded rule — accent vs accent-visual:** interactive elements (links, buttons, anything clickable) use `accent` with `accent-hover`; the render blue (`accent-visual`, cyan-400) and the pale cyan family are decorative — SVG line-work, frames, washes — and are **never** body-copy or link colour on light surfaces. One sanctioned exception: on the navy band, cyan display text passes AA (cyan-400 on navy ≈ 9.8:1) and may carry the hero keyword.
 
 ## 2. Typography
 
@@ -84,9 +96,9 @@ Framer Motion throughout; character is **soft, ease-out, 0.5–0.8s entrances, s
 
 ## 5. Components
 
-- **Primary CTA (filled):** `bg-sky-400 rounded-lg text-white font-bold hover:bg-sky-600` (hero, HomeContent.js:99–104). Service pages currently use `bg-sky-300 hover:bg-sky-500 text-black` CTAs — when restyling, converge on the sky-400/sky-600 white-text spec with `px-4 py-2` minimum hit area.
+- **Primary CTA (filled) — canon:** `bg-accent rounded-lg text-white font-bold hover:bg-accent-hover`, `px-4 py-2` minimum hit area. **Not yet migrated:** the hero (HomeContent.js:99–104) still reads `bg-sky-400 hover:bg-sky-600`, and service pages still use `bg-sky-300 hover:bg-sky-500 text-black` — both converge on the accent spec in Phase 2 of the palette refresh.
 - **Nav/text button:** `.button` = `inline-block px-4 py-2 rounded-lg text-black hover:shadow-md hover:bg-slate-100`, motion `whileHover 1.05 / whileTap 0.95`.
-- **Text links:** `text-sky-400 hover:text-sky-600`. (Some service pages use sky-500 — converge on sky-400 when touched.)
+- **Text links — canon:** `text-accent hover:text-accent-hover`. **Not yet migrated:** current code uses `text-sky-400 hover:text-sky-600` (some pages sky-500) pending the same Phase 2 sweep.
 - **Service card:** `.gridboxes` = `rounded-lg bg-gray-100 bg-opacity-95 p-4 lg:p-2 font-bold shadow-xl hover:bg-gray-200`, centred black SVG icon (80px, 60px variant), `h3.text-xl`, `.textboxes` body. Hover scale 1.05 + rotateY 5°.
 - **Framed panel (signature container):** sky-300 outer box (`p-4 rounded-2xl shadow-xl`, aka `.outerBox`) wrapping a white `rounded-2xl shadow-xl` inner card.
 - **Heading chip:** `phoneheadings bg-gray-100 bg-opacity-95 text-center p-5 rounded-2xl shadow-xl` — headings sit in a rounded shadowed panel, not bare on the background.
@@ -112,10 +124,10 @@ Service-page signature elements should extend this language — line-drawn/draw-
 Recorded so new pages follow the dominant convention rather than copying an outlier:
 
 1. **Two h1 scales** — homepage `.htags-light` (1.75rem) vs contact `.headings` (4.25rem). Service pages use `phoneheadings lg:text-2xl xl:text-4xl` — treat that as the service-page standard.
-2. **Buttons** — canonical primary CTA: filled sky-400, white text, `rounded-lg`, `hover:bg-sky-600`, `px-4 py-2` minimum. `.button` is the secondary/nav style.
+2. **Buttons** — canonical primary CTA: filled `accent`, white text, `rounded-lg`, `hover:bg-accent-hover`, `px-4 py-2` minimum (mid-refresh: existing CTAs still show sky-400/sky-300 until each page's Phase 2 sweep). `.button` is the secondary/nav style.
 3. **Hover scale** — 1.05 standard; 1.02 for large panels; do not reuse the hero's 1.15 elsewhere.
 4. **`.textsm` responsive scale is non-monotonic** (shrinks at xl, jumps at 2xl; globals.css:121–128) — pre-existing quirk, fix only in a dedicated pass.
 5. **Dead/typo classes in existing markup** (`xl:5xl`, `pt-2 pt-10`, `p-10 py-10`, undefined `footer` class, `width: 100vw` on main) — pre-existing; fix opportunistically when a file is already being edited.
-6. **Accent drift** — map pin hard-codes sky-500; interactive accent is sky-400. Use sky-400/600 for anything new.
+6. **Accent drift** — map pin currently hard-codes `#0ea5e9` (sky-500); interactive accent is being migrated to `accent`/`accent-hover` (cyan-700/800). Use those tokens for anything new; the map pin's hex converges on `accent` in Phase 2.
 7. **Emoji in UI** — the map overlay's 📍 is an outlier; icon language is SVG only.
 8. **Construction-drawings drawing sheet** — `/services/construction-drawings` deliberately breaks §5's "no border utilities" rule: its signature element is a ruled drawing sheet (`border-2 border-black` frame + title-block grid), where real border lines *are* the subject matter. Sanctioned for that page only — do not copy borders elsewhere, and do not "fix" them away there. The title-block field labels carry sky-400 so the hero keeps the brand accent.
