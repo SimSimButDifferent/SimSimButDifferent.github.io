@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion";
 import { useRef } from "react";
 import AnimatedLogo from "./AnimatedLogo";
 import TiltBox from "./TiltBox";
@@ -16,6 +22,9 @@ export default function HomeContent() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  // The CSS reduced-motion kill-switch doesn't reach JS-driven animations,
+  // so honour the preference here: render the final state immediately.
+  const reduceMotion = useReducedMotion();
 
   const gridRef = useRef(null);
   const mouseX = useMotionValue(0);
@@ -42,47 +51,56 @@ export default function HomeContent() {
   return (
     <main>
       <motion.div
-        className="h-screen bg-[url('/images/header-assembly-blue.png')] bg-contain bg-no-repeat bg-origin-content pb-20 bg-bottom-25 sm:bg-right sm:bg-70% lg:bg-right-bottom lg:bg-70% xl:bg-80%"
+        className="relative h-screen overflow-hidden bg-navy"
         style={{ y }}
       >
-        <div className="flex flex-col">
+        {/* Cube render — decorative, anchored right on wide screens, bottom on mobile */}
+        <div className="pointer-events-none absolute inset-0 flex items-end justify-center pb-6 sm:items-center sm:justify-end sm:pb-0 sm:pr-6 lg:pr-10 xl:pr-16">
           <motion.div
-            className="px-5 pt-10 lg:pb-10"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <Image
-              className="lg:pt-0 md:pt-0"
-              src="/images/dream_inreality_logo_lg_logo.svg"
-              height={500}
-              width={500}
-              alt="Dream InReality logo - an illusion of a 3D cube overlapping with the company name on the right."
+              src="/images/3d-logo/dir-logo-3d-cutout-1200.webp"
+              alt="Impossible cube — the Dream InReality logo rendered in 3D"
+              width={991}
+              height={1200}
+              priority
+              className="h-[30vh] w-auto sm:h-[42vh] lg:h-[56vh] xl:h-[64vh]"
             />
           </motion.div>
-          <motion.div
-            className="flex flex-col pt-none pl-5"
-            style={{ opacity }}
-          >
+        </div>
+
+        <div className="relative z-10 flex h-full flex-col justify-center px-5 pb-[30vh] sm:px-10 sm:pb-0 lg:px-16">
+          <motion.div className="flex flex-col pt-none" style={{ opacity }}>
             <motion.p
-              className="headertext max-w-xl font-light rounded-lg pt-2 pt-10 md:pt-20"
-              initial={{ opacity: 0, x: -50 }}
+              className="text-sm font-semibold uppercase tracking-wide text-muted-inverse"
+              initial={reduceMotion ? false : { opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              Dream InReality
+            </motion.p>
+            <motion.p
+              className="headertext max-w-xl font-light rounded-lg text-ink-inverse"
+              initial={reduceMotion ? false : { opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               We produce
             </motion.p>
             <motion.p
-              className="headertext font-bold py-2 text-sky-400"
-              initial={{ opacity: 0, x: -50 }}
+              className="headertext font-bold py-2 text-accent-visual"
+              initial={reduceMotion ? false : { opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
               3D CAD Models
             </motion.p>
             <motion.p
-              className="headertext font-light"
-              initial={{ opacity: 0, x: -50 }}
+              className="headertext font-light text-ink-inverse"
+              initial={reduceMotion ? false : { opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
@@ -90,7 +108,7 @@ export default function HomeContent() {
             </motion.p>
             <motion.div
               className="pt-3 xl:pt-5 w-fit"
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               whileHover={{ scale: 1.15 }}
@@ -98,7 +116,7 @@ export default function HomeContent() {
             >
               <Link
                 href="/contact"
-                className="headertext text-white font-bold bg-sky-400 rounded-lg px-2 hover:bg-sky-600"
+                className="headertext rounded-lg bg-accent-visual px-4 py-2 font-bold text-ink hover:bg-cyan-300"
               >
                 Contact
               </Link>

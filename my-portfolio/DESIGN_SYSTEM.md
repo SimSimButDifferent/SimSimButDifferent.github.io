@@ -45,7 +45,9 @@ The brand blue comes from the 3D logo render (`public/images/3d-logo/DIR-logo-3d
 
 Utility only (not brand): `red-400/600/700` and `gray-800/600` in Map.js states.
 
-**Encoded rule — accent vs accent-visual:** interactive elements (links, buttons, anything clickable) use `accent` with `accent-hover`; the render blue (`accent-visual`, cyan-400) and the pale cyan family are decorative — SVG line-work, frames, washes — and are **never** body-copy or link colour on light surfaces. One sanctioned exception: on the navy band, cyan display text passes AA (cyan-400 on navy ≈ 9.8:1) and may carry the hero keyword.
+**Encoded rule — accent vs accent-visual:** interactive elements (links, buttons, anything clickable) use `accent` with `accent-hover`; the render blue (`accent-visual`, cyan-400) and the pale cyan family are decorative — SVG line-work, frames, washes — and are **never** body-copy or link colour on light surfaces. Two sanctioned exceptions, both scoped to the navy band only:
+1. Cyan display text passes AA on navy (cyan-400 on navy ≈ 9.8:1) and may carry the hero keyword (`HomeContent.js`, "3D CAD Models").
+2. The hero CTA sitting directly on the navy band uses `bg-accent-visual text-ink hover:bg-cyan-300` instead of the standard `bg-accent text-white` pattern — `accent` (cyan-700) only reaches ≈1.9:1 against `navy` (both very dark), which fails as a button surface, whereas `accent-visual` (cyan-400) against `ink` text is ≈9.8:1. This swap is scoped to CTAs on the navy band; every other CTA on light surfaces still uses the standard `accent`/`accent-hover` canon in §5.
 
 ## 2. Typography
 
@@ -73,7 +75,7 @@ Pattern: **headings 400–600, body 300, emphasis via inline `font-bold`**, line
 ## 3. Spacing and layout rhythm
 
 - **Containers:** `max-w-7xl mx-auto` section container (home + contact). Text columns cap at `max-w-xl`. Service pages use a `max-w-4xl` reading column; pages with a two-column hero (text left, signature visual right) may widen the hero row to `max-w-5xl`, then return to `max-w-4xl` for the body.
-- **Section padding:** `p-4 md:p-10` or flat `p-10`; hero `px-5 pt-10`. `pb-10`/`py-10` between headings and content. No single sitewide vertical token — padding lives on wrapper divs (`p-4`, `p-5`, `p-10` recur).
+- **Section padding:** `p-4 md:p-10` or flat `p-10`; hero text column `px-5 sm:px-10 lg:px-16`. `pb-10`/`py-10` between headings and content. No single sitewide vertical token — padding lives on wrapper divs (`p-4`, `p-5`, `p-10` recur).
 - **Card padding:** sky-300 frame `p-4`; inner white card `p-4`–`p-5`; large feature panels `p-10`.
 - **Grids:** two-column split `grid lg:grid-cols-2 grid-cols-1 gap-16` or `flex flex-col md:flex-row gap-6 md:gap-10`. Services grid `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-10 pt-4 text-center` (StaggeredGrid).
 - **Section separation:** sections abut — separation comes from background changes + `shadow-xl`, not margins.
@@ -96,7 +98,7 @@ Framer Motion throughout; character is **soft, ease-out, 0.5–0.8s entrances, s
 
 ## 5. Components
 
-- **Primary CTA (filled) — canon:** `bg-accent rounded-lg text-white font-bold hover:bg-accent-hover`, `px-4 py-2` minimum hit area. **Not yet migrated:** the hero (HomeContent.js:99–104) still reads `bg-sky-400 hover:bg-sky-600`, and service pages still use `bg-sky-300 hover:bg-sky-500 text-black` — both converge on the accent spec in Phase 2 of the palette refresh.
+- **Primary CTA (filled) — canon:** `bg-accent rounded-lg text-white font-bold hover:bg-accent-hover`, `px-4 py-2` minimum hit area. **Exception:** the hero CTA (`HomeContent.js`, on the navy band) uses `bg-accent-visual text-ink hover:bg-cyan-300` instead — see §1's second sanctioned exception. **Not yet migrated:** service pages still use `bg-sky-300 hover:bg-sky-500 text-black` — converges on the accent spec in Phase 2 of the palette refresh.
 - **Nav/text button:** `.button` = `inline-block px-4 py-2 rounded-lg text-black hover:shadow-md hover:bg-slate-100`, motion `whileHover 1.05 / whileTap 0.95`.
 - **Text links — canon:** `text-accent hover:text-accent-hover`. **Not yet migrated:** current code uses `text-sky-400 hover:text-sky-600` (some pages sky-500) pending the same Phase 2 sweep.
 - **Service card:** `.gridboxes` = `rounded-lg bg-gray-100 bg-opacity-95 p-4 lg:p-2 font-bold shadow-xl hover:bg-gray-200`, centred black SVG icon (80px, 60px variant), `h3.text-xl`, `.textboxes` body. Hover scale 1.05 + rotateY 5°.
