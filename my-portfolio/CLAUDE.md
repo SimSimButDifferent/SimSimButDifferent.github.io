@@ -36,3 +36,12 @@ Sole trader consultancy site for Simeon Campbell: DFM and 3D CAD consultancy (So
 - Run the style-auditor agent once at the start of the styling refresh (and again if the homepage changes) to produce/refresh `DESIGN_SYSTEM.md`.
 - Use the service-page skill when creating or rewriting a service page.
 - Before committing a page, run copy-reviewer, seo-auditor, and design-reviewer agents on it.
+
+## UI/UX skills
+
+Taste, a11y, bans, voice, and icon library for this project live in `.ux-profile.md`.
+Run `setup-ui-ux-skills` again only to change those defaults.
+Before UI or microcopy work, read `.ux-profile.md`, then the matching domain skill (page-patterns, viewports, forms, surfaces, loaders, empty-states, copy, motion).
+Before creating a new page, read `page-patterns` and name the pattern. Do not write page markup until the pattern is named.
+Layouts must pass `viewports` at 375px and 1280px.
+Before finishing UI, run `ux-audit`.

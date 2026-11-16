@@ -10,6 +10,20 @@ Extracted from:
 
 Note: `StaticMap.js` was audited because it shares the map fallback-state pattern, but it is not currently rendered from `ContactContent.js` (which imports `Map.js` as `GoogleMap`) — it's only wired up in the unused `MapTest.js` harness. Treat it as a pattern reference, not live contact-page markup.
 
+## 0. Dark theme (2026-11, in rollout)
+
+The site is moving from "light base, dark as sections" to dark throughout, using the look of the three.js service scenes. Migrated so far: navbar, footer, `/services/dfm-consultancy`. **Sections 1 to 7 below describe pages that have not moved yet.** New work follows this section and `.ux-profile.md`.
+
+- **Opt-in:** `<main className="page-dark">`. It out-ranks the legacy `main { color: black; width: 100vw }` rule, which stays until the last light page has gone.
+- **Tokens added:** `surface` #1e293b (slate-800, panels), `line` #334155 (slate-700, 1px borders). Existing `navy`, `ink-inverse`, `muted-inverse`, `accent-visual` carry the rest. Cyan-400 is the only accent and, on navy, is also the link and CTA colour (the old hero exception is now the rule on dark pages).
+- **Depth:** 1px `line` border and a one-step `surface` fill. No shadows, no cyan-300 frames.
+- **Type scale (minor third):** `text-title-sm` 1.2rem, `text-title` 1.728rem, `text-display` 2.488rem, `text-display-lg` 2.986rem. Body `text-base font-light leading-normal`, max 70ch. Weights 300 and 600 only.
+- **Component classes (`globals.css`):** `.page-dark`, `.panel`, `.eyebrow`, `.link-inverse`, `.btn-inverse`, `.chip`, `.nav-link`, `.focus-ring`.
+- **Motion:** no entrance animations on text. 150ms colour transitions on links and buttons; 200ms opacity cross-fades. No hover scale.
+- **Scroll scene pattern:** `ScrollScene` + `ScrollPane` (`src/components`). Text panes scroll on the left; a canvas is pinned on the right from `lg` up and scroll position sets scene time (`src/lib/scrollTimeline.mjs`). Scenes live in `src/scenes/<slug>.js`, registered in `src/scenes/stage.js`, and are pure functions of time. three.js loads on demand, desktop only. Still frames in `public/images/scenes/` are the view below `lg`, under reduced motion, and without WebGL. Per page: `sceneConfig.js` with `stops`, `stills`, `label`.
+- **`overflow-x: clip`, not `hidden`, on `html, body`:** `hidden` breaks `position: sticky`.
+- **Logos:** the black nav mark and footer wordmark are inverted in CSS (`invert`, plus `mix-blend-screen` for the opaque PNG). Replace with light artwork when available.
+
 ## 1. Palette
 
 The brand blue comes from the 3D logo render (`public/images/3d-logo/dir-logo-3d-cutout-1200.webp`) — a glossy, pale ice-blue-to-white glass render of the "impossible cube" mark. It is encoded as the **stock Tailwind cyan scale** plus semantic tokens defined in `tailwind.config.js` `theme.extend.colors` (`tailwind.config.js:10-22`). Every token value is a stock Tailwind colour (cyan for brand, slate for structure) — no invented hexes.

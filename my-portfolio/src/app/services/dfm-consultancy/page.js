@@ -1,7 +1,8 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
-import ScrollReveal from "@/components/ScrollReveal";
-import DfmReviewSketch from "@/components/DfmReviewSketch";
+import ScrollScene from "@/components/ScrollScene";
+import ScrollPane from "@/components/ScrollPane";
+import { label, stills, stops } from "./sceneConfig";
 
 const description =
   "DFM reviews for UK product businesses: manufacturability checks on your CAD models, with a written report and revised SLDPRT/SLDASM files and PDF drawings.";
@@ -53,7 +54,7 @@ export const metadata = {
 
 export default function DfmConsultancy() {
   return (
-    <main className="min-h-screen bg-white py-10">
+    <main className="page-dark min-h-screen">
       <JsonLd
         schema={serviceSchema({
           name: "DFM Consultancy",
@@ -63,36 +64,59 @@ export default function DfmConsultancy() {
       />
       <JsonLd schema={faqPageSchema(faqs)} />
 
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center pb-6">
-          <div>
-            <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center lg:text-left mb-8">
-              DFM Consultancy UK
-            </h1>
-            <p className="textsm lg:text-base pb-4">
-              A design for manufacture (DFM) review examines your CAD models
-              and drawings against the process that will make them — injection
-              moulding, CNC machining, sheet metal or 3D printing — and
-              returns a written report of the changes that will reduce tooling
-              cost, unit cost and scrap. It is for product businesses that
-              have a design and want it checked before committing to tooling
-              or a production order.
-            </p>
+      <ScrollScene
+        slug="dfm-consultancy"
+        stops={stops}
+        stills={stills}
+        label={label}
+      >
+        <ScrollPane step="01 · DFM consultancy" still={stills[0]}>
+          <h1 className="mb-6 text-display font-light lg:text-display-lg">
+            <span className="font-semibold text-accent-visual">DFM</span>{" "}
+            Consultancy UK
+          </h1>
+          <p className="max-w-[70ch]">
+            A design for manufacture (DFM) review examines your CAD models
+            and drawings against the process that will make them — injection
+            moulding, CNC machining, sheet metal or 3D printing — and
+            returns a written report of the changes that will reduce tooling
+            cost, unit cost and scrap. It is for product businesses that
+            have a design and want it checked before committing to tooling
+            or a production order.
+          </p>
+          <div className="mt-8">
+            <Link href="/contact" className="btn-inverse">
+              Send your brief
+            </Link>
           </div>
-          <ScrollReveal variant="fadeInRight">
-            <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl">
-              <div className="bg-white rounded-2xl shadow-xl p-4">
-                <DfmReviewSketch />
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </div>
+        </ScrollPane>
 
-      <div className="container mx-auto px-4 max-w-4xl">
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
+        <ScrollPane step="02 · The review" still={stills[1]}>
+          <h2 className="mb-4 text-title font-light">How it works</h2>
+          <ol className="max-w-[70ch] list-decimal space-y-3 pl-6 marker:text-accent-visual">
+            <li>
+              Send your CAD files (SolidWorks or STEP), drawings and intended
+              manufacturing process through the{" "}
+              <Link href="/contact" className="link-inverse">
+                contact page
+              </Link>
+              .
+            </li>
+            <li>You receive a quote and an agreed delivery date.</li>
+            <li>
+              The review runs against your chosen process and volume;
+              questions are raised as they arise, not saved for the end.
+            </li>
+            <li>
+              You receive the report, revised models and updated drawings,
+              with a call to walk through the findings if you want one.
+            </li>
+          </ol>
+        </ScrollPane>
+
+        <ScrollPane step="03 · The files" still={stills[2]}>
+          <h2 className="mb-4 text-title font-light">What is delivered</h2>
+          <ul className="max-w-[70ch] list-disc space-y-3 pl-6 marker:text-accent-visual">
             <li>
               A written DFM report (PDF) listing each issue found — wall
               thickness, draft angles, undercuts, tolerance stack-ups,
@@ -109,78 +133,58 @@ export default function DfmConsultancy() {
               flat-cut parts.
             </li>
           </ul>
-        </ScrollReveal>
+          <ul
+            aria-label="File formats delivered"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            <li className="chip">PDF report</li>
+            <li className="chip">SLDPRT</li>
+            <li className="chip">STEP</li>
+          </ul>
+        </ScrollPane>
+      </ScrollScene>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">How it works</h2>
-          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
-            <li>
-              Send your CAD files (SolidWorks or STEP), drawings and intended
-              manufacturing process through the{" "}
-              <Link
-                href="/contact"
-                className="text-accent hover:text-accent-hover"
-              >
-                contact page
-              </Link>
-              .
-            </li>
-            <li>You receive a quote and an agreed delivery date.</li>
-            <li>
-              The review runs against your chosen process and volume;
-              questions are raised as they arise, not saved for the end.
-            </li>
-            <li>
-              You receive the report, revised models and updated drawings,
-              with a call to walk through the findings if you want one.
-            </li>
-          </ol>
-        </ScrollReveal>
-
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-          <p className="textsm lg:text-base pb-4">
+      <div className="mx-auto max-w-4xl space-y-8 px-4 py-16 sm:px-6 lg:py-24">
+        <section className="panel">
+          <h2 className="mb-4 text-title font-light">Who it is for</h2>
+          <p className="max-w-[70ch]">
             Product startups preparing for a first production run, small
             manufacturers taking on a design from a client, workshop
             businesses moving a one-off into batch production, and inventors
             who have a working prototype and need it made repeatably. If the
             design work itself is still to be done,{" "}
-            <Link
-              href="/services/solidworks-design"
-              className="text-accent hover:text-accent-hover"
-            >
+            <Link href="/services/solidworks-design" className="link-inverse">
               SolidWorks design
             </Link>{" "}
             covers the modelling, and a{" "}
             <Link
               href="/services/construction-drawings"
-              className="text-accent hover:text-accent-hover"
+              className="link-inverse"
             >
               construction drawing pack
             </Link>{" "}
             takes the reviewed design to the factory.
           </p>
-        </ScrollReveal>
+        </section>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-          <div className="space-y-4 pb-8">
+        <section className="panel">
+          <h2 className="mb-6 text-title font-light">
+            Frequently asked questions
+          </h2>
+          <div className="divide-y divide-line">
             {faqs.map(({ question, answer }) => (
-              <div key={question}>
-                <h3 className="textsm lg:text-base font-bold pb-1">
+              <div key={question} className="py-6 first:pt-0 last:pb-0">
+                <h3 className="mb-2 pb-0 text-title-sm font-semibold">
                   {question}
                 </h3>
-                <p className="textsm lg:text-base">{answer}</p>
+                <p className="max-w-[70ch] text-muted-inverse">{answer}</p>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </section>
 
-        <div className="text-center pt-4 pb-8">
-          <Link
-            href="/contact"
-            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
-          >
+        <div className="pt-8 text-center">
+          <Link href="/contact" className="btn-inverse">
             Send your brief
           </Link>
         </div>

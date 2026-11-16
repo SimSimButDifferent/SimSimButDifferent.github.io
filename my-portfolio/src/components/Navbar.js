@@ -3,101 +3,85 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { services } from "../data/services";
 
 const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
-    <motion.div
-      className="navbar text-black relative z-50"
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <nav
+      aria-label="Main"
+      className="relative z-50 border-b border-line bg-navy font-light"
     >
-      <div className="flex flex-row justify-center pr-none lg:justify-end md:justify-end lg:pr-10 md:pr-10">
-        <ul className="flex py-4 items-center">
-          {/* Logo as part of navigation */}
-          <motion.li
-            className="pr-8"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+      <ul className="flex items-center justify-center gap-1 px-2 py-3 sm:gap-2 md:justify-end md:px-10">
+        <li className="pr-2 sm:pr-6">
+          <Link
+            href="/"
+            className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg"
           >
-            <Link href="/">
-              <Image
-                src="/images/dir-logo-01.svg"
-                width={40}
-                height={40}
-                alt="Dream InReality Logo"
-              />
-            </Link>
-          </motion.li>
-          <motion.li
-            className=""
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            {/* The mark is black line-art; invert turns it white on navy. */}
+            <Image
+              src="/images/dir-logo-01.svg"
+              width={40}
+              height={40}
+              alt="Dream InReality home"
+              className="invert"
+            />
+          </Link>
+        </li>
+        <li>
+          <Link className="nav-link" href="/">
+            Home
+          </Link>
+        </li>
+        <li
+          className="relative"
+          onMouseEnter={() => setServicesOpen(true)}
+          onMouseLeave={() => setServicesOpen(false)}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") setServicesOpen(false);
+          }}
+        >
+          <button
+            type="button"
+            className="nav-link"
+            aria-expanded={servicesOpen}
+            aria-controls="services-menu"
+            onClick={() => setServicesOpen(!servicesOpen)}
           >
-            <Link className="button px-10" href="/">
-              Home
-            </Link>
-          </motion.li>
-          <li
-            className="relative"
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <motion.button
-              type="button"
-              className="button pr-14"
-              aria-expanded={servicesOpen}
-              onClick={() => setServicesOpen(!servicesOpen)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+            Services
+          </button>
+          {servicesOpen && (
+            <ul
+              id="services-menu"
+              className="absolute left-1/2 top-full z-50 min-w-max -translate-x-1/2 rounded-lg border border-line bg-surface py-2 md:left-0 md:translate-x-0"
             >
-              Services
-            </motion.button>
-            {servicesOpen && (
-              <ul className="absolute top-full left-0 z-50 min-w-max bg-white rounded-lg shadow-xl py-2">
-                {services.map(({ slug, title }) => (
-                  <li key={slug}>
-                    <Link
-                      href={slug}
-                      className="block px-4 py-2 hover:bg-cyan-100"
-                      onClick={() => setServicesOpen(false)}
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-          <motion.li
-            className=""
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Link className="button pr-14" href="/about">
-              About
-            </Link>
-          </motion.li>
-          <motion.li
-            className=""
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Link className="button pr-10" href="/contact">
-              Contact
-            </Link>
-          </motion.li>
-        </ul>
-      </div>
-    </motion.div>
+              {services.map(({ slug, title }) => (
+                <li key={slug}>
+                  <Link
+                    href={slug}
+                    className="focus-ring block px-4 py-2.5 text-base text-ink-inverse transition-colors duration-150 hover:bg-navy"
+                    onClick={() => setServicesOpen(false)}
+                  >
+                    {title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+        <li>
+          <Link className="nav-link" href="/about">
+            About
+          </Link>
+        </li>
+        <li>
+          <Link className="nav-link" href="/contact">
+            Contact
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

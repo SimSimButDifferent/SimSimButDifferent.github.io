@@ -19,6 +19,18 @@ module.exports = {
         "accent-hover": "#155e75", // cyan-800 — hover state for accent
         "accent-visual": "#22d3ee", // cyan-400 — decorative only, never link/body text on light
         navy: "#0f172a", // slate-900 — dark section band background
+        surface: "#1e293b", // slate-800 — raised panel on navy
+        line: "#334155", // slate-700 — 1px hairline borders on navy
+      },
+      // Dark-theme type scale (minor third from 1rem)
+      fontSize: {
+        "title-sm": ["1.2rem", { lineHeight: "1.25" }],
+        title: ["1.728rem", { lineHeight: "1.2" }],
+        display: ["2.488rem", { lineHeight: "1.15" }],
+        "display-lg": ["2.986rem", { lineHeight: "1.1" }],
+      },
+      transitionTimingFunction: {
+        "out-soft": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       fontFamily: {
         sans: ["var(--font-poppins)"],
