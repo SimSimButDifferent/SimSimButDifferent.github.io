@@ -1,35 +1,66 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { timeAt, stillAt } from "./scrollTimeline.mjs";
+import { activePane, playback } from "./scrollTimeline.mjs";
 
-const stops = [
-  { p: 0, t: 1.5 },
-  { p: 0.2, t: 3.0 },
-  { p: 0.7, t: 10.6 },
-  { p: 1, t: 12.5 },
-];
-
-test("timeAt hits the stops", () => {
-  assert.equal(timeAt(0, stops), 1.5);
-  assert.equal(timeAt(0.2, stops), 3.0);
-  assert.equal(timeAt(1, stops), 12.5);
+test("activePane is the last pane whose top has reached the viewport middle", () => {
+  assert.equal(activePane([69, 869, 1669], 800), 0);
+  assert.equal(activePane([-400, 400, 1200], 800), 1);
+  assert.equal(activePane([-800, 0, 800], 800), 1);
+  assert.equal(activePane([-1600, -800, 0], 800), 2);
 });
 
-test("timeAt interpolates between stops", () => {
-  assert.ok(Math.abs(timeAt(0.45, stops) - 6.8) < 1e-9);
+test("activePane stays on the last pane once the scene has scrolled past", () => {
+  assert.equal(activePane([-4000, -3200, -2400], 800), 2);
 });
 
-test("timeAt clamps and survives bad input", () => {
-  assert.equal(timeAt(-0.3, stops), 1.5);
-  assert.equal(timeAt(1.4, stops), 12.5);
-  assert.equal(timeAt(NaN, stops), 1.5);
+test("activePane falls back to the first pane", () => {
+  assert.equal(activePane([900, 1700, 2500], 800), 0);
+  assert.equal(activePane([], 800), 0);
 });
 
-test("stillAt picks the last still whose start time has passed", () => {
-  const starts = [0, 3.0, 10.6];
-  assert.equal(stillAt(1.5, starts), 0);
-  assert.equal(stillAt(3.0, starts), 1);
-  assert.equal(stillAt(10.59, starts), 1);
-  assert.equal(stillAt(12.5, starts), 2);
-  assert.equal(stillAt(-1, starts), 0);
+test("playback gives a long forward move about five seconds", () => {
+  assert.equal(playback(6.7, 12.5).duration, 5);
+  assert.equal(playback(2.6, 6.7).duration, 5);
+});
+
+test("playback runs a short forward move in real time", () => {
+  assert.ok(Math.abs(playback(0, 2.6).duration - 2.6) < 1e-9);
+});
+
+test("playback rewinds quickly", () => {
+  assert.equal(playback(12.5, 6.7).duration, 0.8);
+});
+
+test("playback has nothing to play when already there or given bad input", () => {
+  assert.equal(playback(6.7, 6.7).duration, 0);
+  assert.equal(playback(NaN, 6.7).duration, 0);
+});
+
+// Snap points for a 800px viewport: navbar, panes 2 and 3, two frames, end.
+const points = [0, 869, 1669, 2469, 3269, 3719];
+
+test("nextSnap steps one frame in the wheel direction", async () => {
+  const { nextSnap } = await import("./scrollTimeline.mjs");
+  assert.equal(nextSnap(points, 0, 1, 800), 869);
+  assert.equal(nextSnap(points, 869, 1, 800), 1669);
+  assert.equal(nextSnap(points, 1669, -1, 800), 869);
+});
+
+test("nextSnap leaves a mid-frame position for the nearest point that way", async () => {
+  const { nextSnap } = await import("./scrollTimeline.mjs");
+  assert.equal(nextSnap(points, 900, 1, 800), 1669);
+  assert.equal(nextSnap(points, 900, -1, 800), 869);
+});
+
+test("nextSnap has nowhere to go at either end", async () => {
+  const { nextSnap } = await import("./scrollTimeline.mjs");
+  assert.equal(nextSnap(points, 0, -1, 800), null);
+  assert.equal(nextSnap(points, 3719, 1, 800), null);
+});
+
+test("nextSnap pages through a frame taller than the viewport", async () => {
+  const { nextSnap } = await import("./scrollTimeline.mjs");
+  const tall = [0, 869, 2600];
+  assert.equal(nextSnap(tall, 869, 1, 800), 869 + 640);
+  assert.equal(nextSnap(tall, 2600, -1, 800), 2600 - 640);
 });

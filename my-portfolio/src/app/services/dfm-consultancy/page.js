@@ -2,7 +2,8 @@ import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
 import ScrollScene from "@/components/ScrollScene";
 import ScrollPane from "@/components/ScrollPane";
-import { label, stills, stops } from "./sceneConfig";
+import SnapScroll from "@/components/SnapScroll";
+import { label, stills, targets } from "./sceneConfig";
 
 const description =
   "DFM reviews for UK product businesses: manufacturability checks on your CAD models, with a written report and revised SLDPRT/SLDASM files and PDF drawings.";
@@ -54,7 +55,7 @@ export const metadata = {
 
 export default function DfmConsultancy() {
   return (
-    <main className="page-dark min-h-screen">
+    <main className="page-dark snap-page min-h-screen">
       <JsonLd
         schema={serviceSchema({
           name: "DFM Consultancy",
@@ -63,14 +64,15 @@ export default function DfmConsultancy() {
         })}
       />
       <JsonLd schema={faqPageSchema(faqs)} />
+      <SnapScroll />
 
       <ScrollScene
         slug="dfm-consultancy"
-        stops={stops}
+        targets={targets}
         stills={stills}
         label={label}
       >
-        <ScrollPane step="01 · DFM consultancy" still={stills[0]}>
+        <ScrollPane step="01 · DFM consultancy" still={stills[0]} snap={false}>
           <h1 className="mb-6 text-display font-light lg:text-display-lg">
             <span className="font-semibold text-accent-visual">DFM</span>{" "}
             Consultancy UK
@@ -144,8 +146,8 @@ export default function DfmConsultancy() {
         </ScrollPane>
       </ScrollScene>
 
-      <div className="mx-auto max-w-4xl space-y-8 px-4 py-16 sm:px-6 lg:py-24">
-        <section className="panel">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel">
           <h2 className="mb-4 text-title font-light">Who it is for</h2>
           <p className="max-w-[70ch]">
             Product startups preparing for a first production run, small
@@ -165,9 +167,11 @@ export default function DfmConsultancy() {
             </Link>{" "}
             takes the reviewed design to the factory.
           </p>
-        </section>
+        </div>
+      </section>
 
-        <section className="panel">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel">
           <h2 className="mb-6 text-title font-light">
             Frequently asked questions
           </h2>
@@ -181,14 +185,14 @@ export default function DfmConsultancy() {
               </div>
             ))}
           </div>
-        </section>
+        </div>
 
-        <div className="pt-8 text-center">
+        <div className="pt-12 text-center">
           <Link href="/contact" className="btn-inverse">
             Send your brief
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

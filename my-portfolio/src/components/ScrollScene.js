@@ -3,52 +3,79 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
+  animate,
   motion,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
 } from "framer-motion";
-import { stillAt, timeAt } from "@/lib/scrollTimeline.mjs";
+import { activePane, playback } from "@/lib/scrollTimeline.mjs";
 
-// Scroll-driven scene: text panes scroll on the left while a canvas stays
-// pinned on the right, and scroll position sets the scene time.
+// Snap-scrolling scene: text panes scroll on the left and snap into place
+// while a canvas stays pinned on the right. Arriving at a pane plays that
+// pane's part of the animation on a timer (about five seconds); the scroll
+// wheel chooses the pane, it does not drive the frames.
 //
 // The canvas is an enhancement. Still frames sit underneath it and are what
 // the reader sees while three.js loads, under prefers-reduced-motion, when
 // WebGL is unavailable, and (inside each ScrollPane) below the lg breakpoint.
 //
 // Props:
-//   slug    scene id registered in src/scenes/stage.js
-//   stops   [{ p, t }] scroll progress -> scene time
-//   stills  [{ src, alt, from }] one per pane; `from` is the scene time at
-//           which that still takes over in the fallback view
-//   label   accessible description of the animation
-export default function ScrollScene({ slug, stops, stills, label, children }) {
+//   slug     scene id registered in src/scenes/stage.js
+//   targets  scene time each pane plays to, one per pane
+//   stills   [{ src, alt }] one per pane: the scene at that pane's target
+//   label    accessible description of the animation
+export default function ScrollScene({
+  slug,
+  targets,
+  stills,
+  label,
+  children,
+}) {
   const rootRef = useRef(null);
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
   const handleRef = useRef(null);
-  const progressRef = useRef(0);
+  const activeRef = useRef(0);
+  const clockRef = useRef(0);
+  const tweenRef = useRef(null);
   const [active, setActive] = useState(0);
   const [live, setLive] = useState(false);
   const [canvasKey, setCanvasKey] = useState(0);
   const reduceMotion = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
+  const { scrollY, scrollYProgress } = useScroll({
     target: rootRef,
     offset: ["start start", "end end"],
   });
 
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    progressRef.current = progress;
-    const t = timeAt(progress, stops);
-    setActive(
-      stillAt(
-        t,
-        stills.map((still) => still.from)
-      )
-    );
-    handleRef.current?.seek(t);
+  // Play the scene from wherever it is to the given pane's target time.
+  const playTo = (index) => {
+    tweenRef.current?.stop();
+    const to = targets[index];
+    const { duration } = playback(clockRef.current, to);
+    tweenRef.current = animate(clockRef.current, to, {
+      duration,
+      ease: "easeInOut",
+      onUpdate: (t) => {
+        clockRef.current = t;
+        handleRef.current?.seek(t);
+      },
+    });
+  };
+
+  const currentPane = () => {
+    const panes = rootRef.current?.querySelectorAll("[data-scroll-pane]") ?? [];
+    const tops = Array.from(panes, (pane) => pane.getBoundingClientRect().top);
+    return activePane(tops, window.innerHeight);
+  };
+
+  useMotionValueEvent(scrollY, "change", () => {
+    const index = currentPane();
+    if (index === activeRef.current) return;
+    activeRef.current = index;
+    setActive(index);
+    if (handleRef.current) playTo(index);
   });
 
   useEffect(() => {
@@ -60,6 +87,7 @@ export default function ScrollScene({ slug, stops, stills, label, children }) {
     let sizeObserver = null;
 
     const stop = () => {
+      tweenRef.current?.stop();
       sizeObserver?.disconnect();
       sizeObserver = null;
       if (handleRef.current) {
@@ -91,8 +119,12 @@ export default function ScrollScene({ slug, stops, stills, label, children }) {
         sizeObserver = new ResizeObserver(fit);
         sizeObserver.observe(boxRef.current);
         fit();
-        handle.seek(timeAt(progressRef.current, stops));
+        activeRef.current = currentPane();
+        setActive(activeRef.current);
+        clockRef.current = 0;
+        handle.seek(0);
         setLive(true);
+        playTo(activeRef.current);
       } catch {
         // No WebGL, or the scene chunk failed to load: stay on the stills.
         stop();
@@ -121,7 +153,9 @@ export default function ScrollScene({ slug, stops, stills, label, children }) {
       desktop.removeEventListener("change", onBreakpoint);
       stop();
     };
-  }, [reduceMotion, slug, stops]);
+    // playTo and currentPane only read refs and props that never change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduceMotion, slug]);
 
   return (
     <section

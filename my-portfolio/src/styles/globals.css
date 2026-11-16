@@ -217,3 +217,22 @@ body {
     @apply focus-ring inline-flex min-h-[44px] items-center rounded-lg px-2 text-base text-ink-inverse transition-colors duration-150 hover:bg-surface sm:px-4 sm:text-lg;
   }
 }
+
+/* Snap scrolling for pages that opt in with .snap-page on <main>.
+   From lg up, each .snap-frame settles at the top of the viewport; the navbar
+   and footer are snap points too so both ends of the page stay reachable.
+   Below lg, frames have uneven heights and scroll freely. */
+@media (min-width: 1024px) {
+  html:has(.snap-page) {
+    scroll-snap-type: y mandatory;
+  }
+
+  html:has(.snap-page) body > nav,
+  .snap-frame {
+    scroll-snap-align: start;
+  }
+
+  html:has(.snap-page) body > footer {
+    scroll-snap-align: end;
+  }
+}
