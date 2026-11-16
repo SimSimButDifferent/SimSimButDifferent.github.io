@@ -18,12 +18,37 @@ export function activePane(tops, viewportHeight) {
   return index;
 }
 
-// How long (seconds) to take moving the scene from time `current` to `to`.
-export function playback(current, to) {
-  const distance = to - current;
-  if (!Number.isFinite(distance) || distance === 0) return { duration: 0 };
-  if (distance < 0) return { duration: REWIND };
-  return { duration: distance >= LONG_MOVE ? FORWARD : distance };
+// Seconds to take playing the scene forward by `distance` scene-seconds.
+function pace(distance) {
+  return distance >= LONG_MOVE ? FORWARD : distance;
+}
+
+const EPSILON = 1e-6;
+
+// The moves that take the scene to a pane's beat ({ start, end } in scene
+// time), as a list of { to, duration } played in order.
+//   cameFrom "none"    first arrival: jump to the start, play to the end
+//   cameFrom "earlier" scrolled down: if the scene is outside the beat,
+//                      rewind quickly to its start; then play to its end
+//   cameFrom "later"   scrolled up: go quickly to the beat's end
+export function planBeat(clock, beat, cameFrom) {
+  const { start, end } = beat;
+  const moves = [];
+
+  if (cameFrom === "later") {
+    if (Math.abs(clock - end) > EPSILON) moves.push({ to: end, duration: REWIND });
+    return moves;
+  }
+
+  let at = clock;
+  const inside =
+    Number.isFinite(at) && at >= start - EPSILON && at <= end + EPSILON;
+  if (cameFrom === "none" || !inside) {
+    moves.push({ to: start, duration: cameFrom === "none" ? 0 : REWIND });
+    at = start;
+  }
+  if (end - at > EPSILON) moves.push({ to: end, duration: pace(end - at) });
+  return moves;
 }
 
 // Where one wheel step should scroll to. `points` are the page's snap

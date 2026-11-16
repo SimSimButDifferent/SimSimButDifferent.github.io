@@ -3,7 +3,7 @@ import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
 import ScrollScene from "@/components/ScrollScene";
 import ScrollPane from "@/components/ScrollPane";
 import SnapScroll from "@/components/SnapScroll";
-import { label, stills, targets } from "./sceneConfig";
+import { beats, label, stills } from "./sceneConfig";
 
 const description =
   "DFM reviews for UK product businesses: manufacturability checks on your CAD models, with a written report and revised SLDPRT/SLDASM files and PDF drawings.";
@@ -68,7 +68,7 @@ export default function DfmConsultancy() {
 
       <ScrollScene
         slug="dfm-consultancy"
-        targets={targets}
+        beats={beats}
         stills={stills}
         label={label}
       >

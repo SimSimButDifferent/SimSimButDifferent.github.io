@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { activePane, playback } from "./scrollTimeline.mjs";
+import { activePane, planBeat } from "./scrollTimeline.mjs";
 
 test("activePane is the last pane whose top has reached the viewport middle", () => {
   assert.equal(activePane([69, 869, 1669], 800), 0);
@@ -18,22 +18,47 @@ test("activePane falls back to the first pane", () => {
   assert.equal(activePane([], 800), 0);
 });
 
-test("playback gives a long forward move about five seconds", () => {
-  assert.equal(playback(6.7, 12.5).duration, 5);
-  assert.equal(playback(2.6, 6.7).duration, 5);
+// DFM beats: a showcase of the finished part, then the review, then the fixes.
+const hero = { start: 12.5, end: 12.5 };
+const review = { start: 2.6, end: 6.7 };
+const fixes = { start: 6.7, end: 12.5 };
+
+test("planBeat opens on a pane by jumping straight to its start", () => {
+  assert.deepEqual(planBeat(0, hero, "none"), [{ to: 12.5, duration: 0 }]);
+  assert.deepEqual(planBeat(0, review, "none"), [
+    { to: 2.6, duration: 0 },
+    { to: 6.7, duration: 5 },
+  ]);
 });
 
-test("playback runs a short forward move in real time", () => {
-  assert.ok(Math.abs(playback(0, 2.6).duration - 2.6) < 1e-9);
+test("planBeat scrolling down from the showcase rewinds to the beat's start, then plays it", () => {
+  assert.deepEqual(planBeat(12.5, review, "earlier"), [
+    { to: 2.6, duration: 0.8 },
+    { to: 6.7, duration: 5 },
+  ]);
 });
 
-test("playback rewinds quickly", () => {
-  assert.equal(playback(12.5, 6.7).duration, 0.8);
+test("planBeat scrolling down into the next beat plays on from where it is", () => {
+  assert.deepEqual(planBeat(6.7, fixes, "earlier"), [{ to: 12.5, duration: 5 }]);
+  // A short remainder runs in real time.
+  assert.deepEqual(planBeat(11, fixes, "earlier"), [{ to: 12.5, duration: 1.5 }]);
 });
 
-test("playback has nothing to play when already there or given bad input", () => {
-  assert.equal(playback(6.7, 6.7).duration, 0);
-  assert.equal(playback(NaN, 6.7).duration, 0);
+test("planBeat scrolling back up goes quickly to the beat's end", () => {
+  assert.deepEqual(planBeat(12.5, review, "later"), [{ to: 6.7, duration: 0.8 }]);
+  assert.deepEqual(planBeat(6.7, hero, "later"), [{ to: 12.5, duration: 0.8 }]);
+});
+
+test("planBeat has nothing to do when the scene is already at the beat's end", () => {
+  assert.deepEqual(planBeat(12.5, hero, "earlier"), []);
+  assert.deepEqual(planBeat(6.7, review, "later"), []);
+});
+
+test("planBeat treats a non-finite clock as needing the beat's start", () => {
+  assert.deepEqual(planBeat(NaN, review, "earlier"), [
+    { to: 2.6, duration: 0.8 },
+    { to: 6.7, duration: 5 },
+  ]);
 });
 
 // Snap points for a 800px viewport: navbar, panes 2 and 3, two frames, end.

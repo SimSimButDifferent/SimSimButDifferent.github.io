@@ -9,11 +9,11 @@ import {
   useReducedMotion,
   useScroll,
 } from "framer-motion";
-import { activePane, playback } from "@/lib/scrollTimeline.mjs";
+import { activePane, planBeat } from "@/lib/scrollTimeline.mjs";
 
 // Snap-scrolling scene: text panes scroll on the left and snap into place
 // while a canvas stays pinned on the right. Arriving at a pane plays that
-// pane's part of the animation on a timer (about five seconds); the scroll
+// pane's beat of the animation on a timer (about five seconds); the scroll
 // wheel chooses the pane, it does not drive the frames.
 //
 // The canvas is an enhancement. Still frames sit underneath it and are what
@@ -21,13 +21,14 @@ import { activePane, playback } from "@/lib/scrollTimeline.mjs";
 // WebGL is unavailable, and (inside each ScrollPane) below the lg breakpoint.
 //
 // Props:
-//   slug     scene id registered in src/scenes/stage.js
-//   targets  scene time each pane plays to, one per pane
-//   stills   [{ src, alt }] one per pane: the scene at that pane's target
-//   label    accessible description of the animation
+//   slug    scene id registered in src/scenes/stage.js
+//   beats   [{ start, end, showcase? }] one per pane, in scene time; with
+//           showcase the finished part turns in a loop (see stage.js)
+//   stills  [{ src, alt }] one per pane: the scene at that pane's beat end
+//   label   accessible description of the animation
 export default function ScrollScene({
   slug,
-  targets,
+  beats,
   stills,
   label,
   children,
@@ -49,19 +50,34 @@ export default function ScrollScene({
     offset: ["start start", "end end"],
   });
 
-  // Play the scene from wherever it is to the given pane's target time.
-  const playTo = (index) => {
+  // Take the scene to the given pane's beat. `cameFrom` is "none" on first
+  // arrival, "earlier" when scrolling down, "later" when scrolling up.
+  const playTo = (index, cameFrom) => {
     tweenRef.current?.stop();
-    const to = targets[index];
-    const { duration } = playback(clockRef.current, to);
-    tweenRef.current = animate(clockRef.current, to, {
-      duration,
-      ease: "easeInOut",
-      onUpdate: (t) => {
+    const beat = beats[index];
+    handleRef.current?.setShowcase(Boolean(beat.showcase));
+    const moves = planBeat(clockRef.current, beat, cameFrom);
+
+    const step = (i) => {
+      const move = moves[i];
+      if (!move) return;
+      const seek = (t) => {
         clockRef.current = t;
         handleRef.current?.seek(t);
-      },
-    });
+      };
+      if (move.duration === 0) {
+        seek(move.to);
+        step(i + 1);
+        return;
+      }
+      tweenRef.current = animate(clockRef.current, move.to, {
+        duration: move.duration,
+        ease: "easeInOut",
+        onUpdate: seek,
+        onComplete: () => step(i + 1),
+      });
+    };
+    step(0);
   };
 
   const currentPane = () => {
@@ -73,9 +89,10 @@ export default function ScrollScene({
   useMotionValueEvent(scrollY, "change", () => {
     const index = currentPane();
     if (index === activeRef.current) return;
+    const cameFrom = index > activeRef.current ? "earlier" : "later";
     activeRef.current = index;
     setActive(index);
-    if (handleRef.current) playTo(index);
+    if (handleRef.current) playTo(index, cameFrom);
   });
 
   useEffect(() => {
@@ -122,9 +139,8 @@ export default function ScrollScene({
         activeRef.current = currentPane();
         setActive(activeRef.current);
         clockRef.current = 0;
-        handle.seek(0);
         setLive(true);
-        playTo(activeRef.current);
+        playTo(activeRef.current, "none");
       } catch {
         // No WebGL, or the scene chunk failed to load: stay on the stills.
         stop();

@@ -132,24 +132,94 @@ export async function mountScene(canvas, slug) {
   scene.add(part.object);
 
   const camera = new THREE.PerspectiveCamera(28, 4 / 3, 1, 1200);
-  const { target, distance, elevation, swing, period } = part.camera;
+  const {
+    target,
+    distance,
+    elevation,
+    swing,
+    period,
+    showcaseElevation = elevation,
+    spinPeriod = 24,
+  } = part.camera;
   let time = 0;
 
+  // Showcase: the part turns continuously under a higher camera. `weight`
+  // blends in and out over BLEND seconds; on the way out the part settles to
+  // the nearest whole turn so the review view picks up where it expects.
+  const BLEND = 0.9;
+  const TURN = Math.PI * 2;
+  const smooth = (x) => x * x * (3 - 2 * x);
+  let spin = 0;
+  let weight = 0;
+  let showcaseOn = false;
+  let settle = null;
+  let frame = null;
+  let last = 0;
+
   const render = () => {
-    const azimuth = swing * Math.sin((2 * Math.PI * time) / period);
+    const w = smooth(weight);
+    const azimuth = swing * (1 - w) * Math.sin((2 * Math.PI * time) / period);
+    const el = elevation + (showcaseElevation - elevation) * w;
     camera.position.set(
-      target.x + distance * Math.sin(azimuth) * Math.cos(elevation),
-      target.y + distance * Math.sin(elevation),
-      target.z + distance * Math.cos(azimuth) * Math.cos(elevation)
+      target.x + distance * Math.sin(azimuth) * Math.cos(el),
+      target.y + distance * Math.sin(el),
+      target.z + distance * Math.cos(azimuth) * Math.cos(el)
     );
     camera.lookAt(target);
+    part.view?.({ spin, showcase: w });
     renderer.render(scene, camera);
+  };
+
+  const tick = (now) => {
+    const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
+    last = now;
+    if (showcaseOn) {
+      weight = Math.min(1, weight + dt / BLEND);
+      spin += (dt * TURN) / spinPeriod;
+    } else {
+      weight = Math.max(0, weight - dt / BLEND);
+      if (settle) {
+        settle.progress = Math.min(1, settle.progress + dt / BLEND);
+        spin = settle.from + (settle.to - settle.from) * smooth(settle.progress);
+      }
+    }
+    const busy = showcaseOn || weight > 0 || (settle && settle.progress < 1);
+    if (busy) {
+      frame = requestAnimationFrame(tick);
+    } else {
+      frame = null;
+      last = 0;
+      spin = 0;
+      settle = null;
+    }
+    render();
+  };
+
+  const run = () => {
+    if (frame === null) frame = requestAnimationFrame(tick);
   };
 
   return {
     seek(t) {
       time = t;
       part.update(t);
+      if (frame === null) render();
+    },
+    // Turn the showcase on or off; the change blends over BLEND seconds.
+    setShowcase(on) {
+      if (on === showcaseOn) return;
+      showcaseOn = on;
+      settle = on
+        ? null
+        : { from: spin, to: Math.round(spin / TURN) * TURN, progress: 0 };
+      run();
+    },
+    // Fixed pose for rendering still frames.
+    pose(t, spinAngle, showcase) {
+      time = t;
+      part.update(t);
+      spin = spinAngle;
+      weight = showcase;
       render();
     },
     resize(width, height) {
@@ -160,6 +230,8 @@ export async function mountScene(canvas, slug) {
       render();
     },
     dispose() {
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null;
       part.dispose();
       disposeTree(scene);
       renderer.dispose();

@@ -32,8 +32,31 @@ export function paramsAt(t) {
 }
 
 export function create({ THREE, tokens, fontFamily }) {
+  // object: everything. body: the part and its callouts, which turn together
+  // in the showcase. The report page stays on object so it does not turn.
   const object = new THREE.Group();
+  const body = new THREE.Group();
+  object.add(body);
   const textures = new Map();
+
+  // Callout lines and labels, faded as a set in the showcase. Each entry
+  // keeps the opacity the timeline gave it (`base`); applyFade() scales it.
+  const annotated = [];
+  let annotationFade = 1;
+  const annotate = (node, materials) => {
+    const entry = { node, materials, base: 0 };
+    annotated.push(entry);
+    return entry;
+  };
+  const applyFade = () => {
+    annotated.forEach((entry) => {
+      const opacity = entry.base * annotationFade;
+      entry.materials.forEach((material) => {
+        material.opacity = opacity;
+      });
+      entry.node.visible = opacity > 0.001;
+    });
+  };
 
   // ---- Part -------------------------------------------------------------
   const skin = new THREE.MeshStandardMaterial({
@@ -51,13 +74,13 @@ export function create({ THREE, tokens, fontFamily }) {
 
   const surfaces = Array.from({ length: 7 }, () => {
     const mesh = new THREE.Mesh(new THREE.BufferGeometry(), skin);
-    object.add(mesh);
+    body.add(mesh);
     return mesh;
   });
   const caps = [1, -1].map((side) => {
     const mesh = new THREE.Mesh(new THREE.BufferGeometry(), cutFace);
     mesh.userData.side = side;
-    object.add(mesh);
+    body.add(mesh);
     return mesh;
   });
 
@@ -190,23 +213,18 @@ export function create({ THREE, tokens, fontFamily }) {
       marker.scale.set(3.4, 3.4, 1);
       group.add(marker);
     }
-    object.add(group);
-    return {
+    body.add(group);
+    const entry = annotate(
       group,
-      leader,
-      label,
-      marker,
+      [leader.material, label.material, marker?.material].filter(Boolean)
+    );
+    return {
       set(anchor, text, opacity) {
-        group.visible = opacity > 0.001;
         const end = labelAt.clone().add(new THREE.Vector3(-1.5, 0, 0));
         leader.geometry.setFromPoints([anchor, end]);
-        leader.material.opacity = opacity;
         setMap(label.material, textTexture(text));
-        label.material.opacity = opacity;
-        if (marker) {
-          marker.position.copy(anchor);
-          marker.material.opacity = opacity;
-        }
+        if (marker) marker.position.copy(anchor);
+        entry.base = opacity;
       },
     };
   }
@@ -226,7 +244,9 @@ export function create({ THREE, tokens, fontFamily }) {
       depthTest: false,
     })
   );
-  object.add(wallTick, draftRef);
+  body.add(wallTick, draftRef);
+  const wallTickFade = annotate(wallTick, [wallTick.material]);
+  const draftRefFade = annotate(draftRef, [draftRef.material]);
 
   // ---- Report page ------------------------------------------------------
   const findings = [
@@ -342,16 +362,14 @@ export function create({ THREE, tokens, fontFamily }) {
     const w1 = lift(onFace(inner(yw), yw));
     const w2 = lift(onFace(outer(yw), yw));
     wallTick.geometry.setFromPoints([w1, w2]);
-    wallTick.material.opacity = wallA;
-    wallTick.visible = wallA > 0.001;
+    wallTickFade.base = wallA;
     wallCallout.set(w2, `Wall ${p.wall.toFixed(1)} mm`, wallA);
 
     const d1 = lift(onFace(RADIUS, -5));
     const d2 = lift(onFace(RADIUS, HEIGHT + 6));
     draftRef.geometry.setFromPoints([d1, d2]);
     draftRef.computeLineDistances();
-    draftRef.material.opacity = draftA;
-    draftRef.visible = draftA > 0.001;
+    draftRefFade.base = draftA;
     draftCallout.set(
       lift(onFace(RADIUS, HEIGHT)),
       `Draft ${Math.round(p.draft)}°`,
@@ -370,17 +388,32 @@ export function create({ THREE, tokens, fontFamily }) {
     setMap(report.material, reportTexture(ticked));
     report.material.opacity = reportIn;
     report.position.set(lerp(-70, -62, reportIn), 26, 0);
+
+    applyFade();
+  }
+
+  // Showcase view, independent of scene time: `spin` turns the part about
+  // its axis (radians); `showcase` (0 to 1) fades the callouts out so the
+  // turning part reads cleanly beside the report page.
+  function view({ spin, showcase }) {
+    body.rotation.y = spin;
+    annotationFade = 1 - showcase;
+    applyFade();
   }
 
   return {
     object,
     update,
+    view,
     camera: {
       target: new THREE.Vector3(-6, 22, 0),
       distance: 250,
       elevation: (22 * Math.PI) / 180,
       swing: (14 * Math.PI) / 180,
       period: 15,
+      // Showcase: a higher, isometric-style view; one full turn in 24 s.
+      showcaseElevation: (30 * Math.PI) / 180,
+      spinPeriod: 24,
     },
     dispose() {
       textures.forEach((texture) => texture.dispose());
