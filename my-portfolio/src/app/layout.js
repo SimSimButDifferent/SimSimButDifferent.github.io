@@ -26,7 +26,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    // Browser extensions (e.g. Stencil-based ones) add attributes such as
+    // class="hydrated" to <html> before React loads. This silences that
+    // mismatch for <html>'s own attributes only; children are still checked.
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans`}>
         <Navbar />
         {children}

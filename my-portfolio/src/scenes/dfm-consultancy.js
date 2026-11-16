@@ -49,7 +49,7 @@ export function create({ THREE, tokens, fontFamily }) {
   const found = new THREE.Color(tokens.found);
   const render = new THREE.Color(tokens.render);
 
-  const surfaces = Array.from({ length: 6 }, () => {
+  const surfaces = Array.from({ length: 7 }, () => {
     const mesh = new THREE.Mesh(new THREE.BufferGeometry(), skin);
     object.add(mesh);
     return mesh;
@@ -84,12 +84,31 @@ export function create({ THREE, tokens, fontFamily }) {
     }
     const filletTop = fillet[0];
     const filletEnd = fillet[fillet.length - 1];
+
+    // Outer base fillet, concentric with the inner one so the wall stays
+    // uniform round the corner: R(outer) = R(inner) + wall. It grows with the
+    // corner fix, from sharp to R4.5 (R2.0 + 2.5 mm wall).
+    const baseR = corner > 0.01 ? corner * (1 + wall / 2) : 0;
+    const base = [];
+    if (baseR > 0.01) {
+      const cx = outer(baseR) - baseR;
+      for (let i = 0; i <= 8; i++) {
+        const a = -Math.PI / 2 + (i / 8) * (Math.PI / 2);
+        base.push(v2(cx + baseR * Math.cos(a), baseR + baseR * Math.sin(a)));
+      }
+    } else {
+      base.push(v2(outer(0), 0));
+    }
+    const baseStart = base[0];
+    const baseEnd = base[base.length - 1];
+
     return {
       outer,
       inner,
       pieces: [
-        [v2(0, 0), v2(outer(0), 0)],
-        [v2(outer(0), 0), v2(outer(HEIGHT), HEIGHT)],
+        [v2(0, 0), baseStart],
+        base.length > 1 ? base : null,
+        [baseEnd, v2(outer(HEIGHT), HEIGHT)],
         [v2(outer(HEIGHT), HEIGHT), v2(inner(HEIGHT), HEIGHT)],
         [v2(inner(HEIGHT), HEIGHT), filletTop],
         fillet.length > 1 ? fillet : null,
@@ -97,7 +116,7 @@ export function create({ THREE, tokens, fontFamily }) {
       ],
       outline: [
         v2(0, 0),
-        v2(outer(0), 0),
+        ...base,
         v2(outer(HEIGHT), HEIGHT),
         v2(inner(HEIGHT), HEIGHT),
         ...fillet,
