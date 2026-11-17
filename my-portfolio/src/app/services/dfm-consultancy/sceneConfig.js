@@ -3,7 +3,8 @@
 //   01 intro              showcase: the finished part turns beside its report
 //   02 How it works       2.6 -> 6.7   section opens, three issues called out
 //   03 What is delivered  6.7 -> 12.5  issues fixed, ice-blue finish, report
-// Scrolling from 01 to 02 rewinds quickly to the unchecked part, then plays.
+// 01 is a separate animation (no callouts). Moving between 01 and 02 is a
+// quick fade cut: 02 fades in on the unchecked part at 2.6, then plays.
 export const beats = [
   { start: 12.5, end: 12.5, showcase: true },
   { start: 2.6, end: 6.7 },

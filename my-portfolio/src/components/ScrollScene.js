@@ -11,10 +11,18 @@ import {
 } from "framer-motion";
 import { activePane, planBeat } from "@/lib/scrollTimeline.mjs";
 
+// Matches the canvas's duration-200 opacity transition.
+const FADE_MS = 200;
+
 // Snap-scrolling scene: text panes scroll on the left and snap into place
 // while a canvas stays pinned on the right. Arriving at a pane plays that
 // pane's beat of the animation on a timer (about five seconds); the scroll
 // wheel chooses the pane, it does not drive the frames.
+//
+// A pane whose beat is a showcase (the finished part turning on its own) is a
+// separate animation. Moving into or out of it is a cut: the canvas fades out
+// over FADE_MS, the scene switches while hidden, then fades back in at the
+// start of the new beat.
 //
 // The canvas is an enhancement. Still frames sit underneath it and are what
 // the reader sees while three.js loads, under prefers-reduced-motion, when
@@ -40,8 +48,11 @@ export default function ScrollScene({
   const activeRef = useRef(0);
   const clockRef = useRef(0);
   const tweenRef = useRef(null);
+  const showcaseRef = useRef(false);
+  const cutRef = useRef(null);
   const [active, setActive] = useState(0);
   const [live, setLive] = useState(false);
+  const [veiled, setVeiled] = useState(false);
   const [canvasKey, setCanvasKey] = useState(0);
   const reduceMotion = useReducedMotion();
 
@@ -50,12 +61,9 @@ export default function ScrollScene({
     offset: ["start start", "end end"],
   });
 
-  // Take the scene to the given pane's beat. `cameFrom` is "none" on first
-  // arrival, "earlier" when scrolling down, "later" when scrolling up.
-  const playTo = (index, cameFrom) => {
+  // Play the moves that take the scene to a beat (see planBeat).
+  const play = (beat, cameFrom) => {
     tweenRef.current?.stop();
-    const beat = beats[index];
-    handleRef.current?.setShowcase(Boolean(beat.showcase));
     const moves = planBeat(clockRef.current, beat, cameFrom);
 
     const step = (i) => {
@@ -78,6 +86,50 @@ export default function ScrollScene({
       });
     };
     step(0);
+  };
+
+  const enterMode = (showcase) => {
+    showcaseRef.current = showcase;
+    handleRef.current?.setShowcase(showcase);
+  };
+
+  const cancelCut = () => {
+    clearTimeout(cutRef.current);
+    cutRef.current = null;
+  };
+
+  // Take the scene to the given pane's beat. `cameFrom` is "none" on first
+  // arrival, "earlier" when scrolling down, "later" when scrolling up.
+  const playTo = (index, cameFrom) => {
+    const beat = beats[index];
+    const showcase = Boolean(beat.showcase);
+
+    if (cameFrom === "none") {
+      cancelCut();
+      enterMode(showcase);
+      play(beat, "none");
+      return;
+    }
+
+    if (showcase === showcaseRef.current) {
+      // Same animation: carry on as normal, undoing any cut in progress.
+      cancelCut();
+      setVeiled(false);
+      play(beat, cameFrom);
+      return;
+    }
+
+    // A cut. If one is already pending, it picks up the latest pane.
+    tweenRef.current?.stop();
+    setVeiled(true);
+    if (cutRef.current) return;
+    cutRef.current = setTimeout(() => {
+      cutRef.current = null;
+      const target = beats[activeRef.current];
+      enterMode(Boolean(target.showcase));
+      play(target, "none");
+      setVeiled(false);
+    }, FADE_MS);
   };
 
   const currentPane = () => {
@@ -105,6 +157,8 @@ export default function ScrollScene({
 
     const stop = () => {
       tweenRef.current?.stop();
+      cancelCut();
+      setVeiled(false);
       sizeObserver?.disconnect();
       sizeObserver = null;
       if (handleRef.current) {
@@ -208,7 +262,7 @@ export default function ScrollScene({
               role="img"
               aria-label={label}
               className={`absolute inset-0 h-full w-full transition-opacity duration-200 ease-out-soft ${
-                live ? "opacity-100" : "opacity-0"
+                live && !veiled ? "opacity-100" : "opacity-0"
               }`}
             />
           </div>

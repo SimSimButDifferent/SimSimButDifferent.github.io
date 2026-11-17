@@ -31,7 +31,7 @@ test("planBeat opens on a pane by jumping straight to its start", () => {
   ]);
 });
 
-test("planBeat scrolling down from the showcase rewinds to the beat's start, then plays it", () => {
+test("planBeat scrolling down from outside a beat rewinds to its start, then plays it", () => {
   assert.deepEqual(planBeat(12.5, review, "earlier"), [
     { to: 2.6, duration: 0.8 },
     { to: 6.7, duration: 5 },
