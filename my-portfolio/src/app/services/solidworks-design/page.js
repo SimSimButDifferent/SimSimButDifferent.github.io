@@ -1,10 +1,27 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
-import ScrollReveal from "@/components/ScrollReveal";
-import ParametricFamily from "@/components/ParametricFamily";
+import ScrollScene from "@/components/ScrollScene";
+import ScrollPane from "@/components/ScrollPane";
+import SnapScroll from "@/components/SnapScroll";
+import ProcessPath from "@/components/ProcessPath";
+import { beats, label, stills } from "./sceneConfig";
 
 const description =
   "SolidWorks design services for UK businesses: parametric part and assembly modelling delivered as native SLDPRT/SLDASM with STEP exports and PDF drawings.";
+
+// Route from design to production for the "Who it is for" figure. Clients sit
+// at the stage they usually arrive at, matching the paragraph above it.
+const route = [
+  {
+    name: "Design",
+    current: true,
+    clients: ["Inventors", "Startups", "Manufacturers"],
+  },
+  { name: "Prototype" },
+  { name: "DFM review", href: "/services/dfm-consultancy" },
+  { name: "Drawings", href: "/services/construction-drawings" },
+  { name: "Production" },
+];
 
 const faqs = [
   {
@@ -48,7 +65,7 @@ export const metadata = {
 
 export default function SolidworksDesign() {
   return (
-    <main className="min-h-screen bg-white py-10">
+    <main className="page-dark snap-page min-h-screen">
       <JsonLd
         schema={serviceSchema({
           name: "SolidWorks Design Services",
@@ -57,65 +74,43 @@ export default function SolidworksDesign() {
         })}
       />
       <JsonLd schema={faqPageSchema(faqs)} />
+      <SnapScroll />
 
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center mb-8">
-          SolidWorks Design Services UK
-        </h1>
-
-        <p className="textsm lg:text-base pb-4">
-          Parametric part and assembly modelling in SolidWorks, delivered as
-          native SLDPRT/SLDASM files with STEP exports. From a sketch, sample
-          or brief, you get a model built for change: dimensions that edit
-          cleanly, features that rebuild predictably, and assemblies that
-          check fit and clearance between components before anything is made.
-        </p>
-
-        <ScrollReveal variant="scale">
-          <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl my-6">
-            <div className="bg-white rounded-2xl shadow-xl p-4">
-              <ParametricFamily />
-              <p className="textsm text-center pb-2">
-                One driving dimension, a family of parts — a parametric model
-                absorbs change instead of forcing a redraw.
-              </p>
-            </div>
+      <ScrollScene
+        slug="solidworks-design"
+        beats={beats}
+        stills={stills}
+        label={label}
+      >
+        <ScrollPane
+          step="01 · SolidWorks design"
+          still={stills[0]}
+          snap={false}
+        >
+          <h1 className="mb-6 text-display font-light lg:text-display-lg">
+            <span className="font-semibold text-accent-visual">SolidWorks</span>{" "}
+            Design Services UK
+          </h1>
+          <p className="max-w-[70ch]">
+            Parametric part and assembly modelling in SolidWorks, delivered as
+            native SLDPRT/SLDASM files with STEP exports. From a sketch, sample
+            or brief, you get a model built for change: dimensions that edit
+            cleanly, features that rebuild predictably, and assemblies that
+            check fit and clearance between components before anything is made.
+          </p>
+          <div className="mt-8">
+            <Link href="/contact" className="btn-inverse">
+              Send your brief
+            </Link>
           </div>
-        </ScrollReveal>
+        </ScrollPane>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
-            <li>
-              Native SLDPRT part files and SLDASM assemblies, modelled
-              parametrically with named features and sensible design intent.
-            </li>
-            <li>
-              STEP exports for every part and assembly, so the geometry opens
-              in any CAD system your suppliers use.
-            </li>
-            <li>
-              Dimensioned PDF drawings where the work needs them — or a full{" "}
-              <Link
-                href="/services/construction-drawings"
-                className="text-accent hover:text-accent-hover"
-              >
-                construction drawing pack
-              </Link>{" "}
-              when production is the goal.
-            </li>
-          </ul>
-        </ScrollReveal>
-
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">How it works</h2>
-          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
+        <ScrollPane step="02 · The model" still={stills[1]}>
+          <h2 className="mb-4 text-title font-light">How it works</h2>
+          <ol className="max-w-[70ch] list-decimal space-y-3 pl-6 marker:text-accent-visual">
             <li>
               Send your sketch, sample, photographs or brief through the{" "}
-              <Link
-                href="/contact"
-                className="text-accent hover:text-accent-hover"
-              >
+              <Link href="/contact" className="link-inverse">
                 contact page
               </Link>
               .
@@ -130,55 +125,92 @@ export default function SolidworksDesign() {
               and agreed changes are made before final delivery.
             </li>
           </ol>
-        </ScrollReveal>
+        </ScrollPane>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-          <p className="textsm lg:text-base pb-4">
+        <ScrollPane step="03 · The files" still={stills[2]}>
+          <h2 className="mb-4 text-title font-light">What is delivered</h2>
+          <ul className="max-w-[70ch] list-disc space-y-3 pl-6 marker:text-accent-visual">
+            <li>
+              Native SLDPRT part files and SLDASM assemblies, modelled
+              parametrically with named features and sensible design intent.
+            </li>
+            <li>
+              STEP exports for every part and assembly, so the geometry opens
+              in any CAD system your suppliers use.
+            </li>
+            <li>
+              Dimensioned PDF drawings where the work needs them — or a full{" "}
+              <Link
+                href="/services/construction-drawings"
+                className="link-inverse"
+              >
+                construction drawing pack
+              </Link>{" "}
+              when production is the goal.
+            </li>
+          </ul>
+          <ul
+            aria-label="File formats delivered"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            <li className="chip">SLDPRT</li>
+            <li className="chip">SLDASM</li>
+            <li className="chip">STEP</li>
+          </ul>
+          <p className="mt-6 max-w-[70ch] text-muted-inverse">
+            One driving dimension, a family of parts — a parametric model
+            absorbs change instead of forcing a redraw.
+          </p>
+        </ScrollPane>
+      </ScrollScene>
+
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-4 text-title font-light">Who it is for</h2>
+          <p className="mx-auto max-w-[70ch]">
             Inventors with an idea on paper, product startups without in-house
             CAD, and small manufacturers that need overflow design capacity
             without a hire. If the design is heading for tooling, a{" "}
-            <Link
-              href="/services/dfm-consultancy"
-              className="text-accent hover:text-accent-hover"
-            >
+            <Link href="/services/dfm-consultancy" className="link-inverse">
               DFM review
             </Link>{" "}
             checks it against the manufacturing process; if you need images
             for marketing before production,{" "}
             <Link
               href="/services/photorealistic-rendering"
-              className="text-accent hover:text-accent-hover"
+              className="link-inverse"
             >
               photorealistic rendering
             </Link>{" "}
             works directly from the model.
           </p>
-        </ScrollReveal>
+          <ProcessPath stages={route} caption="Where SolidWorks design sits" />
+        </div>
+      </section>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-          <div className="space-y-4 pb-8">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-6 text-title font-light">
+            Frequently asked questions
+          </h2>
+          <div className="divide-y divide-line">
             {faqs.map(({ question, answer }) => (
-              <div key={question}>
-                <h3 className="textsm lg:text-base font-bold pb-1">
+              <div key={question} className="py-6 first:pt-0 last:pb-0">
+                <h3 className="mb-2 pb-0 text-title-sm font-semibold">
                   {question}
                 </h3>
-                <p className="textsm lg:text-base">{answer}</p>
+                <p className="mx-auto max-w-[70ch] text-muted-inverse">{answer}</p>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
 
-        <div className="text-center pt-4 pb-8">
-          <Link
-            href="/contact"
-            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
-          >
+        <div className="pt-12 text-center">
+          <Link href="/contact" className="btn-inverse">
             Send your brief
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

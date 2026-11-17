@@ -5,6 +5,16 @@
 // Loaded only on the client, on demand, by ScrollScene.
 import * as THREE from "three";
 
+// Lighting. The showcase (landing loop) is the brightest frame on a page:
+// while it is on, the key and sky lights are raised and a second, tighter
+// cyan glow is added under the subject. The glow is small on purpose: the
+// showcase camera sits higher, and a brighter full-size pool would run off
+// the bottom of the canvas as a visible edge.
+const KEY_LIGHT = 2.4;
+const KEY_LIGHT_SHOWCASE = 3.1;
+const SKY_LIGHT = 1.4;
+const SKY_LIGHT_SHOWCASE = 1.65;
+
 export const tokens = {
   navy: 0x0f172a,
   line: 0x334155,
@@ -17,6 +27,7 @@ export const tokens = {
 
 const loaders = {
   "dfm-consultancy": () => import("./dfm-consultancy"),
+  "solidworks-design": () => import("./solidworks-design"),
 };
 
 function blueprintFloor() {
@@ -84,6 +95,28 @@ function blueprintFloor() {
   pool.position.y = -0.4;
   group.add(pool);
 
+  // Showcase glow: same texture, a little over half the size, off by default.
+  const glow = new THREE.Mesh(
+    new THREE.PlaneGeometry(120, 120),
+    new THREE.MeshBasicMaterial({
+      map: pool.material.map,
+      transparent: true,
+      depthWrite: false,
+      opacity: 0,
+    })
+  );
+  glow.rotation.x = -Math.PI / 2;
+  glow.position.y = -0.3;
+  group.add(glow);
+
+  // level: 0 hides the floor, 1 is normal. glow: 0 to 1, showcase only.
+  group.userData.set = (level, glowLevel) => {
+    grid.material.opacity = level;
+    pool.material.opacity = level;
+    glow.material.opacity = level * glowLevel;
+    group.visible = level > 0.001;
+  };
+
   return group;
 }
 
@@ -118,14 +151,16 @@ export async function mountScene(canvas, slug) {
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
-  scene.add(new THREE.HemisphereLight(0xdbeafe, tokens.navy, 1.4));
-  const key = new THREE.DirectionalLight(0xffffff, 2.4);
+  const sky = new THREE.HemisphereLight(0xdbeafe, tokens.navy, SKY_LIGHT);
+  scene.add(sky);
+  const key = new THREE.DirectionalLight(0xffffff, KEY_LIGHT);
   key.position.set(70, 130, 110);
   scene.add(key);
   const fill = new THREE.DirectionalLight(0x93c5fd, 0.7);
   fill.position.set(-110, 50, 60);
   scene.add(fill);
-  scene.add(blueprintFloor());
+  const floor = blueprintFloor();
+  scene.add(floor);
 
   const fontFamily = getComputedStyle(canvas).fontFamily || "sans-serif";
   const part = create({ THREE, tokens, fontFamily });
@@ -139,7 +174,13 @@ export async function mountScene(canvas, slug) {
     swing,
     period,
     showcaseElevation = elevation,
+    showcaseDistance = distance,
     spinPeriod = 24,
+    // Optional: at(t) -> { target?, distance?, elevation?, azimuth?, floor? }
+    // for a story whose camera moves with scene time (it replaces the
+    // pendulum). floor (0 to 1) fades the blueprint floor, for views such as
+    // top-down where it would fill the canvas edge to edge.
+    at,
   } = part.camera;
   let time = 0;
 
@@ -154,16 +195,25 @@ export async function mountScene(canvas, slug) {
   let frame = null;
   let last = 0;
 
+  const mix = (a, b, x) => a + (b - a) * x;
+
   const render = () => {
-    const azimuth =
-      swing * (1 - weight) * Math.sin((2 * Math.PI * time) / period);
-    const el = elevation + (showcaseElevation - elevation) * weight;
+    const story = at?.(time) ?? {};
+    const storyAzimuth =
+      story.azimuth ?? swing * Math.sin((2 * Math.PI * time) / period);
+    const azimuth = storyAzimuth * (1 - weight);
+    const el = mix(story.elevation ?? elevation, showcaseElevation, weight);
+    const reach = mix(story.distance ?? distance, showcaseDistance, weight);
+    const aim = weight > 0 || !story.target ? target : story.target;
     camera.position.set(
-      target.x + distance * Math.sin(azimuth) * Math.cos(el),
-      target.y + distance * Math.sin(el),
-      target.z + distance * Math.cos(azimuth) * Math.cos(el)
+      aim.x + reach * Math.sin(azimuth) * Math.cos(el),
+      aim.y + reach * Math.sin(el),
+      aim.z + reach * Math.cos(azimuth) * Math.cos(el)
     );
-    camera.lookAt(target);
+    camera.lookAt(aim);
+    key.intensity = mix(KEY_LIGHT, KEY_LIGHT_SHOWCASE, weight);
+    sky.intensity = mix(SKY_LIGHT, SKY_LIGHT_SHOWCASE, weight);
+    floor.userData.set(mix(story.floor ?? 1, 1, weight), weight);
     part.view?.({ spin, showcase: weight });
     renderer.render(scene, camera);
   };

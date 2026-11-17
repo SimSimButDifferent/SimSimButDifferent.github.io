@@ -12,7 +12,7 @@ Note: `StaticMap.js` was audited because it shares the map fallback-state patter
 
 ## 0. Dark theme (2026-11, in rollout)
 
-The site is moving from "light base, dark as sections" to dark throughout, using the look of the three.js service scenes. Migrated so far: navbar, footer, `/services/dfm-consultancy`. **Sections 1 to 7 below describe pages that have not moved yet.** New work follows this section and `.ux-profile.md`.
+The site is moving from "light base, dark as sections" to dark throughout, using the look of the three.js service scenes. Migrated so far: navbar, footer, `/services/dfm-consultancy`, `/services/solidworks-design`. **Sections 1 to 7 below describe pages that have not moved yet.** New work follows this section and `.ux-profile.md`.
 
 - **Opt-in:** `<main className="page-dark">`. It out-ranks the legacy `main { color: black; width: 100vw }` rule, which stays until the last light page has gone.
 - **Tokens added:** `surface` #1e293b (slate-800, panels), `line` #334155 (slate-700, 1px borders). Existing `navy`, `ink-inverse`, `muted-inverse`, `accent-visual` carry the rest. Cyan-400 is the only accent and, on navy, is also the link and CTA colour (the old hero exception is now the rule on dark pages).
