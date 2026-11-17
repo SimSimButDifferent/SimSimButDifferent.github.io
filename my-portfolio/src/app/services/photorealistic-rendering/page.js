@@ -1,10 +1,27 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
-import ScrollReveal from "@/components/ScrollReveal";
-import WireframeToRender from "@/components/WireframeToRender";
+import SnapScroll from "@/components/SnapScroll";
+import ProcessPath from "@/components/ProcessPath";
+
+// No scroll scene yet. The canvas and still frames wait on two assets from
+// Sim: product.glb (the product model) and render.jpg (a real SolidWorks
+// Visualize still of the same product). Until both exist, frames 01 to 03
+// are full-height panels, and nothing stands in for the product or the render.
 
 const description =
   "Photorealistic product renders from your CAD models: high-resolution images for listings, packaging and pitches, with material and colour variants included.";
+
+// Route from model to market for the "Who it is for" figure. Clients sit at
+// the stage this service covers, matching the paragraph above it.
+const route = [
+  { name: "Design", href: "/services/solidworks-design" },
+  {
+    name: "Rendering",
+    current: true,
+    clients: ["Startups", "Established businesses", "Manufacturers"],
+  },
+  { name: "Marketing" },
+];
 
 const faqs = [
   {
@@ -48,7 +65,7 @@ export const metadata = {
 
 export default function PhotorealisticRendering() {
   return (
-    <main className="min-h-screen bg-white py-10">
+    <main className="page-dark snap-page min-h-screen">
       <JsonLd
         schema={serviceSchema({
           name: "Photorealistic Product Rendering",
@@ -57,35 +74,74 @@ export default function PhotorealisticRendering() {
         })}
       />
       <JsonLd schema={faqPageSchema(faqs)} />
+      <SnapScroll />
 
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center pb-6">
-          <div>
-            <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center lg:text-left mb-8">
-              Photorealistic Product Rendering UK
-            </h1>
-            <p className="textsm lg:text-base pb-4">
-              High-resolution product images rendered directly from your CAD
-              model — before a single unit exists. Product businesses use
-              them for online listings, packaging artwork, investor pitches
-              and pre-launch marketing, with material and colour variants
-              covered from the same scene.
-            </p>
+      <section className="mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel">
+          <p className="eyebrow mb-4">
+            <span className="text-accent-visual">
+              01 · Photorealistic rendering
+            </span>
+          </p>
+          <h1 className="mb-6 text-display font-light lg:text-display-lg">
+            <span className="font-semibold text-accent-visual">
+              Photorealistic
+            </span>{" "}
+            Product Rendering UK
+          </h1>
+          <p className="max-w-[70ch]">
+            High-resolution product images rendered directly from your CAD
+            model — before a single unit exists. Product businesses use
+            them for online listings, packaging artwork, investor pitches
+            and pre-launch marketing, with material and colour variants
+            covered from the same scene.
+          </p>
+          <div className="mt-8">
+            <Link href="/contact" className="btn-inverse">
+              Send your model and references
+            </Link>
           </div>
-          <ScrollReveal variant="fadeInRight">
-            <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl">
-              <div className="bg-white rounded-2xl shadow-xl p-4">
-                <WireframeToRender />
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
-      </div>
+      </section>
 
-      <div className="container mx-auto px-4 max-w-4xl">
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel">
+          <p className="eyebrow mb-4">
+            <span className="text-accent-visual">02 · The scene</span>
+          </p>
+          <h2 className="mb-4 text-title font-light">How it works</h2>
+          <ol className="max-w-[70ch] list-decimal space-y-3 pl-6 marker:text-accent-visual">
+            <li>
+              Send your CAD files and material references through the{" "}
+              <Link href="/contact" className="link-inverse">
+                contact page
+              </Link>
+              . No CAD model yet?{" "}
+              <Link
+                href="/services/solidworks-design"
+                className="link-inverse"
+              >
+                SolidWorks modelling
+              </Link>{" "}
+              builds one first.
+            </li>
+            <li>You receive a quote and an agreed delivery date.</li>
+            <li>
+              Camera angles, materials and backgrounds are agreed from draft
+              previews before final rendering time is spent.
+            </li>
+            <li>You receive the final image set, sized for use.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel">
+          <p className="eyebrow mb-4">
+            <span className="text-accent-visual">03 · The files</span>
+          </p>
+          <h2 className="mb-4 text-title font-light">What is delivered</h2>
+          <ul className="max-w-[70ch] list-disc space-y-3 pl-6 marker:text-accent-visual">
             <li>
               High-resolution PNG or JPEG images at the sizes your listing,
               packaging or presentation needs, from agreed camera angles.
@@ -99,40 +155,21 @@ export default function PhotorealisticRendering() {
               modelling adjustments were part of the work.
             </li>
           </ul>
-        </ScrollReveal>
+          <ul
+            aria-label="File formats delivered"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            <li className="chip">PNG</li>
+            <li className="chip">JPEG</li>
+            <li className="chip">Colour variants</li>
+          </ul>
+        </div>
+      </section>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">How it works</h2>
-          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
-            <li>
-              Send your CAD files and material references through the{" "}
-              <Link
-                href="/contact"
-                className="text-accent hover:text-accent-hover"
-              >
-                contact page
-              </Link>
-              . No CAD model yet?{" "}
-              <Link
-                href="/services/solidworks-design"
-                className="text-accent hover:text-accent-hover"
-              >
-                SolidWorks modelling
-              </Link>{" "}
-              builds one first.
-            </li>
-            <li>You receive a quote and an agreed delivery date.</li>
-            <li>
-              Camera angles, materials and backgrounds are agreed from draft
-              previews before final rendering time is spent.
-            </li>
-            <li>You receive the final image set, sized for use.</li>
-          </ol>
-        </ScrollReveal>
-
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-          <p className="textsm lg:text-base pb-4">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-4 text-title font-light">Who it is for</h2>
+          <p className="mx-auto max-w-[70ch]">
             Product startups that need listing and pitch images before
             production, established businesses refreshing packaging or
             marketing for an existing range, and manufacturers who want a
@@ -140,38 +177,42 @@ export default function PhotorealisticRendering() {
             pair with a{" "}
             <Link
               href="/services/construction-drawings"
-              className="text-accent hover:text-accent-hover"
+              className="link-inverse"
             >
               construction drawing pack
             </Link>{" "}
             when a product is heading to manufacture and market at the same
             time.
           </p>
-        </ScrollReveal>
+          <ProcessPath stages={route} caption="Where rendering sits" />
+        </div>
+      </section>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-          <div className="space-y-4 pb-8">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-6 text-title font-light">
+            Frequently asked questions
+          </h2>
+          <div className="divide-y divide-line">
             {faqs.map(({ question, answer }) => (
-              <div key={question}>
-                <h3 className="textsm lg:text-base font-bold pb-1">
+              <div key={question} className="py-6 first:pt-0 last:pb-0">
+                <h3 className="mb-2 pb-0 text-title-sm font-semibold">
                   {question}
                 </h3>
-                <p className="textsm lg:text-base">{answer}</p>
+                <p className="mx-auto max-w-[70ch] text-muted-inverse">
+                  {answer}
+                </p>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
 
-        <div className="text-center pt-4 pb-8">
-          <Link
-            href="/contact"
-            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
-          >
+        <div className="pt-12 text-center">
+          <Link href="/contact" className="btn-inverse">
             Send your model and references
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

@@ -18,6 +18,12 @@ import { motion, useReducedMotion } from "framer-motion";
 //   caption  one-line description of the figure
 const EASE = [0.16, 1, 0.3, 1];
 const VIEWPORT = { once: true, margin: "-80px" };
+// Literal class names so Tailwind keeps them. Five stages is the default.
+const COLUMNS = {
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+  5: "md:grid-cols-5",
+};
 
 // Each stage (<li>) watches the viewport and passes "hidden"/"shown" down to
 // its line segments and text, so the zero-size segments need no observer of
@@ -46,7 +52,7 @@ export default function ProcessPath({ stages, caption }) {
     <figure className="mt-8 border-t border-line pt-8">
       <figcaption className="eyebrow mb-6">{caption}</figcaption>
 
-      <ol className="grid md:grid-cols-5">
+      <ol className={`grid ${COLUMNS[stages.length] ?? COLUMNS[5]}`}>
         {stages.map((stage, index) => {
           const lit = index <= currentIndex;
           const delay = index * 0.06;
