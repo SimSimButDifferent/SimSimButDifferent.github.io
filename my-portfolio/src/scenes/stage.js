@@ -29,6 +29,7 @@ const loaders = {
   "dfm-consultancy": () => import("./dfm-consultancy"),
   "solidworks-design": () => import("./solidworks-design"),
   "cad-file-conversion": () => import("./cad-file-conversion"),
+  "construction-drawings": () => import("./construction-drawings"),
 };
 
 function blueprintFloor() {

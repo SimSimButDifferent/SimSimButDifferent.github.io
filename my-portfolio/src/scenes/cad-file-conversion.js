@@ -17,9 +17,7 @@
 //        leaves a white outline, ".DXF"; laser point traces the outline;
 //        conversion note ticks its two rows
 
-import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2.js";
-import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry.js";
-import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
+import { stroke, setSegments, setPath } from "./lines";
 
 // Bracket, in millimetres. x runs along the bracket (the direction of
 // travel), z from the back flange (negative) to the front flange.
@@ -145,42 +143,6 @@ export function create({ THREE, tokens, fontFamily }) {
   const body = new THREE.Group();
   object.add(body);
   const textures = new Map();
-
-  // Line-work with a width in pixels (WebGL's own lines are one pixel wide,
-  // which is too faint for the flat pattern and the dashed outlines). Drawn
-  // over the solids, like the construction lines in the other scenes.
-  const stroke = (colour, width, dashed = false) =>
-    new LineSegments2(
-      new LineSegmentsGeometry(),
-      new LineMaterial({
-        color: colour,
-        linewidth: width,
-        transparent: true,
-        depthTest: false,
-        dashed,
-        dashSize: 5,
-        gapSize: 3.5,
-      })
-    );
-
-  // Set a stroke's segments from pairs of points. The point count changes
-  // between frames, so the geometry is replaced: writing into the existing
-  // one keeps the old buffer size and leaves later segments undrawn.
-  function setSegments(line, points) {
-    line.geometry.dispose();
-    line.geometry = new LineSegmentsGeometry();
-    line.visible = points.length > 1;
-    if (!line.visible) return;
-    line.geometry.setPositions(points.flatMap((p) => [p.x, p.y, p.z]));
-    if (line.material.dashed) line.computeLineDistances();
-  }
-
-  // The same, from a run of points joined end to end.
-  const setPath = (line, points) =>
-    setSegments(
-      line,
-      points.slice(1).flatMap((point, i) => [points[i], point])
-    );
 
   // A sprite compiled without a map ignores one assigned later unless the
   // material is flagged for recompilation.

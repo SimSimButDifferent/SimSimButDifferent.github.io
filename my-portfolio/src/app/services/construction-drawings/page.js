@@ -1,9 +1,27 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
-import ScrollReveal from "@/components/ScrollReveal";
+import ScrollScene from "@/components/ScrollScene";
+import ScrollPane from "@/components/ScrollPane";
+import SnapScroll from "@/components/SnapScroll";
+import ProcessPath from "@/components/ProcessPath";
+import { beats, label, stills } from "./sceneConfig";
 
 const description =
   "Dimensioned PDF drawing packs for manufacture: tolerances, weld and finish callouts, DXF profiles and a bill of materials. For UK product businesses.";
+
+// Route from design to production for the "Who it is for" figure. Clients sit
+// at the stage they usually arrive at, matching the paragraph above it.
+const route = [
+  { name: "Design", href: "/services/solidworks-design" },
+  { name: "Prototype" },
+  { name: "DFM review", href: "/services/dfm-consultancy" },
+  {
+    name: "Drawings",
+    current: true,
+    clients: ["Startups", "Manufacturers", "Workshops"],
+  },
+  { name: "Production" },
+];
 
 const faqs = [
   {
@@ -45,19 +63,9 @@ export const metadata = {
   },
 };
 
-// Signature element: the page header is laid out as a drawing sheet — a
-// bordered frame with a title block along its bottom edge, the exact
-// artefact this service delivers.
-const titleBlock = [
-  { label: "Title", value: "Construction drawings for manufacturing" },
-  { label: "Drawn in", value: "SolidWorks" },
-  { label: "Formats", value: "PDF · DXF · SLDDRW" },
-  { label: "Sheet", value: "1 of 1" },
-];
-
 export default function ConstructionDrawings() {
   return (
-    <main className="min-h-screen bg-white py-10">
+    <main className="page-dark snap-page min-h-screen">
       <JsonLd
         schema={serviceSchema({
           name: "Construction Drawings for Manufacturing",
@@ -66,74 +74,52 @@ export default function ConstructionDrawings() {
         })}
       />
       <JsonLd schema={faqPageSchema(faqs)} />
+      <SnapScroll />
 
-      <div className="container mx-auto px-4 max-w-4xl">
-        <ScrollReveal variant="fadeInUp">
-          <div className="border-2 border-black shadow-xl mb-8">
-            <div className="border border-black m-1">
-              <div className="p-6 md:p-10">
-                <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center mb-8">
-                  Construction Drawings for Manufacturing
-                </h1>
-
-                <p className="textsm lg:text-base pb-4">
-                  A manufacturer works from drawings, not models. This service
-                  turns your CAD models into dimensioned PDF drawing packs a
-                  factory or workshop can quote against and build from — with
-                  tolerances, weld and finish callouts, and a bill of materials.
-                  It is for product businesses and workshops that have a design
-                  and need it on paper, correctly, before a production order.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 border-t border-black">
-                {titleBlock.map(({ label, value }, i) => (
-                  <div
-                    key={label}
-                    className={`p-2 border-black ${i > 0 ? "border-l" : ""} ${
-                      i >= 2 ? "max-md:border-t max-md:border-l-0" : ""
-                    } ${i === 3 ? "max-md:border-l" : ""}`}
-                  >
-                    <p className="text-xs uppercase text-ink">{label}</p>
-                    <p className="textsm">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <ScrollScene
+        slug="construction-drawings"
+        beats={beats}
+        stills={stills}
+        label={label}
+      >
+        <ScrollPane
+          step="01 · Construction drawings"
+          still={stills[0]}
+          snap={false}
+        >
+          <h1 className="mb-6 text-display font-light lg:text-display-lg">
+            Construction{" "}
+            <span className="font-semibold text-accent-visual">Drawings</span>{" "}
+            for Manufacturing
+          </h1>
+          <p className="max-w-[70ch]">
+            A manufacturer works from drawings, not models. This service
+            turns your CAD models into dimensioned PDF drawing packs a
+            factory or workshop can quote against and build from — with
+            tolerances, weld and finish callouts, and a bill of materials.
+            It is for product businesses and workshops that have a design
+            and need it on paper, correctly, before a production order.
+          </p>
+          <div className="mt-8">
+            <Link href="/contact" className="btn-inverse">
+              Send your model or brief
+            </Link>
           </div>
-        </ScrollReveal>
+        </ScrollPane>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
-            <li>
-              A dimensioned and toleranced PDF drawing pack: part drawings,
-              assembly drawings with balloons, and a bill of materials.
-            </li>
-            <li>
-              DXF profiles for sheet-metal, laser-cut and CNC-routed parts,
-              taken directly from the model geometry.
-            </li>
-            <li>
-              Native SLDDRW drawing files with the SLDPRT/SLDASM models they
-              reference, so the pack stays maintainable in SolidWorks.
-            </li>
-          </ul>
-        </ScrollReveal>
-
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">How it works</h2>
-          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
+        <ScrollPane step="02 · The sheet" still={stills[1]}>
+          <h2 className="mb-4 text-title font-light">How it works</h2>
+          <ol className="max-w-[70ch] list-decimal space-y-3 pl-6 marker:text-accent-visual">
             <li>
               Send your CAD files and the intended manufacturing process through
               the{" "}
-              <Link href="/contact" className="text-accent hover:text-accent-hover">
+              <Link href="/contact" className="link-inverse">
                 contact page
               </Link>
               . No model yet?{" "}
               <Link
                 href="/services/reverse-engineering"
-                className="text-accent hover:text-accent-hover"
+                className="link-inverse"
               >
                 Reverse engineering
               </Link>{" "}
@@ -150,50 +136,80 @@ export default function ConstructionDrawings() {
               agreed in the quote.
             </li>
           </ol>
-        </ScrollReveal>
+        </ScrollPane>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-          <p className="textsm lg:text-base pb-4">
+        <ScrollPane step="03 · The files" still={stills[2]}>
+          <h2 className="mb-4 text-title font-light">What is delivered</h2>
+          <ul className="max-w-[70ch] list-disc space-y-3 pl-6 marker:text-accent-visual">
+            <li>
+              A dimensioned and toleranced PDF drawing pack: part drawings,
+              assembly drawings with balloons, and a bill of materials.
+            </li>
+            <li>
+              DXF profiles for sheet-metal, laser-cut and CNC-routed parts,
+              taken directly from the model geometry.
+            </li>
+            <li>
+              Native SLDDRW drawing files with the SLDPRT/SLDASM models they
+              reference, so the pack stays maintainable in SolidWorks.
+            </li>
+          </ul>
+          <ul
+            aria-label="File formats delivered"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            <li className="chip">PDF pack</li>
+            <li className="chip">DXF</li>
+            <li className="chip">SLDDRW</li>
+          </ul>
+          <p className="mt-6 max-w-[70ch] text-muted-inverse">
+            Drawn in SolidWorks
+          </p>
+        </ScrollPane>
+      </ScrollScene>
+
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-4 text-title font-light">Who it is for</h2>
+          <p className="mx-auto max-w-[70ch]">
             Product startups placing a first production order, small
             manufacturers that need CAD support without hiring, and workshop
             businesses formalising a design that has so far lived in
             someone&apos;s head. If the design itself still needs checking
             against the process, a{" "}
-            <Link
-              href="/services/dfm-consultancy"
-              className="text-accent hover:text-accent-hover"
-            >
+            <Link href="/services/dfm-consultancy" className="link-inverse">
               DFM review
             </Link>{" "}
             before the drawing pack catches problems while they are still cheap
             to fix.
           </p>
-        </ScrollReveal>
+          <ProcessPath stages={route} caption="Where construction drawings sit" />
+        </div>
+      </section>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-          <div className="space-y-4 pb-8">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-6 text-title font-light">
+            Frequently asked questions
+          </h2>
+          <div className="divide-y divide-line">
             {faqs.map(({ question, answer }) => (
-              <div key={question}>
-                <h3 className="textsm lg:text-base font-bold pb-1">
+              <div key={question} className="py-6 first:pt-0 last:pb-0">
+                <h3 className="mb-2 pb-0 text-title-sm font-semibold">
                   {question}
                 </h3>
-                <p className="textsm lg:text-base">{answer}</p>
+                <p className="mx-auto max-w-[70ch] text-muted-inverse">{answer}</p>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
 
-        <div className="text-center pt-4 pb-8">
-          <Link
-            href="/contact"
-            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
-          >
+        <div className="pt-12 text-center">
+          <Link href="/contact" className="btn-inverse">
             Send your model or brief
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
