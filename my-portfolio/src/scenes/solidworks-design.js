@@ -20,6 +20,7 @@ const HOLE_EDGE = 9; // hole centre to each end: fixed, whatever W is
 const SLOT_RADIUS = 4;
 const SLOT_EDGE = 22; // slot end centre to each end: the slot grows with W
 const PITCH = 70; // row spacing, front to back
+const SINK = 0.4; // a copy sits this far down while it slides out of its parent
 const WIDTHS = [60, 90, 120];
 const LEFT = -WIDTHS[2] / 2; // left ends line up; the family is centred on 0
 
@@ -46,7 +47,9 @@ export function paramsAt(t) {
   const second = easeInOut(ramp(t, 7.5, 8.5));
   const third = easeInOut(ramp(t, 9.0, 10.0));
   return {
-    profile: ramp(t, 0.5, 1.5), // sketch outline drawn, 0 to 1
+    // Corner rectangle: first corner placed at 0.5, dragged to the opposite
+    // corner by 1.5. 0 to 1 along the diagonal.
+    profile: easeInOut(ramp(t, 0.5, 1.5)),
     dimension: easeOut(ramp(t, 1.5, 2.0)),
     tilt: easeInOut(ramp(t, 3.0, 4.0)),
     extrude: easeOut(ramp(t, 3.4, 4.0)),
@@ -59,16 +62,18 @@ export function paramsAt(t) {
     list: 1 - ramp(t, 6.8, 7.2),
     family: easeInOut(ramp(t, 6.8, 7.6)), // view widens from one part to three
     brackets: [
-      { on: 1, z: PITCH, width: 60 },
+      { on: 1, z: PITCH, width: 60, sink: 0 },
       {
         on: ramp(t, 6.8, 6.95),
         z: lerp(PITCH, 0, easeInOut(ramp(t, 6.8, 7.5))),
         width: lerp(60, 90, second),
+        sink: SINK * (1 - ramp(t, 7.3, 7.5)),
       },
       {
         on: ramp(t, 8.5, 8.65),
         z: lerp(0, -PITCH, easeInOut(ramp(t, 8.5, 9.0))),
         width: lerp(90, 120, third),
+        sink: SINK * (1 - ramp(t, 8.85, 9.0)),
       },
     ],
     finish: [0, 1, 2].map((i) =>
@@ -229,13 +234,20 @@ export function create({ THREE, tokens, fontFamily }) {
   const found = new THREE.Color(tokens.found);
   const render = new THREE.Color(tokens.render);
 
-  function makeBracket() {
+  // A copy starts inside the bracket it is copied from, so for a moment
+  // their faces coincide and would flicker (z-fighting). Each later copy is
+  // pushed a step further back in depth, so the earlier bracket always wins,
+  // and it sits a fraction lower while it slides out (see `sink`).
+  function makeBracket(_, index) {
     const group = new THREE.Group();
     const skin = new THREE.MeshStandardMaterial({
       color: tokens.found,
       roughness: 0.7,
       metalness: 0.05,
       transparent: true,
+      polygonOffset: true,
+      polygonOffsetFactor: index * 2,
+      polygonOffsetUnits: index * 2,
     });
     const solid = new THREE.Mesh(new THREE.BufferGeometry(), skin);
     // Material still filling the holes while the cut runs down through it.
@@ -358,31 +370,33 @@ export function create({ THREE, tokens, fontFamily }) {
   sketchPlane.position.set(30, 0.05, 0);
   first.add(sketchPlane);
 
-  const profile = new THREE.Line(new THREE.BufferGeometry(), cyanLine());
-  first.add(profile);
-  const profileCorners = [
-    [0, half],
-    [60, half],
-    [60, -half],
-    [0, -half],
-    [0, half],
-  ];
-  const profileLength = 2 * (60 + DEPTH);
+  // Sketch profile, drawn the way SolidWorks draws a corner rectangle: the
+  // first corner is placed (back left), then the opposite corner is dragged
+  // out along the diagonal with all four sides following it.
+  const profile = new THREE.LineLoop(new THREE.BufferGeometry(), cyanLine());
+  const profileCorners = new THREE.Points(
+    new THREE.BufferGeometry(),
+    new THREE.PointsMaterial({
+      color: tokens.cyan,
+      size: 7,
+      sizeAttenuation: false,
+      transparent: true,
+      depthTest: false,
+    })
+  );
+  first.add(profile, profileCorners);
 
-  function profilePoints(fraction) {
-    let left = profileLength * fraction;
-    const points = [new THREE.Vector3(0, 0.3, half)];
-    for (let i = 1; i < profileCorners.length && left > 0; i++) {
-      const [x1, z1] = profileCorners[i - 1];
-      const [x2, z2] = profileCorners[i];
-      const side = Math.hypot(x2 - x1, z2 - z1);
-      const part = Math.min(1, left / side);
-      points.push(
-        new THREE.Vector3(lerp(x1, x2, part), 0.3, lerp(z1, z2, part))
-      );
-      left -= side;
-    }
-    return points;
+  function setProfile(fraction) {
+    const x = 60 * fraction;
+    const z = -half + DEPTH * fraction;
+    const at = (px, pz) => new THREE.Vector3(px, 0.3, pz);
+    profile.geometry.setFromPoints([
+      at(0, -half),
+      at(x, -half),
+      at(x, z),
+      at(0, z),
+    ]);
+    profileCorners.geometry.setFromPoints([at(0, -half), at(x, z)]);
   }
 
   const cutOutlines = new THREE.Group();
@@ -442,7 +456,7 @@ export function create({ THREE, tokens, fontFamily }) {
 
     brackets.forEach((bracket, i) => {
       const state = p.brackets[i];
-      bracket.group.position.set(LEFT, 0, state.z);
+      bracket.group.position.set(LEFT, -state.sink, state.z);
       bracket.set({
         width: state.width,
         extrudeBy: i === 0 ? p.extrude : 1,
@@ -460,9 +474,13 @@ export function create({ THREE, tokens, fontFamily }) {
     planeEdge.material.opacity = 0.5 * planeOn;
     sketchPlane.visible = planeOn > 0.001;
 
-    profile.geometry.setFromPoints(profilePoints(p.profile));
+    setProfile(p.profile);
     profile.material.opacity = 1 - ramp(t, 3.5, 4.0);
     profile.visible = p.profile > 0 && profile.material.opacity > 0.001;
+    // The corner points show from the first click until the dimension is on.
+    profileCorners.material.opacity =
+      ramp(t, 0.4, 0.5) * (1 - ramp(t, 2.0, 2.4));
+    profileCorners.visible = profileCorners.material.opacity > 0.001;
 
     cutOutlines.children.forEach((line) => {
       line.material.opacity = p.cutSketch;
