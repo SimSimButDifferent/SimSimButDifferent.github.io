@@ -188,7 +188,7 @@ export default function DfmConsultancy() {
 
       <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
         <div className="panel">
-          <h2 className="mb-6 text-title font-light">
+          <h2 className="mb-6 text-center text-title font-light">
             Frequently asked questions
           </h2>
           <div className="divide-y divide-line">
