@@ -162,9 +162,9 @@ export default function DfmConsultancy() {
       </ScrollScene>
 
       <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
-        <div className="panel">
+        <div className="panel text-center">
           <h2 className="mb-4 text-title font-light">Who it is for</h2>
-          <p className="max-w-[70ch]">
+          <p className="mx-auto max-w-[70ch]">
             Product startups preparing for a first production run, small
             manufacturers taking on a design from a client, workshop
             businesses moving a one-off into batch production, and inventors
