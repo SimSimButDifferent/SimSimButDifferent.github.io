@@ -187,8 +187,8 @@ export default function DfmConsultancy() {
       </section>
 
       <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
-        <div className="panel">
-          <h2 className="mb-6 text-center text-title font-light">
+        <div className="panel text-center">
+          <h2 className="mb-6 text-title font-light">
             Frequently asked questions
           </h2>
           <div className="divide-y divide-line">
@@ -197,7 +197,7 @@ export default function DfmConsultancy() {
                 <h3 className="mb-2 pb-0 text-title-sm font-semibold">
                   {question}
                 </h3>
-                <p className="max-w-[70ch] text-muted-inverse">{answer}</p>
+                <p className="mx-auto max-w-[70ch] text-muted-inverse">{answer}</p>
               </div>
             ))}
           </div>
