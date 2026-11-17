@@ -3,10 +3,25 @@ import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
 import ScrollScene from "@/components/ScrollScene";
 import ScrollPane from "@/components/ScrollPane";
 import SnapScroll from "@/components/SnapScroll";
+import ProcessPath from "@/components/ProcessPath";
 import { beats, label, stills } from "./sceneConfig";
 
 const description =
   "DFM reviews for UK product businesses: manufacturability checks on your CAD models, with a written report and revised SLDPRT/SLDASM files and PDF drawings.";
+
+// Route from design to production for the "Who it is for" figure. Clients sit
+// at the stage they usually arrive at, matching the paragraph above it.
+const route = [
+  { name: "Design", href: "/services/solidworks-design" },
+  { name: "Prototype", clients: ["Inventors", "Workshops"] },
+  {
+    name: "DFM review",
+    current: true,
+    clients: ["Startups", "Manufacturers"],
+  },
+  { name: "Drawings", href: "/services/construction-drawings" },
+  { name: "Production" },
+];
 
 const faqs = [
   {
@@ -167,6 +182,7 @@ export default function DfmConsultancy() {
             </Link>{" "}
             takes the reviewed design to the factory.
           </p>
+          <ProcessPath stages={route} caption="Where a DFM review sits" />
         </div>
       </section>
 
