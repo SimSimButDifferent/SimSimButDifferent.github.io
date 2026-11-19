@@ -19,7 +19,7 @@ export const beats = [
 export const stills = [
   {
     src: "/images/scenes/reverse-engineering-01.webp",
-    alt: "Flanged housing in ice-blue in exploded view: the cap and bush lifted above the body along a dashed cyan centreline",
+    alt: "Flanged housing in ice-blue in exploded view: the cap and bush lifted above the body",
   },
   {
     src: "/images/scenes/reverse-engineering-02.webp",

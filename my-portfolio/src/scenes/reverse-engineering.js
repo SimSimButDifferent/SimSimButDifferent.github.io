@@ -567,7 +567,8 @@ export function create({ THREE, tokens, fontFamily }) {
     model.cap.position.y = capSeat + CAP_LIFT * p.cap;
     model.bush.position.y = BUSH_LIFT * p.bush;
 
-    drawCentreline(showcaseOn ? 1 : p.centreline, showcaseOn ? 150 : p.reach);
+    // No centreline in the landing loop: the model turns on its own.
+    drawCentreline(showcaseOn ? 0 : p.centreline, showcaseOn ? 150 : p.reach);
   }
 
   function update(t) {
@@ -576,7 +577,7 @@ export function create({ THREE, tokens, fontFamily }) {
   }
 
   // Landing loop, independent of scene time: the finished assembly in its
-  // exploded view, turning, with only the centreline beside it.
+  // exploded view, turning, with no centreline or callouts.
   function view({ spin: angle, showcase }) {
     const on = showcase > 0.5;
     spin = angle;
