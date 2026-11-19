@@ -31,9 +31,10 @@ const loaders = {
   "cad-file-conversion": () => import("./cad-file-conversion"),
   "construction-drawings": () => import("./construction-drawings"),
   "reverse-engineering": () => import("./reverse-engineering"),
+  "about-reel": () => import("./about-reel"),
 };
 
-function blueprintFloor() {
+export function blueprintFloor() {
   const group = new THREE.Group();
 
   // Grid lines fade out with distance so the canvas has no visible edge.
