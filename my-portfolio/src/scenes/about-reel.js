@@ -68,14 +68,16 @@ export function create({ THREE, tokens, fontFamily }) {
     return { sub, outer, startSpin };
   });
 
-  function view({ spin, showcase }) {
+  // Always shows the subjects in showcase: the reel has no story to fall back
+  // to, and the stage renders at weight 0 while the loop is stopped.
+  function view({ spin }) {
     const { index, turn, scale } = reelSlot(spin, reel.length, SLOT, CUT);
     reel.forEach((entry, i) => {
       const on = i === index && scale > 0.001;
       entry.outer.visible = on;
       if (!on) return;
       entry.outer.scale.setScalar(scale);
-      entry.sub.view({ spin: entry.startSpin + turn, showcase });
+      entry.sub.view({ spin: entry.startSpin + turn, showcase: 1 });
     });
   }
 

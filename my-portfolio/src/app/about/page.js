@@ -65,7 +65,7 @@ export default function About() {
         <ScrollPane step="01 · About" still={stills[0]} snap={false}>
           <h1 className="mb-6 text-display font-light lg:text-display-lg">
             About{" "}
-            <span className="font-semibold text-accent-visual">
+            <span className="whitespace-nowrap font-semibold text-accent-visual">
               Dream InReality
             </span>
           </h1>
@@ -89,7 +89,9 @@ export default function About() {
       <section className={frame}>
         <div className="panel">
           <Eyebrow>02 · Background</Eyebrow>
-          <h2 className="mb-4 text-title font-light">Background</h2>
+          <h2 className="mb-4 text-title font-light">
+            From 3D printing to production drawings
+          </h2>
           <div className="max-w-[70ch] space-y-4">
             <p>
               From 2018 to 2021 Simeon was a CAD design engineer at
@@ -115,11 +117,16 @@ export default function About() {
       <section className={frame}>
         <div className="panel">
           <Eyebrow>03 · The work</Eyebrow>
-          <h2 className="mb-4 text-title font-light">Services</h2>
-          <ul className="max-w-[70ch] list-disc space-y-3 pl-6 marker:text-accent-visual">
+          <h2 className="mb-4 text-title font-light">
+            SolidWorks services for UK product businesses
+          </h2>
+          <ul className="max-w-[70ch] list-disc pl-6 marker:text-accent-visual">
             {services.map(({ name, href }) => (
               <li key={href}>
-                <Link href={href} className="link-inverse">
+                <Link
+                  href={href}
+                  className="link-inverse inline-flex min-h-[44px] items-center"
+                >
                   {name}
                 </Link>
               </li>
