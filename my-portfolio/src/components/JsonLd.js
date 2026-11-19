@@ -54,6 +54,31 @@ export function serviceSchema({ name, description, url }) {
   };
 }
 
+// About page schema: the page, the business it describes, and its founder.
+export function aboutPageSchema({ description, url }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About Dream InReality",
+    description,
+    url: `${SITE_URL}${url}`,
+    about: { "@id": BUSINESS["@id"] },
+    mainEntity: {
+      "@type": "Person",
+      name: "Simeon Campbell",
+      jobTitle: "CAD design engineer",
+      worksFor: { "@id": BUSINESS["@id"] },
+      knowsAbout: [
+        "SolidWorks",
+        "Design for manufacture",
+        "Construction drawings",
+        "Reverse engineering",
+        "CAD file conversion",
+      ],
+    },
+  };
+}
+
 // FAQ schema: for pages with a FAQ section.
 // faqs: [{ question, answer }]
 export function faqPageSchema(faqs) {
