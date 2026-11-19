@@ -528,6 +528,9 @@ export function create({ THREE, tokens, fontFamily }) {
       showcaseElevation: 30 * RAD,
       showcaseDistance: 287,
       spinPeriod: 24,
+      // The landing still (solidworks-design-01) is posed at this angle; the
+      // turn starts here so the still hands over to the canvas without a jump.
+      showcaseSpin: 0.6,
     },
     dispose() {
       textures.forEach((texture) => texture.dispose());

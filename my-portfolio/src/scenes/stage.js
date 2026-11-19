@@ -176,6 +176,9 @@ export async function mountScene(canvas, slug) {
     showcaseElevation = elevation,
     showcaseDistance = distance,
     spinPeriod = 24,
+    // Angle (radians) the showcase turn starts from. Set it to the pose of the
+    // scene's still frame so the still hands over to the canvas without a jump.
+    showcaseSpin = 0,
     // Optional: at(t) -> { target?, distance?, elevation?, azimuth?, floor? }
     // for a story whose camera moves with scene time (it replaces the
     // pendulum). floor (0 to 1) fades the blueprint floor, for views such as
@@ -232,11 +235,12 @@ export async function mountScene(canvas, slug) {
       part.update(t);
       if (frame === null) render();
     },
-    // Switch the showcase on or off, instantly, from the start of a turn.
+    // Switch the showcase on or off, instantly, from the start of a turn
+    // (showcaseSpin).
     setShowcase(on) {
       showcaseOn = on;
       weight = on ? 1 : 0;
-      spin = 0;
+      spin = showcaseSpin;
       last = 0;
       if (frame !== null) cancelAnimationFrame(frame);
       frame = on ? requestAnimationFrame(tick) : null;
