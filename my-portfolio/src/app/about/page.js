@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import JsonLd, { aboutPageSchema } from "@/components/JsonLd";
 import ServiceReel from "@/components/ServiceReel";
@@ -88,45 +89,65 @@ export default function About() {
       </section>
 
       <section className={frame}>
-        <div className="panel">
-          <Eyebrow>02 · Background</Eyebrow>
-          <h2 className="mb-4 text-title font-light">
-            From 3D printing to production drawings
-          </h2>
-          <div className="max-w-[70ch] space-y-4">
-            <p>
-              From 2018 to 2021 Simeon was a CAD design engineer at
-              Microworkshops, a 3D printing company in London. The work
-              covered products from garden furniture to musical equipment:
-              modelling parts that print reliably, and producing the
-              construction drawings that take a design into mass production.
-            </p>
-            <p>
-              Recent projects include a modular heavy-duty dumbbell system
-              for Halo Gym and hardware visualisation for a trading desk.
-              Microworkshops and Bambrella / ShadeSpecialists have both given
-              testimonials, which are on the{" "}
-              <Link href="/" className="link-inverse">
-                home page
-              </Link>
-              .
-            </p>
+        <div className="panel md:grid md:grid-cols-3 md:items-start md:gap-8">
+          <Image
+            src="/images/about/simeon-campbell.jpg"
+            alt="Simeon Campbell"
+            width={1200}
+            height={1500}
+            sizes="(min-width: 768px) 260px, 320px"
+            className="mb-6 h-auto w-full max-w-xs rounded-lg border border-line md:mb-0"
+          />
+          <div className="md:col-span-2">
+            <Eyebrow>02 · Background</Eyebrow>
+            <h2 className="mb-4 text-title font-light">
+              From 3D printing to production drawings
+            </h2>
+            <div className="max-w-[70ch] space-y-4">
+              <p>
+                From 2018 to 2021 Simeon was a CAD design engineer at
+                Microworkshops, a 3D printing company in London. The work
+                covered products from garden furniture to musical equipment:
+                modelling parts that print reliably, and producing the
+                construction drawings that take a design into mass production.
+              </p>
+              <p>
+                Recent projects include a modular heavy-duty dumbbell system
+                for Halo Gym and hardware visualisation for a trading desk.
+                Microworkshops and Bambrella / ShadeSpecialists have both given
+                testimonials, which are on the{" "}
+                <Link href="/" className="link-inverse">
+                  home page
+                </Link>
+                .
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <section className={frame}>
-        <div className="panel">
-          <Eyebrow>03 · Suppliers abroad</Eyebrow>
-          <h2 className="mb-4 text-title font-light">
-            Manufacturing in Thailand and Vietnam
-          </h2>
-          <p className="max-w-[70ch]">
-            For UK clients whose parts are made in South-East Asia, Simeon
-            also handles supplier liaison in Thailand and Vietnam: sending
-            drawings and technical questions to the factory, coordinating
-            prototypes and samples, and reporting back on what arrives.
-          </p>
+        <div className="panel md:grid md:grid-cols-2 md:items-center md:gap-8">
+          <div>
+            <Eyebrow>03 · Suppliers abroad</Eyebrow>
+            <h2 className="mb-4 text-title font-light">
+              Manufacturing in Thailand and Vietnam
+            </h2>
+            <p className="max-w-[70ch]">
+              For UK clients whose parts are made in South-East Asia, Simeon
+              also handles supplier liaison in Thailand and Vietnam: sending
+              drawings and technical questions to the factory, coordinating
+              prototypes and samples, and reporting back on what arrives.
+            </p>
+          </div>
+          <Image
+            src="/images/about/thailand-factory-visit.jpg"
+            alt="Simeon Campbell and a manufacturing contact outside a vacuum forming factory in Thailand"
+            width={1260}
+            height={840}
+            sizes="(min-width: 768px) 400px, 100vw"
+            className="mt-6 h-auto w-full rounded-lg border border-line md:mt-0"
+          />
         </div>
         <div className="pt-12 text-center">
           <Link href="/contact" className="btn-inverse">
