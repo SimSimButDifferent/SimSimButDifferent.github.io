@@ -1,6 +1,7 @@
-// Flanged housing: body, cap and four M12 hex bolts. Shared by the
-// construction drawings scene and (later) the reverse engineering scene, so
-// both draw the same part. Dimensions are in millimetres, matching the
+// Flanged housing: body, cap and four M12 hex bolts, plus a bush that sits
+// in the bore. Shared by the construction drawings scene (body, cap, bolts)
+// and the reverse engineering scene (body, cap, bush), so both draw the same
+// part. Dimensions are in millimetres, matching the
 // construction drawings video and its drawing sheet:
 //
 //   flange 110 x 110 x 12, R8 corners, 4 x Ø13 holes on an 80 mm pitch
@@ -33,6 +34,11 @@ export const HOUSING = {
   boltAcrossFlats: 18,
   boltHead: 7.5,
   boltShank: 12,
+  // Bush: a plain sleeve pressed into the bore, below the cap's spigot.
+  bushOuter: 41.8,
+  bushInner: 30,
+  bushLength: 48.8,
+  bushChamfer: 1,
   // Gap left between parts that sit on each other, so their touching faces
   // never share a plane and flicker.
   seat: 0.1,
@@ -184,21 +190,79 @@ export function housingBoltGeometry(THREE) {
   return geometry;
 }
 
-// The assembly as three groups sharing one material. Positions follow the
-// drawing: cap seated on the boss, bolts in the four holes.
-export function housingAssembly(THREE, material) {
+// Bush geometry, standing on y = 0 (its lower end), on the bore's axis. The
+// sleeve is 0.1 mm smaller than the bore all round and stops 0.3 mm short of
+// the cap's spigot, so no face of it shares a plane with the body or cap.
+export function housingBushGeometry(THREE) {
+  const H = HOUSING;
+  const R = H.bushOuter / 2;
+  const r = H.bushInner / 2;
+  const L = H.bushLength;
+  const c = H.bushChamfer;
+  return mergeGeometries(
+    lathe(THREE, [
+      [
+        [r + c, 0],
+        [R - c, 0],
+      ],
+      [
+        [R - c, 0],
+        [R, c],
+      ],
+      [
+        [R, c],
+        [R, L - c],
+      ],
+      [
+        [R, L - c],
+        [R - c, L],
+      ],
+      [
+        [R - c, L],
+        [r + c, L],
+      ],
+      [
+        [r + c, L],
+        [r, L - c],
+      ],
+      [
+        [r, L - c],
+        [r, c],
+      ],
+      [
+        [r, c],
+        [r + c, 0],
+      ],
+    ])
+  );
+}
+
+// The assembly as groups sharing one material. Positions follow the
+// drawing: cap seated on the boss, bolts in the four holes. Options (both
+// leave the default assembly unchanged): bush: true adds the bush in the
+// bore; bolts: false leaves the bolts out (bolts is then null).
+export function housingAssembly(
+  THREE,
+  material,
+  { bush: withBush = false, bolts: withBolts = true } = {}
+) {
   const H = HOUSING;
   const body = new THREE.Mesh(housingBodyGeometry(THREE), material);
   const cap = new THREE.Mesh(housingCapGeometry(THREE), material);
   cap.position.y = H.height + H.seat;
-  const bolts = new THREE.Group();
-  const boltGeometry = housingBoltGeometry(THREE);
-  holeCentres().forEach(([x, z]) => {
-    const bolt = new THREE.Mesh(boltGeometry, material);
-    bolt.position.set(x, H.flangeThickness + H.seat, z);
-    // Turn each head a little differently, as real bolts sit.
-    bolt.rotation.y = ((x * 7 + z * 3) % 60) * (Math.PI / 180);
-    bolts.add(bolt);
-  });
-  return { body, cap, bolts };
+  let bolts = null;
+  if (withBolts) {
+    bolts = new THREE.Group();
+    const boltGeometry = housingBoltGeometry(THREE);
+    holeCentres().forEach(([x, z]) => {
+      const bolt = new THREE.Mesh(boltGeometry, material);
+      bolt.position.set(x, H.flangeThickness + H.seat, z);
+      // Turn each head a little differently, as real bolts sit.
+      bolt.rotation.y = ((x * 7 + z * 3) % 60) * (Math.PI / 180);
+      bolts.add(bolt);
+    });
+  }
+  if (!withBush) return { body, cap, bolts };
+  const bush = new THREE.Mesh(housingBushGeometry(THREE), material);
+  return { body, cap, bolts, bush };
 }

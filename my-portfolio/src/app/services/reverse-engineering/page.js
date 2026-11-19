@@ -1,10 +1,28 @@
 import Link from "next/link";
 import JsonLd, { serviceSchema, faqPageSchema } from "@/components/JsonLd";
-import ScrollReveal from "@/components/ScrollReveal";
-import ExplodedView from "@/components/ExplodedView";
+import ScrollScene from "@/components/ScrollScene";
+import ScrollPane from "@/components/ScrollPane";
+import SnapScroll from "@/components/SnapScroll";
+import ProcessPath from "@/components/ProcessPath";
+import { beats, label, stills } from "./sceneConfig";
 
 const description =
   "Reverse engineering for UK businesses: measured or scanned parts rebuilt as parametric SolidWorks models, with STEP exports and dimensioned PDF drawings.";
+
+// Route from physical part to production for the "Who it is for" figure.
+// Clients sit at the stage this service covers, matching the paragraph above
+// it; the next two stages are the services a rebuilt part usually goes on to.
+const route = [
+  { name: "Physical part" },
+  {
+    name: "Reverse engineering",
+    current: true,
+    clients: ["Manufacturers", "Workshops", "Product businesses"],
+  },
+  { name: "DFM review", href: "/services/dfm-consultancy" },
+  { name: "Drawings", href: "/services/construction-drawings" },
+  { name: "Production" },
+];
 
 const faqs = [
   {
@@ -48,7 +66,7 @@ export const metadata = {
 
 export default function ReverseEngineering() {
   return (
-    <main className="min-h-screen bg-white py-10">
+    <main className="page-dark snap-page min-h-screen">
       <JsonLd
         schema={serviceSchema({
           name: "Reverse Engineering CAD Services",
@@ -57,67 +75,46 @@ export default function ReverseEngineering() {
         })}
       />
       <JsonLd schema={faqPageSchema(faqs)} />
+      <SnapScroll />
 
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center pb-6">
-          <div>
-            <h1 className="phoneheadings lg:text-2xl xl:text-4xl text-center lg:text-left mb-8">
-              Reverse Engineering CAD Services UK
-            </h1>
-            <p className="textsm lg:text-base pb-4">
-              A physical part rebuilt as a parametric SolidWorks model — for
-              parts whose drawings are lost, suppliers who have disappeared,
-              or legacy components that need remanufacturing or modifying.
-              You send the part, measurements or scan data; you get back
-              native SLDPRT/SLDASM files, STEP exports and drawings you own
-              outright.
-            </p>
+      <ScrollScene
+        slug="reverse-engineering"
+        beats={beats}
+        stills={stills}
+        label={label}
+      >
+        <ScrollPane
+          step="01 · Reverse engineering"
+          still={stills[0]}
+          snap={false}
+        >
+          <h1 className="mb-6 text-display font-light lg:text-display-lg">
+            <span className="font-semibold text-accent-visual">
+              Reverse Engineering
+            </span>{" "}
+            CAD Services UK
+          </h1>
+          <p className="max-w-[70ch]">
+            A physical part rebuilt as a parametric SolidWorks model — for parts
+            whose drawings are lost, suppliers who have disappeared, or legacy
+            components that need remanufacturing or modifying. You send the
+            part, measurements or scan data; you get back native SLDPRT/SLDASM
+            files, STEP exports and drawings you own outright.
+          </p>
+          <div className="mt-8">
+            <Link href="/contact" className="btn-inverse">
+              Describe your part
+            </Link>
           </div>
-          <ScrollReveal variant="fadeInRight">
-            <div className="bg-cyan-300 p-4 rounded-2xl shadow-xl">
-              <div className="bg-white rounded-2xl shadow-xl p-4">
-                <ExplodedView />
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </div>
+        </ScrollPane>
 
-      <div className="container mx-auto px-4 max-w-4xl">
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">What is delivered</h2>
-          <ul className="textsm lg:text-base list-disc pl-6 space-y-2 pb-4">
-            <li>
-              Parametric SLDPRT part models (and SLDASM assemblies where
-              multiple parts are involved), rebuilt with editable features
-              rather than dumb solids — so the design can be modified, not
-              just reproduced.
-            </li>
-            <li>STEP exports for any CAD system or supplier.</li>
-            <li>
-              Dimensioned PDF drawings for remanufacture, where the goal is
-              putting the part back into production — the same output as the{" "}
-              <Link
-                href="/services/construction-drawings"
-                className="text-accent hover:text-accent-hover"
-              >
-                construction drawings
-              </Link>{" "}
-              service.
-            </li>
-          </ul>
-        </ScrollReveal>
-
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">How it works</h2>
-          <ol className="textsm lg:text-base list-decimal pl-6 space-y-2 pb-4">
+        <ScrollPane step="02 · The scan" still={stills[1]}>
+          <h2 className="mb-4 text-title font-light">How it works</h2>
+          <ol className="max-w-[70ch] list-decimal space-y-3 pl-6 marker:text-accent-visual">
             <li>
               Describe the part and what source material you have (the part
               itself, measurements, scan data, old drawings) through the{" "}
-              <Link
-                href="/contact"
-                className="text-accent hover:text-accent-hover"
-              >
+              <Link href="/contact" className="link-inverse">
                 contact page
               </Link>
               .
@@ -128,53 +125,91 @@ export default function ReverseEngineering() {
               modelling starts.
             </li>
             <li>
-              The model is rebuilt parametrically, checked against the
-              source, and delivered with its exports and any drawings.
+              The model is rebuilt parametrically, checked against the source,
+              and delivered with its exports and any drawings.
             </li>
           </ol>
-        </ScrollReveal>
+        </ScrollPane>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Who it is for</h2>
-          <p className="textsm lg:text-base pb-4">
-            Small manufacturers keeping legacy products in production,
-            workshops replacing an obsolete component, and product businesses
-            that inherited a design with no usable CAD. Where the rebuilt
-            part is heading back to a factory, a{" "}
-            <Link
-              href="/services/dfm-consultancy"
-              className="text-accent hover:text-accent-hover"
-            >
+        <ScrollPane step="03 · The files" still={stills[2]}>
+          <h2 className="mb-4 text-title font-light">What is delivered</h2>
+          <ul className="max-w-[70ch] list-disc space-y-3 pl-6 marker:text-accent-visual">
+            <li>
+              Parametric SLDPRT part models (and SLDASM assemblies where
+              multiple parts are involved), rebuilt with editable features
+              rather than dumb solids — so the design can be modified, not just
+              reproduced.
+            </li>
+            <li>STEP exports for any CAD system or supplier.</li>
+            <li>
+              Dimensioned PDF drawings for remanufacture, where the goal is
+              putting the part back into production — the same output as the{" "}
+              <Link
+                href="/services/construction-drawings"
+                className="link-inverse"
+              >
+                construction drawings
+              </Link>{" "}
+              service.
+            </li>
+          </ul>
+          <ul
+            aria-label="File formats delivered"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            <li className="chip">SLDPRT</li>
+            <li className="chip">STEP</li>
+            <li className="chip">PDF drawing</li>
+          </ul>
+        </ScrollPane>
+      </ScrollScene>
+
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-4 text-title font-light">Who it is for</h2>
+          <p className="mx-auto max-w-[70ch]">
+            Small manufacturers keeping legacy products in production, workshops
+            replacing an obsolete component, and product businesses that
+            inherited a design with no usable CAD. Where the rebuilt part is
+            heading back to a factory, a{" "}
+            <Link href="/services/dfm-consultancy" className="link-inverse">
               DFM review
             </Link>{" "}
-            of the rebuilt model is a sensible next step — original parts
-            often carry compromises worth removing.
+            of the rebuilt model is a sensible next step — original parts often
+            carry compromises worth removing.
           </p>
-        </ScrollReveal>
+          <ProcessPath
+            stages={route}
+            caption="Where reverse engineering sits"
+          />
+        </div>
+      </section>
 
-        <ScrollReveal variant="fadeInUp">
-          <h2 className="htags-light pt-6 pb-3">Frequently asked questions</h2>
-          <div className="space-y-4 pb-8">
+      <section className="snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen">
+        <div className="panel text-center">
+          <h2 className="mb-6 text-title font-light">
+            Frequently asked questions
+          </h2>
+          <div className="divide-y divide-line">
             {faqs.map(({ question, answer }) => (
-              <div key={question}>
-                <h3 className="textsm lg:text-base font-bold pb-1">
+              <div key={question} className="py-6 first:pt-0 last:pb-0">
+                <h3 className="mb-2 pb-0 text-title-sm font-semibold">
                   {question}
                 </h3>
-                <p className="textsm lg:text-base">{answer}</p>
+                <p className="mx-auto max-w-[70ch] text-muted-inverse">
+                  {answer}
+                </p>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
 
-        <div className="text-center pt-4 pb-8">
-          <Link
-            href="/contact"
-            className="contactText button bg-accent px-4 py-2 text-white font-bold hover:bg-accent-hover rounded-lg transition-all duration-300 hover:shadow-lg"
-          >
+        <div className="pt-12 text-center">
+          <Link href="/contact" className="btn-inverse">
             Describe your part
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

@@ -30,6 +30,7 @@ const loaders = {
   "solidworks-design": () => import("./solidworks-design"),
   "cad-file-conversion": () => import("./cad-file-conversion"),
   "construction-drawings": () => import("./construction-drawings"),
+  "reverse-engineering": () => import("./reverse-engineering"),
 };
 
 function blueprintFloor() {
