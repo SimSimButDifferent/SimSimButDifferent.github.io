@@ -57,6 +57,9 @@ const TICK_LENGTH = 7;
 // World units per millimetre. With the camera distances below, this keeps
 // the bracket large in frame and the floor's fade inside the canvas.
 const SCALE = 0.75;
+// Showcase only: how far the turning bracket moves left, in millimetres, so
+// it clears the conversion note.
+const SHOWCASE_SHIFT = 22;
 const RAD = Math.PI / 180;
 const AZIMUTH = 28 * RAD; // story view: from the front right
 const ELEVATION = 22 * RAD;
@@ -657,7 +660,7 @@ export function create({ THREE, tokens, fontFamily }) {
   const note = new THREE.Sprite(
     new THREE.SpriteMaterial({ transparent: true, depthTest: false })
   );
-  note.scale.set(45, 48, 1);
+  note.scale.set(70.3, 75, 1); // 25% larger twice over the original 45 x 48
   note.renderOrder = 4;
   object.add(note);
 
@@ -681,10 +684,10 @@ export function create({ THREE, tokens, fontFamily }) {
     const up = new THREE.Vector3().crossVectors(back, right);
     note.position
       .copy(target)
-      .addScaledVector(right, lerp(74, 68, noteIn))
-      // Story: above the flat pattern's near corner. Showcase: level with
+      .addScaledVector(right, lerp(70, 64, noteIn))
+      // Story: top right, above the flat pattern. Showcase: raised, beside
       // the turning bracket.
-      .addScaledVector(up, showcaseOn ? 4 : 30)
+      .addScaledVector(up, showcaseOn ? 20 : 36)
       .divideScalar(SCALE);
   }
 
@@ -758,6 +761,8 @@ export function create({ THREE, tokens, fontFamily }) {
       showcaseOn = on;
       apply();
     }
+    // Showcase: the bracket sits left of centre, clear of the conversion note.
+    body.position.x = on ? -SHOWCASE_SHIFT : 0;
     body.rotation.y = on ? spin : 0;
   }
 
