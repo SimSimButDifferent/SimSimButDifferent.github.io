@@ -214,8 +214,7 @@ export default function ScrollScene({
     );
     visibility.observe(rootRef.current);
 
-    // A showcase loops until another pane is chosen. A scene whose only pane
-    // is a showcase (the About reel) never gets one, so stop the loop while
+    // A showcase loops until another pane is chosen, so stop the loop while
     // the section is off-screen and restart it on the way back.
     const onscreen = new IntersectionObserver(([entry]) => {
       const handle = handleRef.current;

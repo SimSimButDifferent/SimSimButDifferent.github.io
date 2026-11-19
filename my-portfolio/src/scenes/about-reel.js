@@ -1,7 +1,8 @@
-// About page landing loop: the five service subjects, finished and turning,
-// shown one at a time. Each holds the frame for one slot of the showcase turn
-// (5 s), then a short scale cut hands over to the next. The order follows the
-// route from design to production.
+// About page service carousel: the five service subjects, finished and
+// turning, shown one at a time. The page chooses which with select(index);
+// a short scale cut hands over from one to the next. The order follows the
+// route from design to production, and must match the slides in
+// src/app/about/sceneConfig.js.
 //
 // Each subject is the service scene's own landing loop, framed as it is on
 // its own page: a service scene seen from its showcase distance is scaled by
@@ -9,11 +10,12 @@
 // the reel's target. Every showcase camera sits at 30°, so the view matches.
 // The reel has no story: update(t) does nothing.
 //
-// The stage's own floor is off (showcaseFloor 0). Each subject that has a
-// floor on its own page gets its own copy, inside its scaled group, so it
-// stands on the grid at the same height as it does there.
-import { reelSlot } from "@/lib/reelTimeline.mjs";
-import { blueprintFloor } from "./stage";
+// The page lays the service title and caption over the bottom of the canvas,
+// so every subject is drawn at SIZE of its own-page size and lifted by LIFT
+// of the frame height: it sits in the top 70% and the text gets the rest.
+// No floors on this page: the stage floor is off (showcaseFloor 0) and the
+// subjects' own floors are left out.
+import { reelCut } from "@/lib/reelTimeline.mjs";
 import { create as solidworksDesign } from "./solidworks-design";
 import { create as dfmConsultancy } from "./dfm-consultancy";
 import { create as constructionDrawings } from "./construction-drawings";
@@ -30,10 +32,17 @@ const SUBJECTS = [
   cadFileConversion,
   reverseEngineering,
 ];
-const SLOT = TURN / SUBJECTS.length; // 72° of turn, 5 s at spinPeriod 25
-const CUT = SLOT * (0.2 / 5); // 0.2 s scale cut at each end of a slot
+const SPIN_PERIOD = 24; // seconds per turn, as on the service pages
+const CUT = TURN * (0.2 / SPIN_PERIOD); // 0.2 s each way for the scale cut
 const DISTANCE = 300;
 const ELEVATION = 30 * RAD;
+const FOV = 28 * RAD; // the stage camera's vertical field of view
+const SIZE = 0.7;
+const LIFT = 0.15;
+// World height that moves a subject up the frame by LIFT of its height: the
+// frame spans 2·d·tan(fov/2) at the target, and a vertical offset shows at
+// cos(elevation) of its length.
+const LIFT_Y = (LIFT * 2 * DISTANCE * Math.tan(FOV / 2)) / Math.cos(ELEVATION);
 
 export function create({ THREE, tokens, fontFamily }) {
   const object = new THREE.Group();
@@ -43,7 +52,7 @@ export function create({ THREE, tokens, fontFamily }) {
     const sub = build({ THREE, tokens, fontFamily });
     const cam = sub.camera;
     const reach = cam.showcaseDistance ?? cam.distance;
-    const k = DISTANCE / reach;
+    const k = (DISTANCE / reach) * SIZE;
     const startSpin = cam.showcaseSpin ?? 0;
 
     sub.update(END);
@@ -56,22 +65,23 @@ export function create({ THREE, tokens, fontFamily }) {
     inner.scale.setScalar(k);
     inner.position.copy(cam.target).multiplyScalar(-k);
     inner.add(sub.object);
-    if ((cam.showcaseFloor ?? 1) > 0) {
-      const floor = blueprintFloor();
-      floor.userData.set(cam.showcaseFloor ?? 1, 1);
-      inner.add(floor);
-    }
     outer.add(inner);
     outer.position.copy(target);
+    outer.position.y += LIFT_Y;
     outer.visible = false;
     object.add(outer);
     return { sub, outer, startSpin };
   });
 
+  let wanted = 0;
+  let cut = null;
+
   // Always shows the subjects in showcase: the reel has no story to fall back
   // to, and the stage renders at weight 0 while the loop is stopped.
   function view({ spin }) {
-    const { index, turn, scale } = reelSlot(spin, reel.length, SLOT, CUT);
+    const frame = reelCut(cut, wanted, spin, CUT);
+    cut = frame.state;
+    const { index, turn, scale } = frame;
     reel.forEach((entry, i) => {
       const on = i === index && scale > 0.001;
       entry.outer.visible = on;
@@ -85,6 +95,10 @@ export function create({ THREE, tokens, fontFamily }) {
     object,
     update() {},
     view,
+    select(index) {
+      const count = reel.length;
+      wanted = ((index % count) + count) % count;
+    },
     camera: {
       target,
       distance: DISTANCE,
@@ -93,12 +107,14 @@ export function create({ THREE, tokens, fontFamily }) {
       period: 15,
       showcaseElevation: ELEVATION,
       showcaseDistance: DISTANCE,
-      // Five slots of 5 s each.
-      spinPeriod: 25,
-      // Start just past the first cut, so the still (posed here) hands over
-      // to the canvas without a jump.
-      showcaseSpin: CUT,
+      spinPeriod: SPIN_PERIOD,
+      // Each subject starts from its own page's showcase pose, which is where
+      // its still frame was taken, so the still hands over without a jump.
+      showcaseSpin: 0,
       showcaseFloor: 0,
+      // No floor outside the showcase either: the stage renders at weight 0
+      // before the turn starts (mount, resize, off-screen).
+      at: () => ({ floor: 0 }),
     },
     dispose() {
       reel.forEach(({ sub }) => sub.dispose());

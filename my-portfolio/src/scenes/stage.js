@@ -139,7 +139,8 @@ function disposeTree(root) {
   });
 }
 
-// mountScene(canvas, slug) -> { seek(t), resize(width, height), dispose() }
+// mountScene(canvas, slug)
+//   -> { seek(t), setShowcase(on), select(index), resize(w, h), dispose() }
 // Throws if WebGL is unavailable; the caller falls back to still frames.
 export async function mountScene(canvas, slug) {
   const load = loaders[slug];
@@ -251,6 +252,11 @@ export async function mountScene(canvas, slug) {
       if (frame !== null) cancelAnimationFrame(frame);
       frame = on ? requestAnimationFrame(tick) : null;
       render();
+    },
+    // Choose which subject a multi-subject scene (the About reel) shows.
+    select(index) {
+      part.select?.(index);
+      if (frame === null) render();
     },
     // Fixed pose for rendering still frames.
     pose(t, spinAngle, showcase) {

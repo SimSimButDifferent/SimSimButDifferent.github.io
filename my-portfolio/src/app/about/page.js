@@ -1,24 +1,11 @@
 import Link from "next/link";
 import JsonLd, { aboutPageSchema } from "@/components/JsonLd";
-import ScrollScene from "@/components/ScrollScene";
-import ScrollPane from "@/components/ScrollPane";
+import ServiceReel from "@/components/ServiceReel";
 import SnapScroll from "@/components/SnapScroll";
-import { beats, label, stills } from "./sceneConfig";
+import { slides } from "./sceneConfig";
 
 const description =
   "Simeon Campbell's SolidWorks CAD consultancy in Kent: DFM, 3D models and drawing packs for UK product businesses, with supplier liaison in Thailand and Vietnam.";
-
-const services = [
-  { name: "DFM consultancy", href: "/services/dfm-consultancy" },
-  { name: "SolidWorks design", href: "/services/solidworks-design" },
-  { name: "Construction drawings", href: "/services/construction-drawings" },
-  { name: "Reverse engineering", href: "/services/reverse-engineering" },
-  { name: "CAD file conversion", href: "/services/cad-file-conversion" },
-  {
-    name: "Photorealistic rendering",
-    href: "/services/photorealistic-rendering",
-  },
-];
 
 const formats = ["SLDPRT", "SLDASM", "STEP", "DXF", "PDF"];
 
@@ -56,13 +43,9 @@ export default function About() {
       <JsonLd schema={aboutPageSchema({ description, url: "/about" })} />
       <SnapScroll />
 
-      <ScrollScene
-        slug="about-reel"
-        beats={beats}
-        stills={stills}
-        label={label}
-      >
-        <ScrollPane step="01 · About" still={stills[0]} snap={false}>
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:grid lg:min-h-screen lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8">
+        <div className="lg:col-span-5">
+          <Eyebrow>01 · About</Eyebrow>
           <h1 className="mb-6 text-display font-light lg:text-display-lg">
             About{" "}
             <span className="whitespace-nowrap font-semibold text-accent-visual">
@@ -73,18 +56,36 @@ export default function About() {
             Dream InReality is the SolidWorks CAD practice of Simeon
             Campbell. It takes a product from a sketch, sample or existing
             model to files a factory can quote against: native SLDPRT/SLDASM
-            models, STEP and DXF exports, PDF drawing packs and
-            photorealistic renders. Clients are UK product businesses, from
-            inventors with a first prototype to manufacturers taking on a
-            client&apos;s design.
+            models, STEP and DXF exports, PDF drawing packs and{" "}
+            <Link
+              href="/services/photorealistic-rendering"
+              className="link-inverse"
+            >
+              photorealistic renders
+            </Link>
+            . Clients are UK product businesses, from inventors with a first
+            prototype to manufacturers taking on a client&apos;s design.
           </p>
+          <ul
+            aria-label="File formats delivered"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            {formats.map((format) => (
+              <li key={format} className="chip">
+                {format}
+              </li>
+            ))}
+          </ul>
           <div className="mt-8">
             <Link href="/contact" className="btn-inverse">
               Send your brief
             </Link>
           </div>
-        </ScrollPane>
-      </ScrollScene>
+        </div>
+        <div className="mt-12 lg:col-span-7 lg:mt-0">
+          <ServiceReel slides={slides} />
+        </div>
+      </section>
 
       <section className={frame}>
         <div className="panel">
@@ -116,38 +117,7 @@ export default function About() {
 
       <section className={frame}>
         <div className="panel">
-          <Eyebrow>03 · The work</Eyebrow>
-          <h2 className="mb-4 text-title font-light">
-            SolidWorks services for UK product businesses
-          </h2>
-          <ul className="max-w-[70ch] list-disc pl-6 marker:text-accent-visual">
-            {services.map(({ name, href }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="link-inverse inline-flex min-h-[44px] items-center"
-                >
-                  {name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul
-            aria-label="File formats delivered"
-            className="mt-6 flex flex-wrap gap-2"
-          >
-            {formats.map((format) => (
-              <li key={format} className="chip">
-                {format}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className={frame}>
-        <div className="panel">
-          <Eyebrow>04 · Suppliers abroad</Eyebrow>
+          <Eyebrow>03 · Suppliers abroad</Eyebrow>
           <h2 className="mb-4 text-title font-light">
             Manufacturing in Thailand and Vietnam
           </h2>
