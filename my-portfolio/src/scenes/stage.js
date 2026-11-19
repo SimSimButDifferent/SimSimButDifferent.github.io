@@ -29,6 +29,7 @@ const loaders = {
   "dfm-consultancy": () => import("./dfm-consultancy"),
   "solidworks-design": () => import("./solidworks-design"),
   "cad-file-conversion": () => import("./cad-file-conversion"),
+  "construction-drawings": () => import("./construction-drawings"),
 };
 
 function blueprintFloor() {
@@ -180,6 +181,8 @@ export async function mountScene(canvas, slug) {
     // Angle (radians) the showcase turn starts from. Set it to the pose of the
     // scene's still frame so the still hands over to the canvas without a jump.
     showcaseSpin = 0,
+    // Floor level (0 to 1) in the showcase; 0 hides the floor and its glow.
+    showcaseFloor = 1,
     // Optional: at(t) -> { target?, distance?, elevation?, azimuth?, floor? }
     // for a story whose camera moves with scene time (it replaces the
     // pendulum). floor (0 to 1) fades the blueprint floor, for views such as
@@ -217,7 +220,7 @@ export async function mountScene(canvas, slug) {
     camera.lookAt(aim);
     key.intensity = mix(KEY_LIGHT, KEY_LIGHT_SHOWCASE, weight);
     sky.intensity = mix(SKY_LIGHT, SKY_LIGHT_SHOWCASE, weight);
-    floor.userData.set(mix(story.floor ?? 1, 1, weight), weight);
+    floor.userData.set(mix(story.floor ?? 1, showcaseFloor, weight), weight);
     part.view?.({ spin, showcase: weight });
     renderer.render(scene, camera);
   };
