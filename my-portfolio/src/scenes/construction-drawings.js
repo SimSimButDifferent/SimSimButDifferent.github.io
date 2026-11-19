@@ -52,15 +52,20 @@ const TEXT_RES = 10; // texture pixels per millimetre
 
 // Housing size on stage: large in beat 01, 1:1 on the sheet.
 const BIG = 1.6;
-const SHOWCASE_SCALE = 1.55;
 // The showcase is built at the same millimetre scale, then the whole scene
 // is shrunk by this factor so the floor's light pool reads under the part as
 // it does on the other pages, while its fade stays inside the canvas.
 const SHOWCASE_ZOOM = 0.62;
-// In the showcase the sheet stands back, leaning to face the raised camera
-// like a drawing board, a little smaller so it fits above the part.
-const SHOWCASE_SHEET = { y: 120, z: -200, lean: -30 * RAD, scale: 0.85 };
-const SHOWCASE_DIM = 0.35; // sheet brightness behind the turning part
+// In the showcase the drawing sheet is the backdrop: it fills most of the
+// frame, leaning back to face the raised camera like a drawing board. Its
+// centre is high enough that its lower edge clears the floor. The finished
+// housing turns at the isometric view's place on the sheet, top right,
+// standing off the sheet far enough to clear it as it turns.
+const SHOWCASE_SHEET = { y: 164, z: -60, lean: -30 * RAD, scale: 1.25 };
+const SHOWCASE_DIM = 0.55; // sheet brightness behind the turning part
+// shiftLeft: how far left of the isometric view's spot, so the turning part
+// stays clear of the sheet border.
+const SHOWCASE_MODEL = { scale: 1.1, standOff: 75, shiftLeft: 30 };
 
 // Isometric-style orientation: turned, then tipped towards the viewer.
 const ISO_TURN = -38 * RAD;
@@ -919,7 +924,11 @@ export function create({ THREE, tokens, fontFamily }) {
   ];
 
   // ---- Apply ------------------------------------------------------------
-  const target = new THREE.Vector3(0, 88, -60).multiplyScalar(SHOWCASE_ZOOM);
+  const target = new THREE.Vector3(
+    0,
+    SHOWCASE_SHEET.y,
+    SHOWCASE_SHEET.z
+  ).multiplyScalar(SHOWCASE_ZOOM);
   const storyTarget = new THREE.Vector3(0, SHEET_Y, 0);
   let time = 0;
   let showcaseOn = false;
@@ -937,8 +946,16 @@ export function create({ THREE, tokens, fontFamily }) {
 
     // Housing.
     if (showcaseOn) {
-      body.position.set(0, (assemblyHeight / 2) * SHOWCASE_SCALE + 0.2, 0);
-      body.scale.setScalar(SHOWCASE_SCALE);
+      // The isometric view's spot on the sheet, in the sheet's own axes
+      // (right, up along the lean, out of the sheet towards the camera).
+      const lean = SHOWCASE_SHEET.lean;
+      const k = SHOWCASE_SHEET.scale;
+      body.position.set(
+        ISO.x * k - SHOWCASE_MODEL.shiftLeft,
+        SHOWCASE_SHEET.y + Math.cos(lean) * ISO.y * k - Math.sin(lean) * SHOWCASE_MODEL.standOff,
+        SHOWCASE_SHEET.z + Math.sin(lean) * ISO.y * k + Math.cos(lean) * SHOWCASE_MODEL.standOff
+      );
+      body.scale.setScalar(SHOWCASE_MODEL.scale);
       body.rotation.set(0, spin, 0, "XYZ");
     } else {
       body.position.copy(bigAt).lerp(isoAt, p.move);
@@ -1044,10 +1061,13 @@ export function create({ THREE, tokens, fontFamily }) {
       // Near head-on, swinging ±7° over the video's 15 s period.
       swing: 7 * RAD,
       period: 15,
-      at: () => ({ target: storyTarget }),
+      // No floor in the story either: the sheet stands alone.
+      at: () => ({ target: storyTarget, floor: 0 }),
       // Showcase: a higher, isometric-style view; one full turn in 24 s.
       showcaseElevation: 30 * RAD,
       showcaseDistance: 900 * SHOWCASE_ZOOM,
+      // The floor is hidden: with no model standing on it, it adds nothing.
+      showcaseFloor: 0,
       spinPeriod: 24,
     },
     dispose() {
