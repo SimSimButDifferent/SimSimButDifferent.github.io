@@ -28,6 +28,7 @@ export const tokens = {
 const loaders = {
   "dfm-consultancy": () => import("./dfm-consultancy"),
   "solidworks-design": () => import("./solidworks-design"),
+  "cad-file-conversion": () => import("./cad-file-conversion"),
 };
 
 function blueprintFloor() {
