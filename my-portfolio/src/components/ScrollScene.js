@@ -214,12 +214,22 @@ export default function ScrollScene({
     );
     visibility.observe(rootRef.current);
 
+    // A showcase loops until another pane is chosen, so stop the loop while
+    // the section is off-screen and restart it on the way back.
+    const onscreen = new IntersectionObserver(([entry]) => {
+      const handle = handleRef.current;
+      if (!handle || !showcaseRef.current) return;
+      handle.setShowcase(entry.isIntersecting);
+    });
+    onscreen.observe(rootRef.current);
+
     const onBreakpoint = () => (desktop.matches ? start() : stop());
     desktop.addEventListener("change", onBreakpoint);
 
     return () => {
       cancelled = true;
       visibility.disconnect();
+      onscreen.disconnect();
       desktop.removeEventListener("change", onBreakpoint);
       stop();
     };
