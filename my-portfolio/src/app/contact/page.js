@@ -24,6 +24,10 @@ export const metadata = {
 };
 
 const PHONE = { href: "tel:+441233234583", label: "+44 (0)1233 234583" };
+const WHATSAPP = {
+  href: "https://wa.me/447428422450",
+  label: "+44 7428 422 450",
+};
 const EMAIL = "dreaminrealitycad@gmail.com";
 const ADDRESS = "Swan Lane, Sellindge, Ashford, Kent";
 
@@ -41,7 +45,7 @@ export default function Contact() {
         </div>
 
         <div className="mt-8 lg:mt-10 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-8">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-7">
             <p className="eyebrow mb-4">
               <span className="text-accent-visual">Sellindge, Kent</span>
             </p>
@@ -81,10 +85,15 @@ export default function Contact() {
             <address className="not-italic">
               <dl className="mt-8 space-y-4">
                 <div>
-                  <dt className="eyebrow">Phone</dt>
+                  <dt className="eyebrow">WhatsApp</dt>
                   <dd>
-                    <a href={PHONE.href} className={detailLink}>
-                      {PHONE.label}
+                    <a
+                      href={WHATSAPP.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={detailLink}
+                    >
+                      {WHATSAPP.label}
                     </a>
                   </dd>
                 </div>
@@ -93,6 +102,14 @@ export default function Contact() {
                   <dd>
                     <a href={`mailto:${EMAIL}`} className={detailLink}>
                       {EMAIL}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="eyebrow">Phone</dt>
+                  <dd>
+                    <a href={PHONE.href} className={detailLink}>
+                      {PHONE.label}
                     </a>
                   </dd>
                 </div>
@@ -110,7 +127,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="mt-12 lg:col-span-7 lg:mt-0">
+          <div className="mt-12 lg:col-span-5 lg:mt-0">
             <GoogleMap address={`Dream InReality, ${ADDRESS}`} />
           </div>
         </div>
