@@ -35,8 +35,9 @@ function Eyebrow({ children }) {
   );
 }
 
+// Each panel's width is set so its text and photo end up the same height.
 const frame =
-  "snap-frame mx-auto flex max-w-4xl flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen";
+  "snap-frame mx-auto flex flex-col justify-center px-4 py-16 sm:px-6 lg:min-h-screen";
 
 export default function About() {
   return (
@@ -88,22 +89,22 @@ export default function About() {
         </div>
       </section>
 
-      <section className={frame}>
-        <div className="panel md:grid md:grid-cols-3 md:items-start md:gap-8">
+      <section className={`${frame} max-w-[62rem]`}>
+        <div className="panel md:grid md:grid-cols-[15.5rem_minmax(0,1fr)] md:items-center md:gap-8">
           <Image
             src="/images/about/simeon-campbell.jpg"
             alt="Simeon Campbell"
             width={1200}
             height={1500}
-            sizes="(min-width: 768px) 260px, 320px"
+            sizes="(min-width: 768px) 248px, 320px"
             className="mb-6 h-auto w-full max-w-xs rounded-lg border border-line md:mb-0"
           />
-          <div className="md:col-span-2">
+          <div>
             <Eyebrow>02 · Background</Eyebrow>
             <h2 className="mb-4 text-title font-light">
               From 3D printing to production drawings
             </h2>
-            <div className="max-w-[70ch] space-y-4">
+            <div className="space-y-4">
               <p>
                 From 2018 to 2021 Simeon was a CAD design engineer at
                 Microworkshops, a 3D printing company in London. The work
@@ -126,7 +127,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className={frame}>
+      <section className={`${frame} max-w-4xl`}>
         <div className="panel md:grid md:grid-cols-2 md:items-center md:gap-8">
           <div>
             <Eyebrow>03 · Suppliers abroad</Eyebrow>

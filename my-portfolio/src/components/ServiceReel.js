@@ -103,7 +103,7 @@ export default function ServiceReel({ slides }) {
         if (onscreen) start();
         handleRef.current?.setShowcase(onscreen);
       },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
     visibility.observe(rootRef.current);
 
@@ -128,40 +128,50 @@ export default function ServiceReel({ slides }) {
       aria-labelledby="service-reel-title"
       aria-keyshortcuts="ArrowLeft ArrowRight"
       onKeyDown={onKeyDown}
-      className="relative"
+      className="relative lg:ml-auto lg:w-[76%]"
     >
-      <div
-        ref={boxRef}
-        className="relative aspect-[40/21] w-full lg:aspect-[4/3]"
-      >
-        {/* The stills share the reel's framing: models in the top 70%, the
+      {/* Layout box. The reel is framed for a 4:3 stage the width of the
+          column; from lg the carousel keeps only the middle 76% of that
+          width (the models span 17-83%) and sits right-aligned, so its
+          arrows meet the page margin. Its height also leaves out the top 12%
+          of the stage, which is empty on most slides, so the page centres
+          the carousel on what is visible. The stage overhangs that top band
+          (transparent), so the tallest subject, the drawing sheet, still
+          shows in full. */}
+      <div className="relative aspect-[40/21] w-full lg:aspect-[38/33]">
+        <div
+          ref={boxRef}
+          className="absolute inset-x-0 bottom-0 h-full lg:h-[113.64%]"
+        >
+          {/* The stills share the reel's framing: models in the top 70%, the
             bottom 30% left clear for the text overlay from lg. Below lg the
             text sits underneath instead, so the box crops that empty band. */}
-        {slides.map((s, i) => (
-          <Image
-            key={s.still.src}
-            src={s.still.src}
-            alt={i === index && !live ? s.still.alt : ""}
-            aria-hidden={i === index && !live ? undefined : "true"}
-            width={1280}
-            height={960}
-            sizes="(min-width: 1024px) 58vw, 100vw"
-            priority={i === 0}
-            className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-200 ease-out-soft ${
-              !live && i === index ? "opacity-100" : "opacity-0"
+          {slides.map((s, i) => (
+            <Image
+              key={s.still.src}
+              src={s.still.src}
+              alt={i === index && !live ? s.still.alt : ""}
+              aria-hidden={i === index && !live ? undefined : "true"}
+              width={1280}
+              height={960}
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              priority={i === 0}
+              className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-200 ease-out-soft ${
+                !live && i === index ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+          <canvas
+            key={canvasKey}
+            ref={canvasRef}
+            role="img"
+            aria-label={slide.still.alt}
+            aria-hidden={live ? undefined : "true"}
+            className={`absolute inset-0 h-full w-full transition-opacity duration-200 ease-out-soft ${
+              live ? "opacity-100" : "opacity-0"
             }`}
           />
-        ))}
-        <canvas
-          key={canvasKey}
-          ref={canvasRef}
-          role="img"
-          aria-label={slide.still.alt}
-          aria-hidden={live ? undefined : "true"}
-          className={`absolute inset-0 h-full w-full transition-opacity duration-200 ease-out-soft ${
-            live ? "opacity-100" : "opacity-0"
-          }`}
-        />
+        </div>
       </div>
 
       {/* Below lg the text follows the frame; from lg it overlays the
