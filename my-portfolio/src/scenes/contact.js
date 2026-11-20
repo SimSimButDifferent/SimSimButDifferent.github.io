@@ -12,10 +12,10 @@
 // Letters are drawn on a 40-unit cap height with an 8-unit stroke, in the
 // XY plane, and extruded through Z.
 //
-// Fillets: every outside (convex) edge is rounded at FILLET, both round the
-// front and back faces and down the corners of the outline. Outline corners
-// sharper than 90 degrees take a smaller fillet (see cornerRadius). Inside
-// corners stay sharp.
+// Fillets: every edge is rounded. The edges round the front and back faces
+// take FILLET; so does every corner of the outline, inside or outside, at 90
+// degrees and over. Corners sharper than 90 degrees take a smaller fillet
+// (see cornerRadius).
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { blueprintFloor } from "./stage";
 
@@ -36,8 +36,10 @@ const POOL = 0.8; // floor light pool strength
 const RAD = Math.PI / 180;
 
 // ---- Letterforms -----------------------------------------------------------
-// Each letter: width, outline(THREE) -> Shape, and the centreline of its
-// stroke as arcs and segments for the light channels.
+// Each letter: width; either shape(THREE) -> Shape (round letters) or an
+// outline and holes with sharp corners (straight-sided letters, filleted by
+// filletedSolid); and the centreline of its stroke as arcs and segments for
+// the light channels.
 
 const R_OUT = CAP / 2;
 const R_IN = R_OUT - STROKE;
@@ -71,9 +73,9 @@ function cShape(THREE) {
   return shape;
 }
 
-// Fillet radius for an outline corner with the given interior angle
-// (radians): FILLET at 90 degrees and over; under 90 the radius is cut by
-// 40% just below 90, rising to 70% at 30 degrees and sharper.
+// Fillet radius for an outline corner with the given angle between its two
+// edges (radians): FILLET at 90 degrees and over; under 90 the radius is cut
+// by 40% just below 90, rising to 70% at 30 degrees and sharper.
 function cornerRadius(angle) {
   const deg = angle / RAD;
   if (deg >= 90) return FILLET;
@@ -81,68 +83,203 @@ function cornerRadius(angle) {
   return FILLET * (1 - (0.4 + 0.3 * share));
 }
 
-// Outline through `points` (counter-clockwise) with every convex corner
-// filleted; concave corners are left sharp.
-function filletedOutline(THREE, points) {
-  const shape = new THREE.Shape();
-  const n = points.length;
-  const at = (i) => new THREE.Vector2(...points[(i + n) % n]);
-  points.forEach((_, i) => {
-    const p = at(i);
-    const toPrev = at(i - 1).sub(p);
-    const toNext = at(i + 1).sub(p);
-    const convex = toNext.x * toPrev.y - toNext.y * toPrev.x > 0;
-    const lenPrev = toPrev.length();
-    const lenNext = toNext.length();
-    toPrev.divideScalar(lenPrev);
-    toNext.divideScalar(lenNext);
-    if (!convex) {
-      if (i === 0) shape.moveTo(p.x, p.y);
-      else shape.lineTo(p.x, p.y);
-      return;
-    }
-    const angle = Math.acos(Math.min(1, Math.max(-1, toPrev.dot(toNext))));
-    // Tangent length, kept to under half of either neighbouring edge.
-    let r = cornerRadius(angle);
-    let t = r / Math.tan(angle / 2);
-    const tMax = 0.45 * Math.min(lenPrev, lenNext);
-    if (t > tMax) {
-      t = tMax;
-      r = t * Math.tan(angle / 2);
-    }
-    const start = p.clone().addScaledVector(toPrev, t);
-    const end = p.clone().addScaledVector(toNext, t);
-    const bisector = toPrev.clone().add(toNext).normalize();
-    const centre = p.clone().addScaledVector(bisector, r / Math.sin(angle / 2));
-    if (i === 0) shape.moveTo(start.x, start.y);
-    else shape.lineTo(start.x, start.y);
-    shape.absarc(
-      centre.x,
-      centre.y,
-      r,
-      Math.atan2(start.y - centre.y, start.x - centre.x),
-      Math.atan2(end.y - centre.y, end.x - centre.x),
-      false,
-    );
+// ---- Filleted solids for the straight-sided letters (N, T, A) ---------------
+// ExtrudeGeometry's bevel shrinks the outline by moving each vertex, which
+// folds over itself wherever a corner fillet is smaller than the edge fillet
+// (the A's feet) and leaves the letter uneven. Instead the solid is built
+// from rings: each ring is the sharp outline offset into the material by d,
+// then filleted. Offsetting a fillet of radius r by d gives radius r - d on an
+// outside corner (sharp once d passes r) and r + d on an inside corner, about
+// the same centre, so every ring is the exact section of the filleted solid.
+
+const ARC_STEPS = 8; // segments per corner fillet
+const EDGE_STEPS = 6; // segments per quarter circle of the face-edge fillet
+const SHARP = 1e-3; // radius standing in for a sharp corner
+
+const sub = ([ax, ay], [bx, by]) => [ax - bx, ay - by];
+const unit = ([x, y]) => {
+  const l = Math.hypot(x, y);
+  return [x / l, y / l];
+};
+const signedArea = (loop) =>
+  loop.reduce((sum, [x1, y1], i) => {
+    const [x2, y2] = loop[(i + 1) % loop.length];
+    return sum + x1 * y2 - x2 * y1;
+  }, 0) / 2;
+
+// Per corner of a loop that has the material on its left: whether it is an
+// outside corner, the angle between its edges, and its fillet radius.
+function cornersOf(loop) {
+  const n = loop.length;
+  return loop.map((p, i) => {
+    const toPrev = unit(sub(loop[(i - 1 + n) % n], p));
+    const toNext = unit(sub(loop[(i + 1) % n], p));
+    const outside = toNext[0] * toPrev[1] - toNext[1] * toPrev[0] > 0;
+    const cos = toPrev[0] * toNext[0] + toPrev[1] * toNext[1];
+    const angle = Math.acos(Math.min(1, Math.max(-1, cos)));
+    return { outside, radius: cornerRadius(angle) };
   });
-  shape.closePath();
-  return shape;
 }
 
-function polygon(THREE, points, holes = []) {
-  const shape = filletedOutline(THREE, points);
-  holes.forEach((hole) => {
-    shape.holes.push(
-      new THREE.Path(hole.map(([x, y]) => new THREE.Vector2(x, y))),
-    );
+// The loop offset by d into the material (on its left), corners mitred.
+function offsetLoop(loop, d) {
+  const n = loop.length;
+  return loop.map((p, i) => {
+    const e1 = unit(sub(p, loop[(i - 1 + n) % n]));
+    const e2 = unit(sub(loop[(i + 1) % n], p));
+    const n1 = [-e1[1], e1[0]];
+    const n2 = [-e2[1], e2[0]];
+    const k = d / (1 + n1[0] * n2[0] + n1[1] * n2[1]);
+    return [p[0] + (n1[0] + n2[0]) * k, p[1] + (n1[1] + n2[1]) * k];
   });
-  return shape;
+}
+
+// One ring: the loop offset by d, each corner replaced by ARC_STEPS + 1
+// points on its fillet. Every ring of a loop has the same point count.
+function ring(loop, corners, d) {
+  const sharp = offsetLoop(loop, d);
+  const n = sharp.length;
+  const points = [];
+  sharp.forEach((p, i) => {
+    const { outside, radius } = corners[i];
+    const prev = sharp[(i - 1 + n) % n];
+    const next = sharp[(i + 1) % n];
+    const toPrev = unit(sub(prev, p));
+    const toNext = unit(sub(next, p));
+    const cos = toPrev[0] * toNext[0] + toPrev[1] * toNext[1];
+    const half = Math.acos(Math.min(1, Math.max(-1, cos))) / 2;
+    let r = outside ? Math.max(radius - d, SHARP) : radius + d;
+    // Keep each fillet within 45% of its shorter neighbouring edge.
+    const reach =
+      0.45 * Math.min(Math.hypot(...sub(prev, p)), Math.hypot(...sub(next, p)));
+    r = Math.min(r, reach * Math.tan(half));
+    const t = r / Math.tan(half);
+    const bisector = unit([toPrev[0] + toNext[0], toPrev[1] + toNext[1]]);
+    const centre = [
+      p[0] + (bisector[0] * r) / Math.sin(half),
+      p[1] + (bisector[1] * r) / Math.sin(half),
+    ];
+    const start = [p[0] + toPrev[0] * t, p[1] + toPrev[1] * t];
+    const end = [p[0] + toNext[0] * t, p[1] + toNext[1] * t];
+    const a0 = Math.atan2(start[1] - centre[1], start[0] - centre[0]);
+    let sweep = Math.atan2(end[1] - centre[1], end[0] - centre[0]) - a0;
+    // The short way round: a fillet turns through less than half a circle.
+    sweep = Math.atan2(Math.sin(sweep), Math.cos(sweep));
+    for (let k = 0; k <= ARC_STEPS; k += 1) {
+      const a = a0 + (sweep * k) / ARC_STEPS;
+      points.push([centre[0] + r * Math.cos(a), centre[1] + r * Math.sin(a)]);
+    }
+  });
+  return points;
+}
+
+// Filleted solid from an outline and its holes (sharp corners, any winding),
+// from z = 0 to DEPTH.
+function filletedSolid(THREE, outline, holes = []) {
+  // Material on the left: outline counter-clockwise, holes clockwise.
+  const outer = signedArea(outline) > 0 ? outline : [...outline].reverse();
+  const loops = [
+    outer,
+    ...holes.map((h) => (signedArea(h) < 0 ? h : [...h].reverse())),
+  ];
+  const corners = loops.map(cornersOf);
+
+  // Section levels through the depth: a quarter circle of FILLET at each
+  // face, straight between.
+  const levels = [];
+  for (let k = 0; k <= EDGE_STEPS; k += 1) {
+    const a = (k / EDGE_STEPS) * (Math.PI / 2);
+    levels.push({
+      z: FILLET * (1 - Math.cos(a)),
+      d: FILLET * (1 - Math.sin(a)),
+    });
+  }
+  for (let k = EDGE_STEPS; k >= 0; k -= 1) {
+    const a = (k / EDGE_STEPS) * (Math.PI / 2);
+    levels.push({
+      z: DEPTH - FILLET * (1 - Math.cos(a)),
+      d: FILLET * (1 - Math.sin(a)),
+    });
+  }
+
+  const positions = [];
+  const index = [];
+  const push = ([x, y], z) => {
+    positions.push(x, y, z);
+    return positions.length / 3 - 1;
+  };
+
+  // Sides: one band of quads between each pair of levels, per loop.
+  const rings = levels.map(({ z, d }) =>
+    loops.map((loop, li) => ring(loop, corners[li], d).map((p) => push(p, z))),
+  );
+  for (let i = 0; i < levels.length - 1; i += 1) {
+    loops.forEach((_, li) => {
+      const a = rings[i][li];
+      const b = rings[i + 1][li];
+      const n = a.length;
+      for (let j = 0; j < n; j += 1) {
+        const j2 = (j + 1) % n;
+        index.push(a[j], a[j2], b[j], a[j2], b[j2], b[j]);
+      }
+    });
+  }
+
+  // Flat faces, with their own vertices so their normals stay square.
+  const cap = (level, facingUp) => {
+    const { z, d } = levels[level];
+    const sections = loops.map((loop, li) => ring(loop, corners[li], d));
+    const flat = sections.flat();
+    const ids = flat.map((p) => push(p, z));
+    const triangles = THREE.ShapeUtils.triangulateShape(
+      sections[0].map(([x, y]) => new THREE.Vector2(x, y)),
+      sections.slice(1).map((h) => h.map(([x, y]) => new THREE.Vector2(x, y))),
+    );
+    triangles.forEach(([a, b, c]) => {
+      const [ax, ay] = flat[a];
+      const [bx, by] = flat[b];
+      const [cx, cy] = flat[c];
+      const ccw = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax) > 0;
+      if (ccw === facingUp) index.push(ids[a], ids[b], ids[c]);
+      else index.push(ids[a], ids[c], ids[b]);
+    });
+  };
+  cap(0, false);
+  cap(levels.length - 1, true);
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(positions, 3),
+  );
+  geometry.setIndex(index);
+  geometry.computeVertexNormals();
+  return geometry;
 }
 
 // A's legs run at this slope (x per unit of y).
 const A_SLOPE = 0.35;
 const A_WIDTH = 36;
 const A_BAR = 10; // underside of the crossbar
+const A_INNER = (y) => STROKE + 0.5 + A_SLOPE * y; // left leg, inner edge
+const A_APEX = (A_WIDTH - STROKE) / 2; // left end of the flat top
+const A_HOLE_TOP = (A_WIDTH / 2 - STROKE - 0.5) / A_SLOPE; // inner edges meet
+const A_BAR_TOP = A_BAR + STROKE;
+const A_OUTLINE = [
+  [0, 0],
+  [STROKE + 0.5, 0],
+  [A_INNER(A_BAR), A_BAR],
+  [A_WIDTH - A_INNER(A_BAR), A_BAR],
+  [A_WIDTH - STROKE - 0.5, 0],
+  [A_WIDTH, 0],
+  [A_APEX + STROKE, CAP],
+  [A_APEX, CAP],
+];
+const A_HOLE = [
+  [A_INNER(A_BAR_TOP), A_BAR_TOP],
+  [A_WIDTH / 2, A_HOLE_TOP],
+  [A_WIDTH - A_INNER(A_BAR_TOP), A_BAR_TOP],
+];
 
 const LETTERS = {
   C: {
@@ -167,19 +304,18 @@ const LETTERS = {
   },
   N: {
     width: 32,
-    shape: (THREE) =>
-      polygon(THREE, [
-        [0, 0],
-        [8, 0],
-        [8, 26],
-        [24, 0],
-        [32, 0],
-        [32, 40],
-        [24, 40],
-        [24, 14],
-        [8, 40],
-        [0, 40],
-      ]),
+    outline: [
+      [0, 0],
+      [8, 0],
+      [8, 26],
+      [24, 0],
+      [32, 0],
+      [32, 40],
+      [24, 40],
+      [24, 14],
+      [8, 40],
+      [0, 40],
+    ],
     arcs: [],
     lines: [
       [
@@ -198,17 +334,16 @@ const LETTERS = {
   },
   T: {
     width: 32,
-    shape: (THREE) =>
-      polygon(THREE, [
-        [12, 0],
-        [20, 0],
-        [20, 32],
-        [32, 32],
-        [32, 40],
-        [0, 40],
-        [0, 32],
-        [12, 32],
-      ]),
+    outline: [
+      [12, 0],
+      [20, 0],
+      [20, 32],
+      [32, 32],
+      [32, 40],
+      [0, 40],
+      [0, 32],
+      [12, 32],
+    ],
     arcs: [],
     lines: [
       [
@@ -223,35 +358,8 @@ const LETTERS = {
   },
   A: {
     width: A_WIDTH,
-    shape: (THREE) => {
-      const s = A_SLOPE;
-      const w = A_WIDTH;
-      const top = CAP;
-      const apexL = (w - STROKE) / 2;
-      const inner = (y) => STROKE + 0.5 + s * y; // left leg, inner edge
-      const holeTop = (w / 2 - STROKE - 0.5) / s; // where the inner edges meet
-      const barTop = A_BAR + STROKE;
-      return polygon(
-        THREE,
-        [
-          [0, 0],
-          [STROKE + 0.5, 0],
-          [inner(A_BAR), A_BAR],
-          [w - inner(A_BAR), A_BAR],
-          [w - STROKE - 0.5, 0],
-          [w, 0],
-          [apexL + STROKE, top],
-          [apexL, top],
-        ],
-        [
-          [
-            [inner(barTop), barTop],
-            [w / 2, holeTop],
-            [w - inner(barTop), barTop],
-          ],
-        ],
-      );
-    },
+    outline: A_OUTLINE,
+    holes: [A_HOLE],
     arcs: [],
     lines: [
       [
@@ -351,18 +459,24 @@ export function create({ THREE, tokens, renderer }) {
   // shared by repeated letters (two Cs, two Ts).
   const forms = {};
   Object.entries(LETTERS).forEach(([key, letter]) => {
-    // The bevel is the face-edge fillet: a quarter circle of FILLET, inset
-    // by the same amount so the letter keeps its outline size.
-    const body = new THREE.ExtrudeGeometry(letter.shape(THREE), {
-      depth: DEPTH - 2 * FILLET,
-      bevelEnabled: true,
-      bevelThickness: FILLET,
-      bevelSize: FILLET,
-      bevelOffset: -FILLET,
-      bevelSegments: 6,
-      curveSegments: 24,
-    });
-    body.translate(0, 0, FILLET);
+    // Straight-sided letters get the filleted solid. C and O have no
+    // corners, so the extrusion bevel (a quarter circle of FILLET, inset by
+    // the same amount) is exact for them.
+    let body;
+    if (letter.outline) {
+      body = filletedSolid(THREE, letter.outline, letter.holes);
+    } else {
+      body = new THREE.ExtrudeGeometry(letter.shape(THREE), {
+        depth: DEPTH - 2 * FILLET,
+        bevelEnabled: true,
+        bevelThickness: FILLET,
+        bevelSize: FILLET,
+        bevelOffset: -FILLET,
+        bevelSegments: EDGE_STEPS,
+        curveSegments: 24,
+      });
+      body.translate(0, 0, FILLET);
+    }
 
     const channels = [];
     letter.arcs.forEach(({ cx, cy, r, from, to }) => {
