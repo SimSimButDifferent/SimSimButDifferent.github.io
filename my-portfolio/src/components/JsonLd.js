@@ -79,6 +79,21 @@ export function aboutPageSchema({ description, url }) {
   };
 }
 
+// Contact page schema: the page, and the business it reaches.
+export function contactPageSchema({ description, url }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Dream InReality",
+    description,
+    url: `${SITE_URL}${url}`,
+    about: { "@id": BUSINESS["@id"] },
+    // The business record itself: it is only output in full on the
+    // homepage, so an @id reference alone would point at nothing here.
+    mainEntity: BUSINESS,
+  };
+}
+
 // FAQ schema: for pages with a FAQ section.
 // faqs: [{ question, answer }]
 export function faqPageSchema(faqs) {

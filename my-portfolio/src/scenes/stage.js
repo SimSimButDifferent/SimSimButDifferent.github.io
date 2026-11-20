@@ -32,6 +32,7 @@ const loaders = {
   "construction-drawings": () => import("./construction-drawings"),
   "reverse-engineering": () => import("./reverse-engineering"),
   "about-reel": () => import("./about-reel"),
+  contact: () => import("./contact"),
 };
 
 export function blueprintFloor() {
@@ -140,7 +141,8 @@ function disposeTree(root) {
 }
 
 // mountScene(canvas, slug)
-//   -> { seek(t), setShowcase(on), select(index), resize(w, h), dispose() }
+//   -> { seek(t), setShowcase(on), select(index), pointer(x, y), resize(w, h),
+//        dispose() }
 // Throws if WebGL is unavailable; the caller falls back to still frames.
 export async function mountScene(canvas, slug) {
   const load = loaders[slug];
@@ -168,7 +170,7 @@ export async function mountScene(canvas, slug) {
   scene.add(floor);
 
   const fontFamily = getComputedStyle(canvas).fontFamily || "sans-serif";
-  const part = create({ THREE, tokens, fontFamily });
+  const part = create({ THREE, tokens, fontFamily, renderer });
   scene.add(part.object);
 
   const camera = new THREE.PerspectiveCamera(28, 4 / 3, 1, 1200);
@@ -228,13 +230,25 @@ export async function mountScene(canvas, slug) {
     renderer.render(scene, camera);
   };
 
+  // The loop runs while the showcase is on, or while a scene that reacts to
+  // the pointer is still easing: part.step(dt) returns true until it settles.
   const tick = (now) => {
     const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
     last = now;
     spin += (dt * TURN) / spinPeriod;
+    const easing = part.step?.(dt) ?? false;
     render();
-    frame = showcaseOn ? requestAnimationFrame(tick) : null;
+    frame = showcaseOn || easing ? requestAnimationFrame(tick) : null;
   };
+
+  const wake = () => {
+    if (frame !== null) return;
+    last = 0;
+    frame = requestAnimationFrame(tick);
+  };
+
+  const raycaster = new THREE.Raycaster();
+  const ndc = new THREE.Vector2();
 
   return {
     seek(t) {
@@ -257,6 +271,19 @@ export async function mountScene(canvas, slug) {
     select(index) {
       part.select?.(index);
       if (frame === null) render();
+    },
+    // Pointer over the canvas, in normalised device coordinates (-1 to 1),
+    // or null when it leaves. Only scenes with a pointer() hook react.
+    pointer(x, y) {
+      if (!part.pointer) return;
+      if (x === null || x === undefined) {
+        part.pointer(null);
+      } else {
+        ndc.set(x, y);
+        raycaster.setFromCamera(ndc, camera);
+        part.pointer(raycaster);
+      }
+      wake();
     },
     // Fixed pose for rendering still frames.
     pose(t, spinAngle, showcase) {

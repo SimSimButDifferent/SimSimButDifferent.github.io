@@ -1,4 +1,6 @@
-import React, { useState, useCallback } from "react";
+"use client";
+
+import { useState, useCallback } from "react";
 import {
   APIProvider,
   Map,
@@ -6,154 +8,76 @@ import {
   Pin,
 } from "@vis.gl/react-google-maps";
 
-const GoogleMap = ({
-  address = "Dream InReality, Swan Lane, Sellindge, Ashford, UK",
-}) => {
-  const [mapError, setMapError] = useState(null);
+// Contact page map: Google's dark colour scheme in a slate frame. If the key
+// is missing or the map fails to load, the reader gets a link to the same
+// place on Google Maps instead.
 
-  // API Key check
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+// Swan Lane, Sellindge, Ashford.
+const CENTER = { lat: 51.107477, lng: 1.015212 };
+// Required for AdvancedMarker. Replace with a production Map ID when one
+// exists (see USER-TODO.md).
+const MAP_ID = "DEMO_MAP_ID";
+const DIRECTIONS = `https://www.google.com/maps/search/?api=1&query=${CENTER.lat},${CENTER.lng}`;
 
-  // Default center (approximate location for Sellindge, Ashford, UK)
-  const center = { lat: 51.107477, lng: 1.015212 };
+const frame =
+  "h-80 overflow-hidden rounded-lg border border-line bg-surface lg:h-full lg:min-h-[24rem]";
 
-  // Map ID is required for AdvancedMarkerElement
-  const mapId = "DEMO_MAP_ID";
-
-  const handleMapError = useCallback((error) => {
-    console.error("Failed to load Google Maps:", error);
-    setMapError(
-      "Failed to load Google Maps. Please check your API key and internet connection."
-    );
-  }, []);
-
-  // Handle missing API key
-  if (!apiKey) {
-    return (
-      <div className="h-full">
-        <div className="flex flex-col bg-white rounded-2xl shadow-xl h-full">
-          <div className="flex-1 flex items-center justify-center p-6">
-            <div className="text-center">
-              <div className="mb-4">
-                <svg
-                  className="w-16 h-16 mx-auto text-accent-visual"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </div>
-              <p className="text-ink font-medium mb-2">
-                Google Maps API Key Required
-              </p>
-              <p className="text-muted text-sm max-w-sm">
-                To display the map, please add your Google Maps API key to the
-                environment variables.
-              </p>
-              <p className="text-xs text-muted mt-3">
-                Visit{" "}
-                <a
-                  href="https://console.cloud.google.com/google/maps-apis/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-accent underline hover:text-accent-hover"
-                >
-                  Google Cloud Console
-                </a>{" "}
-                to get your API key
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Handle map errors
-  if (mapError) {
-    return (
-      <div className="h-full">
-        <div className="flex flex-col bg-white rounded-2xl shadow-xl h-full">
-          <div className="flex-1 flex items-center justify-center p-6">
-            <div className="text-center">
-              <div className="mb-4">
-                <svg
-                  className="w-16 h-16 mx-auto text-red-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z"
-                  />
-                </svg>
-              </div>
-              <p className="text-red-700 font-medium mb-2">Map Loading Error</p>
-              <p className="text-red-600 text-sm">{mapError}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+function Fallback() {
   return (
-    <div className="h-full">
-      <div className="flex flex-col bg-white rounded-2xl shadow-xl h-full overflow-hidden">
-        <div className="relative flex-1">
-          <APIProvider
-            apiKey={apiKey}
-            onLoad={() => console.log("Google Maps API loaded successfully")}
-            onError={handleMapError}
-          >
-            <Map
-              style={{ width: "100%", height: "100%" }}
-              defaultCenter={center}
-              defaultZoom={15}
-              mapId={mapId}
-              gestureHandling="cooperative"
-              disableDefaultUI={false}
-              zoomControl={true}
-              mapTypeControl={false}
-              streetViewControl={false}
-              fullscreenControl={true}
-            >
-              {/* AdvancedMarker with custom Pin styling */}
-              <AdvancedMarker position={center} title={address}>
-                <Pin
-                  background="#0e7490"
-                  borderColor="#ffffff"
-                  glyphColor="#ffffff"
-                  scale={1.2}
-                />
-              </AdvancedMarker>
-            </Map>
-          </APIProvider>
-
-          {/* Address overlay */}
-          <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg max-w-xs">
-            <p className="text-sm font-medium text-ink">{address}</p>
-            <p className="text-xs text-muted">📍 Interactive Map</p>
-          </div>
-        </div>
+    <div className={`${frame} flex items-center justify-center p-6`}>
+      <div className="text-center">
+        <p className="mb-2">The map is not available.</p>
+        <a
+          href={DIRECTIONS}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-inverse inline-flex min-h-[44px] items-center"
+        >
+          Open Swan Lane, Sellindge in Google Maps
+        </a>
       </div>
     </div>
   );
-};
+}
 
-export default GoogleMap;
+export default function GoogleMap({
+  address = "Dream InReality, Swan Lane, Sellindge, Ashford, Kent",
+}) {
+  const [failed, setFailed] = useState(false);
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const onError = useCallback(() => setFailed(true), []);
+
+  if (!apiKey || failed) return <Fallback />;
+
+  return (
+    <div
+      role="region"
+      aria-label="Map of Swan Lane, Sellindge, Ashford"
+      className={frame}
+    >
+      <APIProvider apiKey={apiKey} onError={onError}>
+        <Map
+          className="h-full w-full"
+          defaultCenter={CENTER}
+          defaultZoom={15}
+          mapId={MAP_ID}
+          colorScheme="DARK"
+          gestureHandling="cooperative"
+          zoomControl
+          mapTypeControl={false}
+          streetViewControl={false}
+          fullscreenControl
+        >
+          <AdvancedMarker position={CENTER} title={address}>
+            <Pin
+              background="#22d3ee"
+              borderColor="#0f172a"
+              glyphColor="#0f172a"
+              scale={1.2}
+            />
+          </AdvancedMarker>
+        </Map>
+      </APIProvider>
+    </div>
+  );
+}
