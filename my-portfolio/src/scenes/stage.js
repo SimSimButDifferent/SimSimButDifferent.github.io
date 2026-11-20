@@ -15,6 +15,15 @@ const KEY_LIGHT_SHOWCASE = 3.1;
 const SKY_LIGHT = 1.4;
 const SKY_LIGHT_SHOWCASE = 1.65;
 
+// Reader view controls (orbit, pan, zoom, resetView).
+const ORBIT_PER_PX = 0.006; // radians
+const ZOOM_PER_PX = 0.005;
+const MIN_ZOOM = 0.4; // distance factor: closest
+const MAX_ZOOM = 2.5; // furthest
+const MIN_ELEVATION = (3 * Math.PI) / 180; // never below the floor
+const MAX_ELEVATION = (88 * Math.PI) / 180;
+const RESET_TAU = 0.08; // seconds; the view is home in about 0.4 s
+
 export const tokens = {
   navy: 0x0f172a,
   line: 0x334155,
@@ -141,7 +150,8 @@ function disposeTree(root) {
 }
 
 // mountScene(canvas, slug)
-//   -> { seek(t), setShowcase(on), select(index), pointer(x, y), resize(w, h),
+//   -> { seek(t), setShowcase(on), select(index), pointer(x, y),
+//        orbit(dx, dy), pan(dx, dy), zoom(dy), resetView(), resize(w, h),
 //        dispose() }
 // Throws if WebGL is unavailable; the caller falls back to still frames.
 export async function mountScene(canvas, slug) {
@@ -215,14 +225,34 @@ export async function mountScene(canvas, slug) {
 
   const mix = (a, b, x) => a + (b - a) * x;
 
+  // The reader's own view, SolidWorks style (see orbit/pan/zoom below):
+  // offsets on top of the scene's camera. All zero unless a page wires up
+  // the controls, so scenes without them render exactly as before.
+  const user = { azimuth: 0, elevation: 0, zoom: 1, pan: new THREE.Vector3() };
+  let resetting = false;
+  let lastReach = distance;
+  const aimPoint = new THREE.Vector3();
+  const right = new THREE.Vector3();
+  const up = new THREE.Vector3();
+
   const render = () => {
     const story = at?.(time) ?? {};
     const storyAzimuth =
       story.azimuth ?? swing * Math.sin((2 * Math.PI * time) / period);
-    const azimuth = storyAzimuth * (1 - weight);
-    const el = mix(story.elevation ?? elevation, showcaseElevation, weight);
-    const reach = mix(story.distance ?? distance, showcaseDistance, weight);
-    const aim = weight > 0 || !story.target ? target : story.target;
+    const azimuth = storyAzimuth * (1 - weight) + user.azimuth;
+    let el = mix(story.elevation ?? elevation, showcaseElevation, weight);
+    if (user.elevation !== 0) {
+      el = Math.min(
+        MAX_ELEVATION,
+        Math.max(MIN_ELEVATION, el + user.elevation),
+      );
+    }
+    const reach =
+      mix(story.distance ?? distance, showcaseDistance, weight) * user.zoom;
+    lastReach = reach;
+    const aim = aimPoint
+      .copy(weight > 0 || !story.target ? target : story.target)
+      .add(user.pan);
     camera.position.set(
       aim.x + reach * Math.sin(azimuth) * Math.cos(el),
       aim.y + reach * Math.sin(el),
@@ -243,8 +273,37 @@ export async function mountScene(canvas, slug) {
     last = now;
     spin += (dt * TURN) / spinPeriod;
     const easing = part.step?.(dt) ?? false;
+    const returning = stepReset(dt);
     render();
-    frame = showcaseOn || easing ? requestAnimationFrame(tick) : null;
+    frame =
+      showcaseOn || easing || returning ? requestAnimationFrame(tick) : null;
+  };
+
+  // Ease the reader's view back to the scene's own; true until it arrives.
+  const stepReset = (dt) => {
+    if (!resetting) return false;
+    const k = 1 - Math.exp(-dt / RESET_TAU);
+    user.azimuth -= user.azimuth * k;
+    user.elevation -= user.elevation * k;
+    user.zoom += (1 - user.zoom) * k;
+    user.pan.multiplyScalar(1 - k);
+    const done =
+      Math.abs(user.azimuth) < 1e-3 &&
+      Math.abs(user.elevation) < 1e-3 &&
+      Math.abs(user.zoom - 1) < 1e-3 &&
+      user.pan.lengthSq() < 1e-4;
+    if (done) {
+      user.azimuth = 0;
+      user.elevation = 0;
+      user.zoom = 1;
+      user.pan.set(0, 0, 0);
+      resetting = false;
+    }
+    return resetting;
+  };
+
+  const draw = () => {
+    if (frame === null) render();
   };
 
   const wake = () => {
@@ -289,6 +348,41 @@ export async function mountScene(canvas, slug) {
         raycaster.setFromCamera(ndc, camera);
         part.pointer(raycaster);
       }
+      wake();
+    },
+    // SolidWorks-style view controls, in pixels of pointer travel. Drag
+    // right turns the model right; drag down tips its top towards you.
+    orbit(dx, dy) {
+      resetting = false;
+      user.azimuth -= dx * ORBIT_PER_PX;
+      user.elevation += dy * ORBIT_PER_PX;
+      draw();
+    },
+    // The model follows the pointer.
+    pan(dx, dy) {
+      resetting = false;
+      const height = canvas.clientHeight || 1;
+      const perPx =
+        (2 * lastReach * Math.tan((camera.fov * Math.PI) / 360)) / height;
+      right.setFromMatrixColumn(camera.matrixWorld, 0);
+      up.setFromMatrixColumn(camera.matrixWorld, 1);
+      user.pan.addScaledVector(right, -dx * perPx);
+      user.pan.addScaledVector(up, dy * perPx);
+      draw();
+    },
+    // Drag down to zoom in, up to zoom out.
+    zoom(dy) {
+      resetting = false;
+      user.zoom = Math.min(
+        MAX_ZOOM,
+        Math.max(MIN_ZOOM, user.zoom * Math.exp(-dy * ZOOM_PER_PX)),
+      );
+      draw();
+    },
+    // Back to the scene's own view, eased; the short way round.
+    resetView() {
+      user.azimuth = Math.atan2(Math.sin(user.azimuth), Math.cos(user.azimuth));
+      resetting = true;
       wake();
     },
     // Fixed pose for rendering still frames.
