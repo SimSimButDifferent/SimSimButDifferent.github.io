@@ -1,6 +1,6 @@
-// Contact page scene: the word CONTACT in clear glass letters standing on the
-// blueprint floor, each lit from inside by cyan light channels that follow
-// the letter's stroke. Modelled on the earlier still render
+// Contact page scene: the word CONTACT in clear, refractive glass letters
+// standing on the blueprint floor, each lit from inside by one cyan light
+// channel that follows the letter's stroke. Modelled on the earlier still render
 // (public/images/contact_header.png).
 //
 // It has no story and no loop. The lights rest at a steady level; when the
@@ -11,21 +11,27 @@
 //
 // Letters are drawn on a 40-unit cap height with an 8-unit stroke, in the
 // XY plane, and extruded through Z.
+//
+// Fillets: every outside (convex) edge is rounded at FILLET, both round the
+// front and back faces and down the corners of the outline. Outline corners
+// sharper than 90 degrees take a smaller fillet (see cornerRadius). Inside
+// corners stay sharp.
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { blueprintFloor } from "./stage";
 
 const CAP = 40; // cap height
 const STROKE = 8;
 const DEPTH = 12; // extrusion through the letter
-const BEVEL = 1.2;
+const FILLET = 2; // outside edge radius
 const GAP = 9; // between letters
-const TUBE = 0.85; // light channel radius
-const LAYERS = [0.22, 0.5, 0.78]; // channel depths, as a share of DEPTH
+const TUBE = 0.75; // light channel radius, one channel at mid-depth
 
 // Brightness: REST with no pointer, 1 directly under it.
 const REST = 0.45;
 const RISE = 0.15; // seconds, time constant brightening
 const FALL = 0.3; // seconds, time constant dimming
 const SETTLED = 0.001;
+const POOL = 0.8; // floor light pool strength
 
 const RAD = Math.PI / 180;
 
@@ -65,10 +71,66 @@ function cShape(THREE) {
   return shape;
 }
 
+// Fillet radius for an outline corner with the given interior angle
+// (radians): FILLET at 90 degrees and over; under 90 the radius is cut by
+// 40% just below 90, rising to 70% at 30 degrees and sharper.
+function cornerRadius(angle) {
+  const deg = angle / RAD;
+  if (deg >= 90) return FILLET;
+  const share = Math.min(1, Math.max(0, (90 - deg) / 60));
+  return FILLET * (1 - (0.4 + 0.3 * share));
+}
+
+// Outline through `points` (counter-clockwise) with every convex corner
+// filleted; concave corners are left sharp.
+function filletedOutline(THREE, points) {
+  const shape = new THREE.Shape();
+  const n = points.length;
+  const at = (i) => new THREE.Vector2(...points[(i + n) % n]);
+  points.forEach((_, i) => {
+    const p = at(i);
+    const toPrev = at(i - 1).sub(p);
+    const toNext = at(i + 1).sub(p);
+    const convex = toNext.x * toPrev.y - toNext.y * toPrev.x > 0;
+    const lenPrev = toPrev.length();
+    const lenNext = toNext.length();
+    toPrev.divideScalar(lenPrev);
+    toNext.divideScalar(lenNext);
+    if (!convex) {
+      if (i === 0) shape.moveTo(p.x, p.y);
+      else shape.lineTo(p.x, p.y);
+      return;
+    }
+    const angle = Math.acos(Math.min(1, Math.max(-1, toPrev.dot(toNext))));
+    // Tangent length, kept to under half of either neighbouring edge.
+    let r = cornerRadius(angle);
+    let t = r / Math.tan(angle / 2);
+    const tMax = 0.45 * Math.min(lenPrev, lenNext);
+    if (t > tMax) {
+      t = tMax;
+      r = t * Math.tan(angle / 2);
+    }
+    const start = p.clone().addScaledVector(toPrev, t);
+    const end = p.clone().addScaledVector(toNext, t);
+    const bisector = toPrev.clone().add(toNext).normalize();
+    const centre = p.clone().addScaledVector(bisector, r / Math.sin(angle / 2));
+    if (i === 0) shape.moveTo(start.x, start.y);
+    else shape.lineTo(start.x, start.y);
+    shape.absarc(
+      centre.x,
+      centre.y,
+      r,
+      Math.atan2(start.y - centre.y, start.x - centre.x),
+      Math.atan2(end.y - centre.y, end.x - centre.x),
+      false,
+    );
+  });
+  shape.closePath();
+  return shape;
+}
+
 function polygon(THREE, points, holes = []) {
-  const shape = new THREE.Shape(
-    points.map(([x, y]) => new THREE.Vector2(x, y)),
-  );
+  const shape = filletedOutline(THREE, points);
   holes.forEach((hole) => {
     shape.holes.push(
       new THREE.Path(hole.map(([x, y]) => new THREE.Vector2(x, y))),
@@ -234,35 +296,73 @@ export function create({ THREE, tokens, renderer }) {
   const pmrem = renderer ? new THREE.PMREMGenerator(renderer) : null;
   const envMap = pmrem?.fromScene(new RoomEnvironment(), 0.04).texture ?? null;
 
+  // Clear refractive glass. Transmission samples the opaque scene behind
+  // each letter (its light channel included), so the stage draws this scene
+  // on an opaque navy background (see `background` below).
   const glass = new THREE.MeshPhysicalMaterial({
-    color: tokens.render,
+    color: 0xffffff,
     metalness: 0,
-    roughness: 0.08,
-    clearcoat: 1,
-    clearcoatRoughness: 0.05,
+    roughness: 0.03,
+    transmission: 1,
+    ior: 1.5,
+    thickness: 3,
+    attenuationColor: new THREE.Color(tokens.render),
+    attenuationDistance: 90,
+    specularIntensity: 1,
     envMap,
-    envMapIntensity: 0.7,
-    transparent: true,
-    opacity: 0.24,
-    depthWrite: false,
-    side: THREE.DoubleSide,
+    envMapIntensity: 0.6,
   });
 
   const pool = poolTexture(THREE);
+
+  // The glass refracts only opaque objects, and the stage's floor grid is
+  // transparent, so behind each letter it would vanish and the glass would
+  // read as smoked. This scene hides the stage floor (camera.at, floor 0)
+  // and draws its own copy with the grid made opaque: each line colour is
+  // pre-blended over the navy background, so it looks the same and shows
+  // through the glass.
+  const floor = blueprintFloor();
+  // Additive pools read brighter than blended ones: run them at POOL.
+  floor.userData.set(POOL, 0);
+  const grid = floor.children[0];
+  const navy = new THREE.Color(tokens.navy);
+  const lineColour = new THREE.Color();
+  const colours = grid.geometry.getAttribute("color");
+  for (let i = 0; i < colours.count; i += 1) {
+    const a = colours.getW(i);
+    lineColour.setRGB(colours.getX(i), colours.getY(i), colours.getZ(i));
+    lineColour.lerpColors(navy, lineColour, a);
+    colours.setXYZW(i, lineColour.r, lineColour.g, lineColour.b, 1);
+  }
+  grid.material.transparent = false;
+  grid.material.depthWrite = true;
+  // The light pools glow on the floor, so the glass must refract them too.
+  // Additive blending on a material that is not flagged transparent keeps
+  // them in the opaque pass, which is the one the glass samples.
+  const additive = (material) => {
+    material.transparent = false;
+    material.blending = THREE.AdditiveBlending;
+    material.depthWrite = false;
+  };
+  floor.children.slice(1).forEach((mesh) => additive(mesh.material));
+  object.add(floor);
 
   // One extruded body and one set of channel geometries per letterform,
   // shared by repeated letters (two Cs, two Ts).
   const forms = {};
   Object.entries(LETTERS).forEach(([key, letter]) => {
+    // The bevel is the face-edge fillet: a quarter circle of FILLET, inset
+    // by the same amount so the letter keeps its outline size.
     const body = new THREE.ExtrudeGeometry(letter.shape(THREE), {
-      depth: DEPTH - 2 * BEVEL,
+      depth: DEPTH - 2 * FILLET,
       bevelEnabled: true,
-      bevelThickness: BEVEL,
-      bevelSize: BEVEL,
-      bevelSegments: 3,
-      curveSegments: 48,
+      bevelThickness: FILLET,
+      bevelSize: FILLET,
+      bevelOffset: -FILLET,
+      bevelSegments: 6,
+      curveSegments: 24,
     });
-    body.translate(0, 0, BEVEL);
+    body.translate(0, 0, FILLET);
 
     const channels = [];
     letter.arcs.forEach(({ cx, cy, r, from, to }) => {
@@ -309,19 +409,14 @@ export function create({ THREE, tokens, renderer }) {
       roughness: 0.4,
     });
 
-    LAYERS.forEach((share) => {
-      const layer = new THREE.Group();
-      layer.position.z = DEPTH * share;
-      form.channels.forEach((geometry) =>
-        layer.add(new THREE.Mesh(geometry, light)),
-      );
-      group.add(layer);
-    });
+    const channel = new THREE.Group();
+    channel.position.z = DEPTH / 2;
+    form.channels.forEach((geometry) =>
+      channel.add(new THREE.Mesh(geometry, light)),
+    );
+    group.add(channel);
 
-    // Glass after the channels, so the channels show through it.
-    const body = new THREE.Mesh(form.body, glass);
-    body.renderOrder = 1;
-    group.add(body);
+    group.add(new THREE.Mesh(form.body, glass));
 
     // A point light inside each letter lights its own glass and the floor.
     const lamp = new THREE.PointLight(tokens.cyan, 0, 60, 2);
@@ -330,13 +425,9 @@ export function create({ THREE, tokens, renderer }) {
 
     const floorGlow = new THREE.Mesh(
       new THREE.PlaneGeometry(letter.width * 2.2, letter.width * 2.2),
-      new THREE.MeshBasicMaterial({
-        map: pool,
-        transparent: true,
-        depthWrite: false,
-        opacity: REST,
-      }),
+      new THREE.MeshBasicMaterial({ map: pool, opacity: REST }),
     );
+    additive(floorGlow.material);
     floorGlow.rotation.x = -Math.PI / 2;
     floorGlow.position.set(letter.width / 2, -0.2, DEPTH / 2);
     group.add(floorGlow);
@@ -366,7 +457,7 @@ export function create({ THREE, tokens, renderer }) {
     entry.light.emissive.copy(restColour).lerp(hotColour, heat * 0.6);
     entry.light.emissiveIntensity = 0.35 + entry.level * 0.65;
     entry.lamp.intensity = entry.level * 900;
-    entry.floorGlow.material.opacity = entry.level;
+    entry.floorGlow.material.opacity = entry.level * POOL;
   };
   letters.forEach(apply);
 
@@ -425,6 +516,9 @@ export function create({ THREE, tokens, renderer }) {
   return {
     object,
     update() {},
+    // Opaque page navy behind the scene, so the glass refracts navy rather
+    // than three.js's half-transparent white stand-in.
+    background: tokens.navy,
     pointer,
     step,
     camera: {
@@ -433,6 +527,8 @@ export function create({ THREE, tokens, renderer }) {
       elevation: 34 * RAD,
       swing: 0,
       period: 1,
+      // Hide the stage floor; this scene draws its own (see above).
+      at: () => ({ floor: 0 }),
     },
     dispose() {
       Object.values(forms).forEach(({ body, channels }) => {

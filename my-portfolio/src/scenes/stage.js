@@ -64,7 +64,7 @@ export function blueprintFloor() {
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute(
     "position",
-    new THREE.Float32BufferAttribute(positions, 3)
+    new THREE.Float32BufferAttribute(positions, 3),
   );
   geometry.setAttribute("color", new THREE.Float32BufferAttribute(colours, 4));
   const grid = new THREE.LineSegments(
@@ -73,7 +73,7 @@ export function blueprintFloor() {
       vertexColors: true,
       transparent: true,
       depthWrite: false,
-    })
+    }),
   );
   grid.position.y = -0.6;
   group.add(grid);
@@ -94,7 +94,7 @@ export function blueprintFloor() {
       map: new THREE.CanvasTexture(c),
       transparent: true,
       depthWrite: false,
-    })
+    }),
   );
   pool.rotation.x = -Math.PI / 2;
   pool.position.y = -0.4;
@@ -108,7 +108,7 @@ export function blueprintFloor() {
       transparent: true,
       depthWrite: false,
       opacity: 0,
-    })
+    }),
   );
   glow.rotation.x = -Math.PI / 2;
   glow.position.y = -0.3;
@@ -172,6 +172,12 @@ export async function mountScene(canvas, slug) {
   const fontFamily = getComputedStyle(canvas).fontFamily || "sans-serif";
   const part = create({ THREE, tokens, fontFamily, renderer });
   scene.add(part.object);
+  // Optional opaque background. Scenes with transmissive (refractive)
+  // materials need one: on a transparent canvas three.js puts half-alpha
+  // white behind them.
+  if (part.background !== undefined) {
+    scene.background = new THREE.Color(part.background);
+  }
 
   const camera = new THREE.PerspectiveCamera(28, 4 / 3, 1, 1200);
   const {
@@ -220,7 +226,7 @@ export async function mountScene(canvas, slug) {
     camera.position.set(
       aim.x + reach * Math.sin(azimuth) * Math.cos(el),
       aim.y + reach * Math.sin(el),
-      aim.z + reach * Math.cos(azimuth) * Math.cos(el)
+      aim.z + reach * Math.cos(azimuth) * Math.cos(el),
     );
     camera.lookAt(aim);
     key.intensity = mix(KEY_LIGHT, KEY_LIGHT_SHOWCASE, weight);
