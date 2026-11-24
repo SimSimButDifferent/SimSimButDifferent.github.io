@@ -41,10 +41,10 @@ const testimonials = [
 ];
 
 export const metadata = {
-  title: "3D CAD Modelling Services UK | Dream InReality",
+  title: "3D CAD Modelling Services UK: SLDPRT, STEP | Dream InReality",
   description,
   openGraph: {
-    title: "3D CAD Modelling Services UK | Dream InReality",
+    title: "3D CAD Modelling Services UK: SLDPRT, STEP | Dream InReality",
     description,
     url: "/",
     siteName: "Dream InReality",
@@ -61,7 +61,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary",
-    title: "3D CAD Modelling Services UK | Dream InReality",
+    title: "3D CAD Modelling Services UK: SLDPRT, STEP | Dream InReality",
     description,
   },
   alternates: {
@@ -105,13 +105,14 @@ export default function Home() {
         <div className="relative z-10 flex min-h-screen flex-col justify-center px-5 pb-[30vh] sm:px-10 sm:pb-0 lg:px-16">
           <p className="eyebrow mb-2 text-sm">Dream InReality</p>
           <h1>
-            <span className={`block ${headline}`}>We produce</span>
             <span
               className={`block ${headline} py-2 font-semibold text-accent-visual`}
             >
-              3D CAD Models
+              3D CAD models
             </span>
-            <span className={`block ${headline}`}>for mass production</span>
+            <span className={`block ${headline}`}>
+              built for mass production
+            </span>
           </h1>
           <div className="mt-8">
             <Link href="/contact" className="btn-inverse">

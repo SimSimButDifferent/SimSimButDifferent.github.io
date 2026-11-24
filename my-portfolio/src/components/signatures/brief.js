@@ -35,7 +35,7 @@ export function Overlay() {
         {JITTER.map((offset, i) => (
           <motion.circle
             key={i}
-            cx={116 + i * 17}
+            cx={36 + i * 17}
             cy="296"
             r="2.5"
             className="fill-accent-visual"

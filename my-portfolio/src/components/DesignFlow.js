@@ -73,7 +73,7 @@ function StageText({ stage, textOnLeft }) {
       <h3 className="mb-4 pb-0 text-title font-light">{stage.title}</h3>
       <p className="max-w-[70ch]">{stage.body}</p>
       <ul
-        aria-label="Delivered at this stage"
+        aria-label={stage.chipsLabel ?? "Delivered at this stage"}
         className="mt-6 flex flex-wrap gap-2"
       >
         {stage.chips.map((chip) => (

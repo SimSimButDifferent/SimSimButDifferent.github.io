@@ -60,8 +60,28 @@ const Footer = () => {
             </a>
           </p>
           <p>
+            <a
+              className={linkClass}
+              href="https://wa.me/447428422450"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp +44 7428 422 450
+            </a>
+          </p>
+          <p>
             <a className={linkClass} href="tel:+441233234583">
               +44 (0)1233 234583
+            </a>
+          </p>
+          <p>
+            <a
+              className={linkClass}
+              href="https://www.linkedin.com/in/simeon-campbell-cad/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
             </a>
           </p>
         </div>

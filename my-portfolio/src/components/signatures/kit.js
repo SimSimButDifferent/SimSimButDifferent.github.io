@@ -1,7 +1,7 @@
 "use client";
 
-import { animate, motion, useInView, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 
 // Shared pieces for the homepage timeline "signatures": the diagram around a
 // stage's station circle and the optional panel under the chips. Everything
@@ -15,29 +15,6 @@ export function usePlayOnce() {
   const inView = useInView(ref, { margin: "-20%", once: true });
   const reduce = useReducedMotion();
   return { ref, show: Boolean(reduce) || inView, reduce: Boolean(reduce) };
-}
-
-// Counts from `from` to `to` once the element is in view. Always starts at
-// `from` so server and client markup match; jumps to `to` when motion is
-// reduced.
-export function useCountTo(play, { from, to, delay = 0, duration = 0.3 }) {
-  const [value, setValue] = useState(from);
-  const { show, reduce } = play;
-  useEffect(() => {
-    if (reduce) {
-      setValue(to);
-      return undefined;
-    }
-    if (!show) return undefined;
-    const controls = animate(from, to, {
-      duration,
-      delay,
-      ease: "easeOut",
-      onUpdate: setValue,
-    });
-    return () => controls.stop();
-  }, [show, reduce, from, to, delay, duration]);
-  return value;
 }
 
 // Opacity fade for a <motion.*> element.

@@ -7,7 +7,7 @@ import ProcessPath from "@/components/ProcessPath";
 import { beats, label, stills } from "./sceneConfig";
 
 const description =
-  "SolidWorks design services for UK businesses: parametric part and assembly modelling delivered as native SLDPRT/SLDASM with STEP exports and PDF drawings.";
+  "SolidWorks CAD services for UK businesses: parametric part and assembly modelling delivered as native SLDPRT/SLDASM with STEP exports and PDF drawings.";
 
 // Route from design to production for the "Who it is for" figure. Clients sit
 // at the stage they usually arrive at, matching the paragraph above it.
@@ -47,10 +47,10 @@ const faqs = [
 ];
 
 export const metadata = {
-  title: "Parametric SolidWorks Design Services UK | Dream InReality",
+  title: "SolidWorks CAD Services UK: SLDPRT, SLDASM | Dream InReality",
   description,
   openGraph: {
-    title: "Parametric SolidWorks Design Services UK | Dream InReality",
+    title: "SolidWorks CAD Services UK: SLDPRT, SLDASM | Dream InReality",
     description,
     url: "/services/solidworks-design",
     siteName: "Dream InReality",
@@ -68,7 +68,7 @@ export default function SolidworksDesign() {
     <main className="page-dark snap-page min-h-screen">
       <JsonLd
         schema={serviceSchema({
-          name: "SolidWorks Design Services",
+          name: "SolidWorks CAD Services",
           description,
           url: "/services/solidworks-design",
         })}
@@ -89,7 +89,7 @@ export default function SolidworksDesign() {
         >
           <h1 className="mb-6 text-display font-light lg:text-display-lg">
             <span className="font-semibold text-accent-visual">SolidWorks</span>{" "}
-            Design Services UK
+            CAD Services UK
           </h1>
           <p className="max-w-[70ch]">
             Parametric part and assembly modelling in SolidWorks, delivered as

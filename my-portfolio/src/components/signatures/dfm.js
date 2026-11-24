@@ -7,13 +7,11 @@ import {
   StepList,
   fade,
   svgText,
-  useCountTo,
   usePlayOnce,
 } from "./kit";
 
 // Stage 05, DFM review: a drafted boss with its draft angle above the
-// station, and a wall-thickness dimension beside it that is corrected from
-// 0.8 to 2.0 and ticked. A report panel lists example changes. All values are
+// station, and a ticked wall-thickness dimension beside it. A report panel lists example changes. All values are
 // illustrative.
 
 const CHANGES = [
@@ -35,14 +33,14 @@ export function Text() {
 export function Overlay() {
   const play = usePlayOnce();
   const { ref } = play;
-  const wall = useCountTo(play, { from: 0.8, to: 2.0, delay: 0.3 });
 
   return (
     <SignatureSvg svgRef={ref}>
-      {/* Boss drafted at 2 degrees (about 1.4px over its 40px height) */}
+      {/* Boss drafted at 2 degrees (about 1.4px over its 40px height), top
+          right so it stays clear of the route line */}
       <motion.g {...fade(play, 0)}>
-        <path className="fill-navy" d="M117 52L118.4 12H201.6L203 52Z" />
-        <text x="214" y="36" className={svgText}>
+        <path d="M196 52L197.4 12H278.6L280 52Z" />
+        <text x="286" y="36" className={svgText}>
           2°
         </text>
       </motion.g>
@@ -52,7 +50,7 @@ export function Overlay() {
         x={20}
         y1={110}
         y2={210}
-        label={wall.toFixed(1)}
+        label="2.0"
         motionProps={fade(play, 0.2)}
       />
       <motion.path d="M4 232L12 240L28 220" {...fade(play, 0.6)} />

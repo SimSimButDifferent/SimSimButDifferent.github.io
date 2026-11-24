@@ -6,12 +6,32 @@ import { useRef } from "react";
 
 // Homepage intro figure: a model-viewport frame around the parametric plate
 // render, with corner brackets and a file-name bar. Fades in once.
+//
+// The render is cropped by sizing it to 130% of the frame and offsetting it.
+// Its baked-in "W = n" labels are about 8px at this size, so each is covered
+// by a navy tile carrying a live label at text-sm. Positions are percentages
+// of the image (centre x, centre y, tile width, tile height).
 
 const corners = [
   "left-2 top-2 border-l border-t",
   "right-2 top-2 border-r border-t",
   "bottom-2 left-2 border-b border-l",
   "bottom-2 right-2 border-b border-r",
+];
+
+const labels = [
+  {
+    text: "W = 120",
+    position: "left-[42.6%] top-[43.8%] h-[4.2%] w-[9%]",
+  },
+  {
+    text: "W = 90",
+    position: "left-[52.2%] top-[60.4%] h-[4.8%] w-[10%]",
+  },
+  {
+    text: "W = 60",
+    position: "left-[65.2%] top-[82.6%] h-[5.4%] w-[11.6%]",
+  },
 ];
 
 export default function IntroFigure() {
@@ -29,17 +49,28 @@ export default function IntroFigure() {
       <div className="border border-line bg-navy">
         <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2 text-sm text-muted-inverse">
           <span>Plate.SLDPRT</span>
-          <span>W = 60 · 90 · 120</span>
+          <span>W = 60 · 90 · 120 mm</span>
         </div>
-        <div className="relative overflow-hidden">
-          <Image
-            src="/images/scenes/solidworks-design-01.webp"
-            alt="One parametric plate modelled at three widths, 60, 90 and 120, with the slot lengthening as the width grows"
-            width={1280}
-            height={960}
-            sizes="(min-width: 1024px) 480px, 100vw"
-            className="h-auto w-full origin-[50%_55%] scale-[1.3]"
-          />
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="absolute -top-[21.5%] left-1/2 w-[130%] -translate-x-1/2">
+            <Image
+              src="/images/scenes/solidworks-design-01.webp"
+              alt="One parametric plate modelled at three widths, 60, 90 and 120 millimetres, with the slot lengthening as the width grows"
+              width={1280}
+              height={960}
+              sizes="(min-width: 1024px) 640px, 130vw"
+              className="h-auto w-full"
+            />
+            {labels.map(({ text, position }) => (
+              <span
+                key={text}
+                aria-hidden="true"
+                className={`absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center whitespace-nowrap bg-navy text-sm text-ink-inverse ${position}`}
+              >
+                {text}
+              </span>
+            ))}
+          </div>
           {corners.map((position) => (
             <span
               key={position}

@@ -26,8 +26,8 @@ export function Overlay() {
         {...fade(play, 0.3)}
       />
       <DimH
-        x1={56}
-        x2={264}
+        x1={40}
+        x2={140}
         y={28}
         label="±0.1"
         motionProps={fade(play, 0.5)}

@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { SignatureSvg, StepList, fade, svgText, usePlayOnce } from "./kit";
 
-// Stage 03, Assembly and fit check: a block settles into a U-bracket above
-// the station and a clearance callout appears. Values are illustrative.
+// Stage 03, Assembly and fit check: a block settles into a U-bracket at the
+// top left of the station and a clearance callout appears. Kept clear of the
+// route line, which meets the circle at x=160. Values are illustrative.
 
 const MATES = [
   { name: "Concentric1" },
@@ -28,17 +29,12 @@ export function Overlay() {
   return (
     <SignatureSvg svgRef={ref}>
       {/* Fixed part: U-bracket */}
-      <motion.path
-        className="fill-navy"
-        d="M96 52V28H128V40H192V28H224V52Z"
-        {...fade(play, 0)}
-      />
+      <motion.path d="M20 54V28H44V40H80V28H104V54Z" {...fade(play, 0)} />
       {/* Moving part: block lowers into the slot */}
       <motion.rect
-        className="fill-navy"
-        x="132"
+        x="48"
         y="12"
-        width="56"
+        width="28"
         height="24"
         initial={reduce ? false : { y: -24, opacity: 0 }}
         animate={show ? { y: 0, opacity: 1 } : undefined}
@@ -46,8 +42,8 @@ export function Overlay() {
       />
       {/* Clearance callout */}
       <motion.g {...fade(play, 0.5)}>
-        <path d="M130 34L112 16H84" />
-        <text x="52" y="21" className={svgText}>
+        <path d="M78 34L92 20H112" />
+        <text x="116" y="25" className={svgText}>
           0.2
         </text>
       </motion.g>
