@@ -73,6 +73,7 @@ export const stages = [
     href: "/services/dfm-consultancy",
     linkText: "DFM consultancy",
     icon: "/images/design_optimization.svg",
+    signature: "dfm",
     card: {
       title: "Design Optimisation",
       description:
