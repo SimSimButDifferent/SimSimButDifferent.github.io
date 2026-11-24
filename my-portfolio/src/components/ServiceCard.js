@@ -1,55 +1,17 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
-// Service Card Component with 3D hover effect
-export default function ServiceCard({
-  icon,
-  iconAlt,
-  title,
-  description,
-  href,
-  iconSize = 80,
-  extraPadding = false,
-}) {
-  const card = (
-    <div className="gridboxes h-full">
-      <div
-        className={`flex justify-center ${extraPadding ? "pt-2 pb-4" : ""}`}
-      >
-        <Image
-          className="icons"
-          src={icon}
-          height={iconSize}
-          width={iconSize}
-          alt={iconAlt}
-        />
-      </div>
-      <h3 className="text-xl">{title}</h3>
-      <p className="textboxes">{description}</p>
-    </div>
-  );
-
+// One homepage service card: a slate panel that links to the service page.
+// The whole card is the link; hover changes the border colour only.
+export default function ServiceCard({ title, description, href, icon }) {
   return (
-    <motion.div
-      className=""
-      whileHover={{
-        scale: 1.05,
-        rotateY: 5,
-        z: 50,
-      }}
-      transition={{ duration: 0.3 }}
-      style={{ perspective: 1000 }}
+    <Link
+      href={href}
+      className="panel focus-ring flex h-full flex-col gap-3 transition-colors duration-150 hover:border-accent-visual"
     >
-      {href ? (
-        <Link href={href} className="block h-full">
-          {card}
-        </Link>
-      ) : (
-        card
-      )}
-    </motion.div>
+      <Image src={icon} alt="" width={40} height={40} className="h-10 w-10 invert" />
+      <h3 className="pb-0 text-title-sm font-semibold">{title}</h3>
+      <p className="text-sm text-muted-inverse">{description}</p>
+    </Link>
   );
 }

@@ -3,12 +3,42 @@ import Link from "next/link";
 import JsonLd, { professionalServiceSchema } from "@/components/JsonLd";
 import SnapScroll from "@/components/SnapScroll";
 import DesignFlow from "@/components/DesignFlow";
+import ServiceCard from "@/components/ServiceCard";
+import TestimonialCard from "@/components/TestimonialCard";
 import { stages } from "@/data/designFlow.mjs";
 
 const description =
   "SolidWorks 3D CAD modelling for UK product businesses: native SLDPRT/SLDASM models, STEP and DXF exports, PDF drawing packs and photorealistic renders.";
 
 const formats = ["SLDPRT", "SLDASM", "STEP", "DXF", "PDF"];
+
+const testimonials = [
+  {
+    logo: "/images/mws_logo.png",
+    logoAlt:
+      "Microworkshops logo - a cartoon ninja next to the company name in 3D text.",
+    logoWidth: 300,
+    logoHeight: 83,
+    website: "https://microworkshops.co.uk/",
+    name: "Elliot @ Microworkshops",
+    quotes: [
+      '"After doing several smaller jobs he was then responsible for the company\'s two main CAD accounts which worked really well. This happened faster than my own progression which proved to me he is a fast learner."',
+      '"Simeon has tons of good qualities but the ones I appreciate the most are his consistency, honesty and sense of decency. True team player."',
+    ],
+  },
+  {
+    logo: "/images/shade_spec.png",
+    logoAlt: "Shade Specialists Logo",
+    logoWidth: 186,
+    logoHeight: 70,
+    website: "https://shadespecialists.co.uk/",
+    name: "Rupert @ Bambrella / ShadeSpecialists",
+    quotes: [
+      '"We have worked with Simeon Campbell on a number of design projects. Simeon completed any design work we sent to him quickly and to a consistently high standard."',
+      '"We would certainly recommend him and would be happy to work with him again."',
+    ],
+  },
+];
 
 export const metadata = {
   title: "3D CAD Modelling Services UK | SolidWorks | Dream InReality",
@@ -127,7 +157,39 @@ export default function Home() {
       {/* 03–10 · Product development timeline */}
       <DesignFlow stages={stages} />
 
-      {/* 11 · Services, 12 · Testimonials (Task 6) */}
+      {/* 11 · Services, in timeline order */}
+      <section id="services" className={`${frame} max-w-7xl`}>
+        <Eyebrow>03 · Services</Eyebrow>
+        <h2 className="mb-8 text-title font-light">3D CAD design services</h2>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stages.map((stage) => (
+            <li key={stage.number}>
+              <ServiceCard
+                title={stage.card.title}
+                description={stage.card.description}
+                href={stage.href}
+                icon={stage.icon}
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 12 · Testimonials */}
+      <section className={`${frame} max-w-5xl`}>
+        <Eyebrow>04 · Clients</Eyebrow>
+        <h2 className="mb-8 text-title font-light">Testimonials</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((testimonial) => (
+            <TestimonialCard key={testimonial.name} {...testimonial} />
+          ))}
+        </div>
+        <div className="pt-12 text-center">
+          <Link href="/contact" className="btn-inverse">
+            Send your brief
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
