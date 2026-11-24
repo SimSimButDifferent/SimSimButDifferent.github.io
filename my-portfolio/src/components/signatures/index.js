@@ -1,4 +1,5 @@
 import * as assembly from "./assembly";
+import * as brief from "./brief";
 import * as dfm from "./dfm";
 import * as drawings from "./drawings";
 import * as parametric from "./parametric";
@@ -16,4 +17,5 @@ export const signatures = {
   prototype,
   production,
   renders,
+  brief,
 };

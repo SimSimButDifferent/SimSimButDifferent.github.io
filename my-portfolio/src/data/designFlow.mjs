@@ -11,6 +11,7 @@ export const stages = [
     href: "/services/reverse-engineering",
     linkText: "Reverse engineering",
     icon: "/images/reverse_engineering_icon.svg",
+    signature: "brief",
     card: {
       title: "Reverse Engineering",
       description:
