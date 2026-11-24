@@ -2,6 +2,7 @@ import * as assembly from "./assembly";
 import * as dfm from "./dfm";
 import * as drawings from "./drawings";
 import * as parametric from "./parametric";
+import * as renders from "./renders";
 import * as production from "./production";
 import * as prototype from "./prototype";
 
@@ -14,4 +15,5 @@ export const signatures = {
   dfm,
   prototype,
   production,
+  renders,
 };

@@ -106,6 +106,7 @@ export const stages = [
     href: "/services/photorealistic-rendering",
     linkText: "Photorealistic rendering",
     icon: "/images/render_icon.svg",
+    signature: "renders",
     card: {
       title: "Photorealistic Rendering",
       description:
