@@ -26,6 +26,7 @@ export const stages = [
     href: "/services/solidworks-design",
     linkText: "SolidWorks design",
     icon: "/images/parametric_icon.svg",
+    signature: "parametric",
     card: {
       title: "Parametric 3D Models",
       description:

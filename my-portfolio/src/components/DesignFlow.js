@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import MeanderRoute from "./MeanderRoute";
+import { DimensionCallouts, FeatureTree } from "./ParametricSignature";
 
 // Homepage "Product development timeline": eight stages from a first sketch
 // to production, each tied to one service. From lg up each stage is its own
@@ -33,20 +34,23 @@ function Station({ stage, state, textOnLeft }) {
       }`}
     >
       {!textOnLeft && numeral}
-      <div
-        data-meander-node
-        data-state={state}
-        className={`relative z-10 flex h-24 w-24 items-center justify-center rounded-full border bg-navy transition-colors duration-200 ${stationClass(
-          state
-        )}`}
-      >
-        <Image
-          src={stage.icon}
-          alt=""
-          width={48}
-          height={48}
-          className="h-12 w-12 invert"
-        />
+      <div className="relative">
+        {stage.signature === "parametric" && <DimensionCallouts />}
+        <div
+          data-meander-node
+          data-state={state}
+          className={`relative z-10 flex h-52 w-52 items-center justify-center rounded-full border bg-navy transition-colors duration-200 ${stationClass(
+            state,
+          )}`}
+        >
+          <Image
+            src={stage.icon}
+            alt=""
+            width={144}
+            height={144}
+            className="h-36 w-36 invert"
+          />
+        </div>
       </div>
       {textOnLeft && numeral}
     </div>
@@ -76,6 +80,7 @@ function StageText({ stage, textOnLeft }) {
           </li>
         ))}
       </ul>
+      {stage.signature === "parametric" && <FeatureTree />}
       <p className="mt-3">
         <Link href={stage.href} className="link-inverse inline-block py-3">
           {stage.linkText}
@@ -117,8 +122,8 @@ export default function DesignFlow({ stages }) {
           Product development timeline
         </h2>
         <p className="mx-auto max-w-[70ch] text-muted-inverse">
-          Eight stages from a first sketch to parts coming off the line. Join
-          at whichever stage your project has reached.
+          Eight stages from a first sketch to parts coming off the line. Join at
+          whichever stage your project has reached.
         </p>
       </header>
 
@@ -130,9 +135,7 @@ export default function DesignFlow({ stages }) {
               key={stage.number}
               data-meander-stage
               className={`relative pb-12 pl-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-0 lg:pl-0 ${
-                index === 0
-                  ? "lg:min-h-[70vh]"
-                  : "snap-frame lg:min-h-screen"
+                index === 0 ? "lg:min-h-[70vh]" : "snap-frame lg:min-h-screen"
               }`}
             >
               <span
