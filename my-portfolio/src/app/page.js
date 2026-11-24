@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import JsonLd, { professionalServiceSchema } from "@/components/JsonLd";
 import SnapScroll from "@/components/SnapScroll";
+import DesignFlow from "@/components/DesignFlow";
+import { stages } from "@/data/designFlow.mjs";
 
 const description =
   "SolidWorks 3D CAD modelling for UK product businesses: native SLDPRT/SLDASM models, STEP and DXF exports, PDF drawing packs and photorealistic renders.";
@@ -122,7 +124,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 03–10 · Product development timeline (Task 4) */}
+      {/* 03–10 · Product development timeline */}
+      <DesignFlow stages={stages} />
 
       {/* 11 · Services, 12 · Testimonials (Task 6) */}
     </main>
