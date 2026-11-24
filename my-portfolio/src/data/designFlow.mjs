@@ -42,6 +42,7 @@ export const stages = [
     href: "/services/solidworks-design",
     linkText: "Assembly modelling",
     icon: "/images/assembly_icon.svg",
+    signature: "assembly",
     card: {
       title: "Assembly Modelling",
       description:
