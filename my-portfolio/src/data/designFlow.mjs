@@ -58,6 +58,7 @@ export const stages = [
     href: "/services/solidworks-design",
     linkText: "Rapid prototyping",
     icon: "/images/prototyping_icon.svg",
+    signature: "prototype",
     card: {
       title: "Rapid Prototyping",
       description:
