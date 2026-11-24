@@ -121,6 +121,7 @@ export const stages = [
     href: "/services/cad-file-conversion",
     linkText: "CAD file conversion",
     icon: "/images/file_conversion.svg",
+    signature: "production",
     card: {
       title: "CAD File Conversion",
       description:
