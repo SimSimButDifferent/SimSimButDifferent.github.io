@@ -102,7 +102,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 flex min-h-screen flex-col justify-center px-5 pb-[30vh] sm:px-10 sm:pb-0 lg:px-16">
+        <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 pb-[30vh] text-center sm:items-start sm:px-10 sm:pb-0 sm:text-left lg:px-16">
           <p className="eyebrow mb-2 text-sm">Dream InReality</p>
           <h1>
             <span

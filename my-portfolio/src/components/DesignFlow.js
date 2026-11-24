@@ -136,7 +136,7 @@ export default function DesignFlow({ stages }) {
             <li
               key={stage.number}
               data-meander-stage
-              className={`relative pb-12 pl-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-0 lg:pl-0 ${
+              className={`relative pb-20 pl-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-0 lg:pl-0 ${
                 index === 0 ? "lg:min-h-[70vh]" : "snap-frame lg:min-h-screen"
               }`}
             >

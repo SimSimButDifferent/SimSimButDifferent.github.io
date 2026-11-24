@@ -115,7 +115,7 @@ export default function ProcessPath({ stages, caption }) {
               />
 
               <motion.div
-                className="flex flex-col gap-2 md:items-center"
+                className="flex flex-1 flex-col gap-2 text-center md:flex-none md:items-center"
                 variants={{
                   hidden: { opacity: 0, y: 8 },
                   shown: {
@@ -146,7 +146,7 @@ export default function ProcessPath({ stages, caption }) {
                 {stage.clients?.length > 0 && (
                   <ul
                     aria-label={`Usually arrive at ${stage.name}`}
-                    className="flex flex-wrap gap-1 md:justify-center"
+                    className="flex flex-wrap justify-center gap-1"
                   >
                     {stage.clients.map((client) => (
                       <li key={client} className="chip font-light">
