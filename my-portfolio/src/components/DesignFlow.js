@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import MeanderRoute from "./MeanderRoute";
-import { DimensionCallouts, FeatureTree } from "./ParametricSignature";
+import { signatures } from "./signatures";
 
 // Homepage "Product development timeline": eight stages from a first sketch
 // to production, each tied to one service. From lg up each stage is its own
@@ -23,6 +23,7 @@ function stationClass(state) {
 }
 
 function Station({ stage, state, textOnLeft }) {
+  const Signature = signatures[stage.signature];
   const numeral = (
     <span className="text-display-lg font-light text-line">{stage.number}</span>
   );
@@ -35,7 +36,7 @@ function Station({ stage, state, textOnLeft }) {
     >
       {!textOnLeft && numeral}
       <div className="relative">
-        {stage.signature === "parametric" && <DimensionCallouts />}
+        {Signature?.Overlay && <Signature.Overlay />}
         <div
           data-meander-node
           data-state={state}
@@ -58,6 +59,7 @@ function Station({ stage, state, textOnLeft }) {
 }
 
 function StageText({ stage, textOnLeft }) {
+  const Signature = signatures[stage.signature];
   return (
     <div
       className={`lg:col-span-5 lg:row-start-1 ${
@@ -80,7 +82,7 @@ function StageText({ stage, textOnLeft }) {
           </li>
         ))}
       </ul>
-      {stage.signature === "parametric" && <FeatureTree />}
+      {Signature?.Text && <Signature.Text />}
       <p className="mt-3">
         <Link href={stage.href} className="link-inverse inline-block py-3">
           {stage.linkText}
