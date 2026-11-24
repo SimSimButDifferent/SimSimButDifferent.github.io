@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import MeanderRoute from "./MeanderRoute";
 
 // Homepage "Product development timeline": eight stages from a first sketch
 // to production, each tied to one service. From lg up each stage is its own
@@ -87,7 +88,8 @@ function StageText({ stage, textOnLeft }) {
 export default function DesignFlow({ stages }) {
   // `arrived`: the stop the route light has reached (0 = none). Set by the
   // route overlay when its animation finishes.
-  const [arrived] = useState(0);
+  const [arrived, setArrived] = useState(0);
+  const sectionRef = useRef(null);
 
   const stateOf = (index) => {
     if (arrived === index + 1) return "current";
@@ -97,13 +99,16 @@ export default function DesignFlow({ stages }) {
 
   return (
     <section
+      ref={sectionRef}
       id="timeline"
       aria-labelledby="timeline-heading"
       className="snap-frame relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
     >
+      <MeanderRoute sectionRef={sectionRef} onArrive={setArrived} />
+
       <header
         data-meander-start
-        className="pt-16 text-center lg:flex lg:h-[30vh] lg:flex-col lg:justify-end lg:pt-0"
+        className="relative pt-16 text-center lg:flex lg:h-[30vh] lg:flex-col lg:justify-end lg:pt-0"
       >
         <p className="eyebrow mb-4">
           <span className="text-accent-visual">02 · The process</span>
