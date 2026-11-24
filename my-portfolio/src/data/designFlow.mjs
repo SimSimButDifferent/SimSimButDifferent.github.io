@@ -79,7 +79,7 @@ export const stages = [
     card: {
       title: "Design Optimisation",
       description:
-        "Analyse and refine existing designs to improve performance, reduce material use or simplify manufacture. Delivered as updated SLDPRT/SLDASM files with revised PDF drawings.",
+        "Refine existing designs to correct wall thickness and draft, remove undercuts or cut material use. Delivered as updated SLDPRT/SLDASM files with revised PDF drawings.",
     },
   },
   {
@@ -102,7 +102,7 @@ export const stages = [
     number: "07",
     label: "Renders",
     title: "Photorealistic renders",
-    body: "High-resolution images are rendered from the finished CAD model for listings, pitches and packaging, before the first production unit exists.",
+    body: "PNG and JPEG images are rendered from the finished CAD model for listings, pitches and packaging, before the first production unit exists.",
     chips: ["PNG", "JPEG"],
     href: "/services/photorealistic-rendering",
     linkText: "Photorealistic rendering",
@@ -111,7 +111,7 @@ export const stages = [
     card: {
       title: "Photorealistic Rendering",
       description:
-        "Photorealistic visualisations of your product from the CAD model, supplied as high-resolution images for listings, pitches and packaging.",
+        "Photorealistic visualisations of your product from the CAD model, supplied as PNG and JPEG images for listings, pitches and packaging.",
     },
   },
   {
