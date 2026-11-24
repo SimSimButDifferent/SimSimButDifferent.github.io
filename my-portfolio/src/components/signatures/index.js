@@ -1,4 +1,5 @@
 import * as assembly from "./assembly";
+import * as drawings from "./drawings";
 import * as parametric from "./parametric";
 
 // Stage `signature` key (src/data/designFlow.mjs) to its station overlay and
@@ -6,4 +7,5 @@ import * as parametric from "./parametric";
 export const signatures = {
   parametric,
   assembly,
+  drawings,
 };

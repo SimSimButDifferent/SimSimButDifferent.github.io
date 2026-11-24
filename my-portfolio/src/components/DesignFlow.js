@@ -30,7 +30,7 @@ function Station({ stage, state, textOnLeft }) {
   return (
     <div
       aria-hidden="true"
-      className={`hidden items-center justify-center gap-6 lg:col-span-7 lg:row-start-1 lg:flex ${
+      className={`hidden items-center justify-center gap-16 lg:col-span-7 lg:row-start-1 lg:flex ${
         textOnLeft ? "lg:col-start-6" : "lg:col-start-1"
       }`}
     >

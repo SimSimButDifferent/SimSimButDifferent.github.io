@@ -88,6 +88,7 @@ export const stages = [
     href: "/services/construction-drawings",
     linkText: "Construction drawings",
     icon: "/images/drawings_icon.svg",
+    signature: "drawings",
     card: {
       title: "Construction Drawings",
       description:
