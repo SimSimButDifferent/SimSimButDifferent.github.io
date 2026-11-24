@@ -50,18 +50,26 @@ function measure(section) {
   const header = section.querySelector("[data-meander-start]");
   const nodes = [...section.querySelectorAll("[data-meander-node]")];
   if (!header || nodes.length === 0) return null;
-  const centre = (el) => {
+  // Each segment runs from the bottom of one station to the top of the next
+  // (the first from the header), so the line meets every circle vertically
+  // instead of disappearing under it at an angle.
+  const rim = (el) => {
     const r = el.getBoundingClientRect();
-    return { x: r.left + r.width / 2 - box.left, y: r.top + r.height / 2 - box.top };
+    const x = r.left + r.width / 2 - box.left;
+    return { top: { x, y: r.top - box.top }, bottom: { x, y: r.bottom - box.top } };
   };
-  const top = header.getBoundingClientRect();
+  const head = header.getBoundingClientRect();
+  let from = { x: head.left + head.width / 2 - box.left, y: head.bottom - box.top };
+  const paths = nodes.map((node) => {
+    const { top, bottom } = rim(node);
+    const [d] = meanderSegments(from, [top]);
+    from = bottom;
+    return d;
+  });
   return {
     width: Math.round(box.width),
     height: Math.round(box.height),
-    paths: meanderSegments(
-      { x: top.left + top.width / 2 - box.left, y: top.bottom - box.top },
-      nodes.map(centre)
-    ),
+    paths,
   };
 }
 

@@ -76,7 +76,7 @@ function StageText({ stage, textOnLeft }) {
           </li>
         ))}
       </ul>
-      <p className="mt-6">
+      <p className="mt-3">
         <Link href={stage.href} className="link-inverse inline-block py-3">
           {stage.linkText}
         </Link>

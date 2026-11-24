@@ -218,6 +218,12 @@ body {
   }
 }
 
+/* Dark pages: navy behind everything, so a snap overshoot or a gap between
+   the navbar, main and footer never shows white. */
+html:has(.page-dark) {
+  @apply bg-navy;
+}
+
 /* Snap scrolling for pages that opt in with .snap-page on <main>.
    From lg up, each .snap-frame settles at the top of the viewport; the navbar
    and footer are snap points too so both ends of the page stay reachable.

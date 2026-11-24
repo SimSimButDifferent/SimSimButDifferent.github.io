@@ -15,8 +15,7 @@ const formats = ["SLDPRT", "SLDASM", "STEP", "DXF", "PDF"];
 const testimonials = [
   {
     logo: "/images/mws_logo.png",
-    logoAlt:
-      "Microworkshops logo - a cartoon ninja next to the company name in 3D text.",
+    logoAlt: "Microworkshops website",
     logoWidth: 300,
     logoHeight: 83,
     website: "https://microworkshops.co.uk/",
@@ -28,7 +27,7 @@ const testimonials = [
   },
   {
     logo: "/images/shade_spec.png",
-    logoAlt: "Shade Specialists Logo",
+    logoAlt: "Shade Specialists website",
     logoWidth: 186,
     logoHeight: 70,
     website: "https://shadespecialists.co.uk/",
@@ -177,7 +176,7 @@ export default function Home() {
 
       {/* 12 · Testimonials */}
       <section className={`${frame} max-w-5xl`}>
-        <Eyebrow>04 · Clients</Eyebrow>
+        <Eyebrow>04 · References</Eyebrow>
         <h2 className="mb-8 text-title font-light">Testimonials</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {testimonials.map((testimonial) => (
