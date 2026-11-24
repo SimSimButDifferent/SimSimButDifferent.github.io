@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 // Shared pieces for the homepage timeline "signatures": the diagram around a
 // stage's station circle and the optional panel under the chips. Everything
@@ -15,6 +15,29 @@ export function usePlayOnce() {
   const inView = useInView(ref, { margin: "-20%", once: true });
   const reduce = useReducedMotion();
   return { ref, show: Boolean(reduce) || inView, reduce: Boolean(reduce) };
+}
+
+// Counts from `from` to `to` once the element is in view. Always starts at
+// `from` so server and client markup match; jumps to `to` when motion is
+// reduced.
+export function useCountTo(play, { from, to, delay = 0, duration = 0.3 }) {
+  const [value, setValue] = useState(from);
+  const { show, reduce } = play;
+  useEffect(() => {
+    if (reduce) {
+      setValue(to);
+      return undefined;
+    }
+    if (!show) return undefined;
+    const controls = animate(from, to, {
+      duration,
+      delay,
+      ease: "easeOut",
+      onUpdate: setValue,
+    });
+    return () => controls.stop();
+  }, [show, reduce, from, to, delay, duration]);
+  return value;
 }
 
 // Opacity fade for a <motion.*> element.
@@ -88,35 +111,44 @@ export function DimV({ x, y1, y2, label, motionProps }) {
   );
 }
 
-// Bordered list panel under the chips. `items` are { name, depth? }; rows
-// light up one after another.
+// Bordered list panel under the chips. `items` are { name, children? }; rows
+// light up one after another. Children render as a nested list.
 export function StepList({ title, ariaLabel, items }) {
   const { ref, show, reduce } = usePlayOnce();
-  return (
-    <div
-      ref={ref}
-      className="mt-6 max-w-sm border border-line bg-surface px-4 py-3"
-    >
-      <p className="eyebrow mb-2 text-muted-inverse">{title}</p>
-      <ol aria-label={ariaLabel}>
-        {items.map((item, i) => (
-          <motion.li
-            key={item.name}
-            initial={reduce ? false : { opacity: 0.25, x: -8 }}
+  let order = 0;
+
+  const renderItems = (list) =>
+    list.map((item) => {
+      const delay = order * 0.1;
+      order += 1;
+      return (
+        <li key={item.name}>
+          <motion.div
+            initial={reduce ? false : { opacity: 0.6, x: -8 }}
             animate={show ? { opacity: 1, x: 0 } : undefined}
-            transition={{ duration: 0.2, ease: "easeOut", delay: i * 0.2 }}
-            className={`flex items-center gap-3 py-1 text-sm text-ink-inverse ${
-              item.depth ? "pl-6" : ""
-            }`}
+            transition={{ duration: 0.2, ease: "easeOut", delay }}
+            className="flex items-center gap-3 py-1 text-sm text-ink-inverse"
           >
             <span
               aria-hidden="true"
               className="h-2 w-2 shrink-0 rounded-full border border-accent-visual"
             />
             {item.name}
-          </motion.li>
-        ))}
-      </ol>
+          </motion.div>
+          {item.children && (
+            <ul className="pl-6">{renderItems(item.children)}</ul>
+          )}
+        </li>
+      );
+    });
+
+  return (
+    <div
+      ref={ref}
+      className="mt-6 max-w-sm border border-line bg-surface px-4 py-3"
+    >
+      <p className="eyebrow mb-2 text-muted-inverse">{title}</p>
+      <ul aria-label={ariaLabel}>{renderItems(items)}</ul>
     </div>
   );
 }

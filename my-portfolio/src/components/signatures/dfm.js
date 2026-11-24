@@ -1,13 +1,13 @@
 "use client";
 
-import { animate, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   DimV,
   SignatureSvg,
   StepList,
   fade,
   svgText,
+  useCountTo,
   usePlayOnce,
 } from "./kit";
 
@@ -17,7 +17,7 @@ import {
 // illustrative.
 
 const CHANGES = [
-  { name: "Wall 0.8 → 2.0" },
+  { name: "Wall 0.8 → 2.0 mm" },
   { name: "Draft 0° → 2°" },
   { name: "Undercut removed" },
 ];
@@ -34,45 +34,28 @@ export function Text() {
 
 export function Overlay() {
   const play = usePlayOnce();
-  const { ref, show, reduce } = play;
-  const [wall, setWall] = useState(reduce ? 2.0 : 0.8);
-
-  useEffect(() => {
-    if (reduce || !show) return undefined;
-    const controls = animate(0.8, 2.0, {
-      duration: 0.8,
-      delay: 0.3,
-      ease: "easeOut",
-      onUpdate: (v) => setWall(v),
-    });
-    return () => controls.stop();
-  }, [show, reduce]);
+  const { ref } = play;
+  const wall = useCountTo(play, { from: 0.8, to: 2.0, delay: 0.3 });
 
   return (
     <SignatureSvg svgRef={ref}>
-      {/* Drafted boss and draft angle */}
+      {/* Boss drafted at 2 degrees (about 1.4px over its 40px height) */}
       <motion.g {...fade(play, 0)}>
-        <path d="M114 52L118 12H202L206 52" />
-        <path d="M118 12V52" strokeDasharray="3 4" />
+        <path className="fill-navy" d="M117 52L118.4 12H201.6L203 52Z" />
         <text x="214" y="36" className={svgText}>
-          5°
+          2°
         </text>
       </motion.g>
 
       {/* Wall thickness, corrected then ticked */}
       <DimV
-        x={300}
+        x={20}
         y1={110}
         y2={210}
         label={wall.toFixed(1)}
         motionProps={fade(play, 0.2)}
       />
-      <motion.path
-        d="M284 232L292 240L308 220"
-        initial={reduce ? false : { pathLength: 0 }}
-        animate={show ? { pathLength: 1 } : undefined}
-        transition={{ duration: 0.3, ease: "easeOut", delay: 1.1 }}
-      />
+      <motion.path d="M4 232L12 240L28 220" {...fade(play, 0.6)} />
     </SignatureSvg>
   );
 }

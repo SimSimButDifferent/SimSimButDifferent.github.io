@@ -17,7 +17,7 @@ export function Overlay() {
           key={name}
           initial={reduce ? false : { x: -90, opacity: 0 }}
           animate={show ? { x: 0, opacity: 1 } : undefined}
-          transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 + i * 0.2 }}
+          transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 + i * 0.1 }}
         >
           <rect
             x="268"

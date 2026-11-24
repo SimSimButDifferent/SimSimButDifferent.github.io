@@ -1,7 +1,6 @@
 "use client";
 
-import { animate, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   DimH,
   DimV,
@@ -9,6 +8,7 @@ import {
   StepList,
   fade,
   svgText,
+  useCountTo,
   usePlayOnce,
 } from "./kit";
 
@@ -18,16 +18,20 @@ import {
 
 const FEATURES = [
   { name: "Sketch1" },
-  { name: "Boss-Extrude1" },
-  { name: "Fillet1", depth: 1 },
-  { name: "Hole Wizard1", depth: 1 },
-  { name: "Linear Pattern1", depth: 1 },
+  {
+    name: "Boss-Extrude1",
+    children: [
+      { name: "Fillet1" },
+      { name: "Hole Wizard1" },
+      { name: "Linear Pattern1" },
+    ],
+  },
 ];
 
 export function Text() {
   return (
     <StepList
-      title="Feature tree"
+      title="Example feature tree"
       ariaLabel="Example feature tree of a parametric part"
       items={FEATURES}
     />
@@ -37,17 +41,7 @@ export function Text() {
 export function Overlay() {
   const play = usePlayOnce();
   const { ref, show, reduce } = play;
-  const [width, setWidth] = useState(reduce ? 60 : 40);
-
-  useEffect(() => {
-    if (reduce || !show) return undefined;
-    const controls = animate(40, 60, {
-      duration: 0.8,
-      ease: "easeOut",
-      onUpdate: (v) => setWidth(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [show, reduce]);
+  const width = Math.round(useCountTo(play, { from: 40, to: 60 }));
 
   return (
     <SignatureSvg svgRef={ref}>
@@ -56,10 +50,9 @@ export function Overlay() {
         cy="160"
         r="116"
         strokeDasharray="4 6"
-        style={{ transformOrigin: "160px 160px" }}
         initial={reduce ? false : { scale: 0.85, opacity: 0 }}
         animate={show ? { scale: 1, opacity: 1 } : undefined}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       />
       <DimH x1={44} x2={276} y={296} label={width} motionProps={fade(play)} />
       <DimV x={300} y1={44} y2={276} label="24" motionProps={fade(play)} />

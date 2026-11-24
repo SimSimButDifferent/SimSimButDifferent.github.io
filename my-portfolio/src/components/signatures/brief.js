@@ -18,13 +18,13 @@ export function Overlay() {
   return (
     <SignatureSvg svgRef={ref}>
       {/* Sketch */}
-      <motion.g {...drift(-16, -16, 0.2)}>
+      <motion.g {...drift(-16, -16, 0.1)}>
         <rect x="8" y="8" width="56" height="48" className="fill-navy" />
         <path d="M16 46L28 20L40 38L56 16" />
       </motion.g>
 
       {/* Photo */}
-      <motion.g {...drift(16, -16, 0.4)}>
+      <motion.g {...drift(16, -16, 0.2)}>
         <rect x="256" y="8" width="56" height="48" className="fill-navy" />
         <path d="M264 48L280 28L292 40L300 32L308 48" />
         <circle cx="296" cy="20" r="4" />
@@ -41,7 +41,7 @@ export function Overlay() {
             className="fill-accent-visual"
             initial={reduce ? false : { y: offset, opacity: 0 }}
             animate={show ? { y: 0, opacity: 1 } : undefined}
-            transition={{ duration: 0.3, ease: "easeOut", delay: 0.6 }}
+            transition={{ duration: 0.3, ease: "easeOut", delay: 0.3 }}
           />
         ))}
       </g>
