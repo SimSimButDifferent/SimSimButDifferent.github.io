@@ -19,8 +19,9 @@ import {
 // comes into view and pauses while it is off screen.
 //
 // The still render underneath (the same plate at three widths) is what the
-// reader sees while three.js loads, under prefers-reduced-motion, without
-// WebGL, and below lg. It is cropped by sizing it to 130% of the frame. Its
+// reader sees under prefers-reduced-motion, without WebGL, and below lg. From
+// lg up it stays hidden while three.js loads, so the loop opens on its first
+// frame rather than cutting from the still. It is cropped by sizing it to 130% of the frame. Its
 // baked-in "W = n" labels are about 8px at this size, so each is covered by
 // a navy tile carrying a live label at text-sm. Positions are percentages of
 // the image (centre x, centre y, tile width, tile height).
@@ -58,6 +59,7 @@ const LIVE_LABEL =
 function useLivePlate(boxRef, canvasRef, inView, reduce) {
   const handleRef = useRef(null);
   const [live, setLive] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [canvasKey, setCanvasKey] = useState(0);
   const [shown, setShown] = useState(shownWidth(0));
   const [lit, setLit] = useState(-1);
@@ -107,7 +109,8 @@ function useLivePlate(boxRef, canvasRef, inView, reduce) {
         handle.seek(clock.current.elapsed);
         setLive(true);
       } catch {
-        // No WebGL, or the scene chunk failed to load: stay on the still.
+        // No WebGL, or the scene chunk failed to load: show the still.
+        setFailed(true);
         stop();
       } finally {
         starting = false;
@@ -142,7 +145,7 @@ function useLivePlate(boxRef, canvasRef, inView, reduce) {
     return () => cancelAnimationFrame(c.frame);
   }, [live, inView]);
 
-  return { live, canvasKey, shown, lit: live ? lit : -1 };
+  return { live, failed, canvasKey, shown, lit: live ? lit : -1 };
 }
 
 export default function IntroFigure() {
@@ -152,7 +155,7 @@ export default function IntroFigure() {
   const inView = useInView(ref, { margin: "-20%", once: true });
   const visible = useInView(boxRef);
   const reduce = useReducedMotion();
-  const { live, canvasKey, shown, lit } = useLivePlate(
+  const { live, failed, canvasKey, shown, lit } = useLivePlate(
     boxRef,
     canvasRef,
     visible,
@@ -177,7 +180,11 @@ export default function IntroFigure() {
         <div ref={boxRef} className="relative aspect-[4/3] overflow-hidden">
           <div
             className={`absolute -top-[21.5%] left-1/2 w-[130%] -translate-x-1/2 transition-opacity duration-200 ease-out-soft ${
-              live ? "opacity-0" : "opacity-100"
+              live
+                ? "opacity-0"
+                : reduce || failed
+                  ? "opacity-100"
+                  : "opacity-100 lg:opacity-0"
             }`}
           >
             <Image
