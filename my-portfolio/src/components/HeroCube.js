@@ -41,10 +41,17 @@ function dimension(p1, p2, n, label, off = 90) {
   const tick = unit([dir[0] + n[0], dir[1] + n[1]]);
   return {
     label,
-    ext: `M${pt(add(p1, n, 14))}L${pt(add(p1, n, off + 18))}M${pt(add(p2, n, 14))}L${pt(add(p2, n, off + 18))}`,
+    corners: [p1, p2],
+    // Extension lines, drawn outward from each corner.
+    exts: [
+      `M${pt(add(p1, n, 14))}L${pt(add(p1, n, off + 18))}`,
+      `M${pt(add(p2, n, 14))}L${pt(add(p2, n, off + 18))}`,
+    ],
     line: `M${pt(a)}L${pt(b)}`,
     ticks: `M${pt(add(a, tick, -12))}L${pt(add(a, tick, 12))}M${pt(add(b, tick, -12))}L${pt(add(b, tick, 12))}`,
     mid: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2],
+    // Where the dimension starts before it is pulled out: on the edge.
+    from: [-n[0] * off, -n[1] * off],
   };
 }
 
@@ -58,25 +65,45 @@ const dims = [
   dimension(RT, RB, DEPTH, "155"),
 ];
 
+// Timing, in seconds. Each dimension is placed as in SolidWorks: the first
+// corner engages, then the second, then the dimension is pulled out from the
+// edge to its offset. The next one starts when this one is placed.
+const FIRST = 0.4; // first corner of the first dimension
+const STEP = 1.3; // one dimension, start to start
+const SECOND = 0.3; // second corner, after the first
+const PULL = 0.6; // pull-out starts, after the first corner
+const PULL_TIME = 0.5;
+const ease = [0.16, 1, 0.3, 1]; // out-soft
+
+// Corner marker: a dot and a ring that snaps in, then fades once the
+// dimension is placed.
+function Corner({ at, delay, until }) {
+  const span = until - delay;
+  const k = (t) => Math.min(1, t / span);
+  const times = [0, k(0.15), k(span - 0.2), 1];
+  return (
+    <g>
+      <motion.circle
+        cx={at[0]}
+        cy={at[1]}
+        className="fill-accent-visual stroke-none"
+        initial={{ r: 0, opacity: 0 }}
+        animate={{ r: [0, 10, 10, 10], opacity: [0, 1, 1, 0] }}
+        transition={{ duration: span, times, delay, ease: "easeOut" }}
+      />
+      <motion.circle
+        cx={at[0]}
+        cy={at[1]}
+        initial={{ r: 44, opacity: 0 }}
+        animate={{ r: [44, 22, 22, 22], opacity: [0, 1, 1, 0] }}
+        transition={{ duration: span, times, delay, ease: "easeOut" }}
+      />
+    </g>
+  );
+}
+
 function Dimensions() {
   const reduce = useReducedMotion();
-  const draw = (delay, duration = 0.5) => ({
-    initial: reduce ? false : { pathLength: 0, opacity: 0 },
-    animate: { pathLength: 1, opacity: 1 },
-    transition: reduce
-      ? { duration: 0 }
-      : {
-          pathLength: { duration, ease: "easeOut", delay },
-          opacity: { duration: 0.1, delay },
-        },
-  });
-  const fade = (delay) => ({
-    initial: reduce ? false : { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: reduce
-      ? { duration: 0 }
-      : { duration: 0.3, ease: "easeOut", delay },
-  });
 
   return (
     <svg
@@ -87,13 +114,47 @@ function Dimensions() {
       strokeLinecap="round"
     >
       {dims.map((d, i) => {
-        const start = 0.4 + i * 0.15;
+        const start = FIRST + i * STEP;
+        const pull = start + PULL;
+        const done = start + STEP;
+        const pullT = reduce
+          ? { duration: 0 }
+          : { duration: PULL_TIME, ease, delay: pull };
         return (
           <g key={i}>
-            <motion.path d={d.ext} className="opacity-60" {...draw(start, 0.3)} />
-            <motion.path d={d.line} {...draw(start + 0.3)} />
-            <motion.path d={d.ticks} {...draw(start + 0.8, 0.2)} />
-            <motion.g {...fade(start + 0.9)}>
+            {!reduce && (
+              <>
+                <Corner at={d.corners[0]} delay={start} until={done} />
+                <Corner at={d.corners[1]} delay={start + SECOND} until={done} />
+              </>
+            )}
+            {d.exts.map((e) => (
+              <motion.path
+                key={e}
+                d={e}
+                className="opacity-60"
+                initial={reduce ? false : { pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={
+                  reduce
+                    ? { duration: 0 }
+                    : { ...pullT, opacity: { duration: 0.1, delay: pull } }
+                }
+              />
+            ))}
+            <motion.g
+              initial={
+                reduce ? false : { x: d.from[0], y: d.from[1], opacity: 0 }
+              }
+              animate={{ x: 0, y: 0, opacity: 1 }}
+              transition={
+                reduce
+                  ? { duration: 0 }
+                  : { ...pullT, opacity: { duration: 0.1, delay: pull } }
+              }
+            >
+              <path d={d.line} />
+              <path d={d.ticks} />
               <rect
                 x={d.mid[0] - 46}
                 y={d.mid[1] - 26}

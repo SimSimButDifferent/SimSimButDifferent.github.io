@@ -62,7 +62,7 @@ module.exports = {
         fadeIn: "fadeIn 10s forwards",
         // Homepage hero (landing-frame exception to "no decorative loops")
         breathe: "breathe 6s ease-in-out infinite",
-        sweep: "sweep 7s cubic-bezier(0.45, 0, 0.55, 1) 1.6s infinite backwards",
+        sweep: "sweep 7s cubic-bezier(0.45, 0, 0.55, 1) 4.4s infinite backwards",
       },
       keyframes: {
         breathe: {
