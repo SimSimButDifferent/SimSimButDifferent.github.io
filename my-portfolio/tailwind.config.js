@@ -60,8 +60,19 @@ module.exports = {
       animation: {
         fadeInOut: "fadeInOut 6s ease-in-out infinite",
         fadeIn: "fadeIn 10s forwards",
+        // Homepage hero (landing-frame exception to "no decorative loops")
+        breathe: "breathe 6s ease-in-out infinite",
+        sweep: "sweep 7s cubic-bezier(0.45, 0, 0.55, 1) 1.6s infinite backwards",
       },
       keyframes: {
+        breathe: {
+          "0%, 100%": { opacity: "0.55" },
+          "50%": { opacity: "1" },
+        },
+        sweep: {
+          "0%": { transform: "translateX(-150%)" },
+          "35%, 100%": { transform: "translateX(400%)" },
+        },
         fadeInOut: {
           "0%": { opacity: "0" },
           "50%": { opacity: "1" },

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import HeroCube from "@/components/HeroCube";
 import Link from "next/link";
 import JsonLd, { professionalServiceSchema } from "@/components/JsonLd";
 import SnapScroll from "@/components/SnapScroll";
@@ -89,18 +89,10 @@ export default function Home() {
       <JsonLd schema={professionalServiceSchema({ description })} />
       <SnapScroll />
 
-      {/* 01 · Hero: the cube render stays still (turning it breaks the illusion). */}
+      {/* 01 · Hero: grid, glow, light sweep and dimensions around the cube.
+          The render itself stays still (turning it breaks the illusion). */}
       <section className="relative min-h-screen overflow-hidden bg-navy">
-        <div className="pointer-events-none absolute inset-0 flex items-end justify-center pb-6 sm:items-center sm:justify-end sm:pb-0 sm:pr-6 lg:pr-10 xl:pr-16">
-          <Image
-            src="/images/3d-logo/dir-logo-3d-cutout-1200.webp"
-            alt="Impossible cube — the Dream InReality logo rendered in 3D"
-            width={991}
-            height={1200}
-            priority
-            className="h-[30vh] w-auto sm:h-[42vh] lg:h-[56vh] xl:h-[64vh]"
-          />
-        </div>
+        <HeroCube />
 
         <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 pb-[30vh] text-center sm:items-start sm:px-10 sm:pb-0 sm:text-left lg:px-16">
           <p className="eyebrow mb-2 text-sm">Dream InReality</p>
