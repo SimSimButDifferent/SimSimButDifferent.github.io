@@ -11,14 +11,15 @@
 //   6.8  a copy slides back and W counts 60 -> 90; again for 90 -> 120
 //  10.6  the three brackets turn ice-blue, front to back
 
-// Bracket, in millimetres. The left end is fixed; W grows to the right.
-const DEPTH = 40;
-const THICKNESS = 8;
-const FILLET = 8;
-const HOLE_RADIUS = 3;
-const HOLE_EDGE = 9; // hole centre to each end: fixed, whatever W is
-const SLOT_RADIUS = 4;
-const SLOT_EDGE = 22; // slot end centre to each end: the slot grows with W
+import {
+  BRACKET,
+  cutPaths as bracketCuts,
+  outlineShape as bracketOutline,
+} from "./parts/bracket";
+
+// Bracket, in millimetres (src/scenes/parts/bracket.js). The left end is
+// fixed; W grows to the right.
+const { depth: DEPTH, thickness: THICKNESS, fillet: FILLET } = BRACKET;
 const PITCH = 70; // row spacing, front to back
 const SINK = 0.4; // a copy sits this far down while it slides out of its parent
 const WIDTHS = [60, 90, 120];
@@ -179,47 +180,8 @@ export function create({ THREE, tokens, fontFamily }) {
   // Shapes are drawn in (x, s) and laid flat, so s runs towards the back.
   const half = DEPTH / 2;
 
-  function outlineShape(width, fillet) {
-    const shape = new THREE.Shape();
-    const r = Math.min(fillet, half);
-    if (r < 0.05) {
-      shape.moveTo(0, -half);
-      shape.lineTo(width, -half);
-      shape.lineTo(width, half);
-      shape.lineTo(0, half);
-      shape.closePath();
-      return shape;
-    }
-    shape.moveTo(r, -half);
-    shape.lineTo(width - r, -half);
-    shape.absarc(width - r, -half + r, r, -Math.PI / 2, 0, false);
-    shape.lineTo(width, half - r);
-    shape.absarc(width - r, half - r, r, 0, Math.PI / 2, false);
-    shape.lineTo(r, half);
-    shape.absarc(r, half - r, r, Math.PI / 2, Math.PI, false);
-    shape.lineTo(0, -half + r);
-    shape.absarc(r, -half + r, r, Math.PI, Math.PI * 1.5, false);
-    return shape;
-  }
-
-  // Two fixing holes and the slot. Returned as closed paths (for cutting) —
-  // new THREE.Shape(points) of the same paths gives the plugs and outlines.
-  function cutPaths(width) {
-    const circle = (x) => {
-      const path = new THREE.Path();
-      path.absarc(x, 0, HOLE_RADIUS, 0, Math.PI * 2, true);
-      return path;
-    };
-    const slot = new THREE.Path();
-    const x1 = SLOT_EDGE;
-    const x2 = width - SLOT_EDGE;
-    slot.moveTo(x1, SLOT_RADIUS);
-    slot.lineTo(x2, SLOT_RADIUS);
-    slot.absarc(x2, 0, SLOT_RADIUS, Math.PI / 2, -Math.PI / 2, true);
-    slot.lineTo(x1, -SLOT_RADIUS);
-    slot.absarc(x1, 0, SLOT_RADIUS, -Math.PI / 2, Math.PI / 2, true);
-    return [circle(HOLE_EDGE), slot, circle(width - HOLE_EDGE)];
-  }
+  const outlineShape = (width, fillet) => bracketOutline(THREE, width, fillet);
+  const cutPaths = (width) => bracketCuts(THREE, width);
 
   const flat = (geometry) => geometry.rotateX(-Math.PI / 2);
   const extrude = (shapes, depth) =>

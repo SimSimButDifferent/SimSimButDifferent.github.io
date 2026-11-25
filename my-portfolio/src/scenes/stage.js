@@ -42,6 +42,7 @@ const loaders = {
   "reverse-engineering": () => import("./reverse-engineering"),
   "about-reel": () => import("./about-reel"),
   contact: () => import("./contact"),
+  "parametric-plate": () => import("./parametric-plate"),
 };
 
 export function blueprintFloor() {
