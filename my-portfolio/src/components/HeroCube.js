@@ -25,9 +25,16 @@ const unit = ([x, y]) => {
 const add = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k];
 const pt = ([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`;
 
-// Aligned dimension between p1 and p2, offset `off` along unit normal n.
-// Values are illustrative (aria-hidden), proportional to the cube's edges.
-function dimension(p1, p2, n, label, off = 80) {
+// Isometric axes of the cube, from the silhouette corners.
+const WIDTH = unit([FB[0] - LB[0], FB[1] - LB[1]]); // front-left bottom edge
+const DEPTH = unit([RB[0] - FB[0], RB[1] - FB[1]]); // front-right bottom edge
+
+// Dimension between p1 and p2 drawn the way SolidWorks draws it in an
+// isometric view: extension lines run along another axis of the part (unit
+// vector n), so they line up with its faces and edges; the dimension line is
+// parallel to p1-p2. Values are illustrative (aria-hidden), proportional to
+// the cube's edges.
+function dimension(p1, p2, n, label, off = 90) {
   const dir = unit([p2[0] - p1[0], p2[1] - p1[1]]);
   const a = add(p1, n, off);
   const b = add(p2, n, off);
@@ -42,10 +49,13 @@ function dimension(p1, p2, n, label, off = 80) {
 }
 
 const dims = [
-  dimension(LB, FB, unit([-289, 608]), "155"),
-  dimension(FB, RB, unit([228, 371]), "100"),
-  // Height on the right edge, clear of the headline.
-  dimension(RT, RB, [1, 0], "155"),
+  // Width: extension lines along the depth axis, out to the front-left.
+  dimension(LB, FB, [-DEPTH[0], -DEPTH[1]], "155"),
+  // Depth: extension lines along the width axis, out to the front-right.
+  dimension(FB, RB, WIDTH, "100"),
+  // Height on the right edge (clear of the headline), extension lines along
+  // the depth axis.
+  dimension(RT, RB, DEPTH, "155"),
 ];
 
 function Dimensions() {
@@ -71,8 +81,8 @@ function Dimensions() {
   return (
     <svg
       aria-hidden="true"
-      viewBox="-40 -20 1191 1340"
-      className="pointer-events-none absolute left-[-4.036%] top-[-1.667%] hidden h-[111.67%] w-[120.18%] overflow-visible fill-none stroke-accent-visual lg:block"
+      viewBox="-110 -20 1230 1320"
+      className="pointer-events-none absolute left-[-11.1%] top-[-1.667%] hidden h-[110%] w-[124.12%] overflow-visible fill-none stroke-accent-visual lg:block"
       strokeWidth="2"
       strokeLinecap="round"
     >
