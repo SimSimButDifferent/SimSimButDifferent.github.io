@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { stopAt, meanderSegments, travelMs } from "./meander.mjs";
+import { stopAt, meanderSegments, travelMs, mobileRoute } from "./meander.mjs";
 
 test("stopAt counts stages whose top has reached mid-viewport", () => {
   assert.equal(stopAt([900, 1700, 2500], 800), 0);
@@ -31,4 +31,24 @@ test("travelMs is one fixed duration per direction", () => {
   assert.equal(travelMs(0, 8), 1200);
   assert.equal(travelMs(5, 4), 600);
   assert.equal(travelMs(8, 0), 600);
+});
+test("mobileRoute runs down each gutter, then crosses to the next station", () => {
+  assert.deepEqual(
+    mobileRoute({ x: 180, y: 100 }, [
+      { x: 28, top: 200, bottom: 256, turn: 600 },
+      { x: 332, top: 700, bottom: 756, turn: 1100 },
+    ]),
+    [
+      "M180 100 C180 150 28 150 28 200",
+      "M28 256 L28 600 C28 650 332 650 332 700",
+      "M332 756 L332 1100",
+    ]
+  );
+});
+test("mobileRoute rounds, never runs upwards, and handles no stations", () => {
+  assert.deepEqual(mobileRoute({ x: 0.4, y: 0.6 }, [{ x: 10.5, top: 21, bottom: 40.2, turn: 30 }]), [
+    "M0 1 C0 11 11 11 11 21",
+    "M11 40 L11 40",
+  ]);
+  assert.deepEqual(mobileRoute({ x: 0, y: 0 }, []), []);
 });

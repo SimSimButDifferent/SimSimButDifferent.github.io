@@ -4,16 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import MeanderRoute from "./MeanderRoute";
+import MobileRoute from "./MobileRoute";
 import { signatures } from "./signatures";
 
 // Homepage "Product development timeline": eight stages from a first sketch
 // to production, each tied to one service. From lg up each stage is its own
 // snap frame, text alternating left and right, with a "station" on the other
-// side. Below lg it is a plain vertical route.
+// side. Below lg each stage opens with a small icon station that alternates
+// left and right, and a static line (MobileRoute) swings between them.
 //
-// DOM contract for the route overlay: the section is `relative`; the header
-// has data-meander-start, each stage <li> data-meander-stage and each station
-// data-meander-node.
+// DOM contract for the route overlays: the section is `relative`; the header
+// has data-meander-start, each stage <li> data-meander-stage, each desktop
+// station data-meander-node, each mobile station data-meander-mobile-node and
+// each stage text block data-meander-text.
 
 function stationClass(state) {
   if (state === "current")
@@ -58,12 +61,40 @@ function Station({ stage, state, textOnLeft }) {
   );
 }
 
+// Below lg: the stage icon in a small circle on the line's side, the stage
+// numeral on the other. The circle sits over the line (bg-navy, z-10).
+function MobileStation({ stage, stationOnLeft }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`mb-6 flex items-center justify-between lg:hidden ${
+        stationOnLeft ? "" : "flex-row-reverse"
+      }`}
+    >
+      <div
+        data-meander-mobile-node
+        className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-accent-visual bg-navy"
+      >
+        <Image
+          src={stage.icon}
+          alt=""
+          width={36}
+          height={36}
+          className="h-9 w-9 invert"
+        />
+      </div>
+      <span className="text-display font-light text-line">{stage.number}</span>
+    </div>
+  );
+}
+
 function StageText({ stage, textOnLeft }) {
   const Signature = signatures[stage.signature];
   return (
     <div
-      className={`lg:col-span-5 lg:row-start-1 ${
-        textOnLeft ? "lg:col-start-1" : "lg:col-start-8"
+      data-meander-text
+      className={`lg:col-span-5 lg:row-start-1 lg:p-0 ${
+        textOnLeft ? "pl-16 lg:col-start-1" : "pr-16 lg:col-start-8"
       }`}
     >
       <p className="eyebrow mb-4">
@@ -112,6 +143,7 @@ export default function DesignFlow({ stages }) {
       className="snap-frame relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
     >
       <MeanderRoute sectionRef={sectionRef} onArrive={setArrived} />
+      <MobileRoute sectionRef={sectionRef} />
 
       <header
         data-meander-start
@@ -129,21 +161,18 @@ export default function DesignFlow({ stages }) {
         </p>
       </header>
 
-      <ol className="ml-2 mt-12 border-l border-line lg:ml-0 lg:mt-0 lg:border-0">
+      <ol className="mt-20 lg:mt-0">
         {stages.map((stage, index) => {
           const textOnLeft = index % 2 === 0;
           return (
             <li
               key={stage.number}
               data-meander-stage
-              className={`relative pb-20 pl-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-0 lg:pl-0 ${
+              className={`relative pb-24 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-0 ${
                 index === 0 ? "lg:min-h-[70vh]" : "snap-frame lg:min-h-screen"
               }`}
             >
-              <span
-                aria-hidden="true"
-                className="absolute -left-2 top-1 h-[15px] w-[15px] rounded-full border border-accent-visual bg-surface lg:hidden"
-              />
+              <MobileStation stage={stage} stationOnLeft={textOnLeft} />
               <StageText stage={stage} textOnLeft={textOnLeft} />
               <Station
                 stage={stage}
