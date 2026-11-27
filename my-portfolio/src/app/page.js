@@ -21,9 +21,9 @@ const testimonials = [
     logoHeight: 83,
     website: "https://microworkshops.co.uk/",
     name: "Elliot @ Microworkshops",
+    pull: "Simeon has tons of good qualities but the ones I appreciate the most are his consistency, honesty and sense of decency. True team player.",
     quotes: [
       '"After doing several smaller jobs he was then responsible for the company\'s two main CAD accounts which worked really well. This happened faster than my own progression which proved to me he is a fast learner."',
-      '"Simeon has tons of good qualities but the ones I appreciate the most are his consistency, honesty and sense of decency. True team player."',
     ],
   },
   {
@@ -33,9 +33,9 @@ const testimonials = [
     logoHeight: 70,
     website: "https://shadespecialists.co.uk/",
     name: "Rupert @ Bambrella / ShadeSpecialists",
+    pull: "We would certainly recommend him and would be happy to work with him again.",
     quotes: [
       '"We have worked with Simeon Campbell on a number of design projects. Simeon completed any design work we sent to him quickly and to a consistently high standard."',
-      '"We would certainly recommend him and would be happy to work with him again."',
     ],
   },
 ];
@@ -194,6 +194,9 @@ export default function Home() {
                 description={stage.card.description}
                 href={stage.href}
                 icon={stage.icon}
+                number={stage.number}
+                label={stage.label}
+                chips={stage.chips}
               />
             </li>
           ))}
