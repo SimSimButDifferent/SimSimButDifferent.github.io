@@ -52,7 +52,7 @@ function Station({ stage, state, textOnLeft }) {
             alt=""
             width={144}
             height={144}
-            className="h-36 w-36 invert"
+            className="h-36 w-36"
           />
         </div>
       </div>
@@ -80,7 +80,7 @@ function MobileStation({ stage, stationOnLeft }) {
           alt=""
           width={36}
           height={36}
-          className="h-9 w-9 invert"
+          className="h-9 w-9"
         />
       </div>
       <span className="text-display font-light text-line">{stage.number}</span>
@@ -147,7 +147,7 @@ export default function DesignFlow({ stages }) {
 
       <header
         data-meander-start
-        className="relative pt-16 text-center lg:flex lg:h-[30vh] lg:flex-col lg:justify-end lg:pt-0"
+        className="relative pb-10 pt-16 text-center lg:flex lg:h-[30vh] lg:flex-col lg:justify-end lg:pt-0"
       >
         <p className="eyebrow mb-4">
           <span className="text-accent-visual">02 · The process</span>
@@ -161,7 +161,7 @@ export default function DesignFlow({ stages }) {
         </p>
       </header>
 
-      <ol className="mt-8 lg:mt-0">
+      <ol className="mt-20 lg:mt-0">
         {stages.map((stage, index) => {
           const textOnLeft = index % 2 === 0;
           return (

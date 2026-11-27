@@ -9,7 +9,7 @@ export default function ServiceCard({ title, description, href, icon }) {
       href={href}
       className="panel focus-ring flex h-full flex-col gap-3 transition-colors duration-150 hover:border-accent-visual"
     >
-      <Image src={icon} alt="" width={40} height={40} className="h-10 w-10 invert" />
+      <Image src={icon} alt="" width={40} height={40} className="h-10 w-10" />
       <h3 className="pb-0 text-title-sm font-semibold">{title}</h3>
       <p className="text-sm text-muted-inverse">{description}</p>
     </Link>

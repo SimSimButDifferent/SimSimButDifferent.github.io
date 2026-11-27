@@ -40,6 +40,11 @@ const testimonials = [
   },
 ];
 
+// The homepage is navy throughout. Declaring dark support stops phone
+// browsers' forced dark modes (Chrome Auto Dark, Samsung Internet) from
+// re-colouring it, which turned the light service icons black.
+export const viewport = { colorScheme: "dark" };
+
 export const metadata = {
   title: "3D CAD Modelling Services UK: SLDPRT, STEP | Dream InReality",
   description,
