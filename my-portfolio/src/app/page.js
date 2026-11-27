@@ -52,17 +52,18 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/favicon-512.png",
-        width: 512,
-        height: 512,
-        alt: "Dream InReality logo",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Dream InReality impossible-cube logo, rendered",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "3D CAD Modelling Services UK: SLDPRT, STEP | Dream InReality",
     description,
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: "/",
