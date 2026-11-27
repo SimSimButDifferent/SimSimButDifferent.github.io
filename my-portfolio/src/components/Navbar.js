@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import LogoMark from "./LogoMark";
 import { services } from "../data/services";
 
 const Navbar = () => {
@@ -17,16 +17,10 @@ const Navbar = () => {
         <li className="pr-2 sm:pr-6">
           <Link
             href="/"
-            className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg"
+            aria-label="Dream InReality home"
+            className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-ink-inverse"
           >
-            {/* The mark is black line-art; invert turns it white on navy. */}
-            <Image
-              src="/images/dir-logo-01.svg"
-              width={40}
-              height={40}
-              alt="Dream InReality home"
-              className="invert"
-            />
+            <LogoMark className="h-10 w-auto" />
           </Link>
         </li>
         <li>
