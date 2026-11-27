@@ -22,6 +22,8 @@ export const metadata = {
     ],
     apple: [{ url: "/favicon-192.png", sizes: "192x192" }],
   },
+  // Pages without their own twitter block still get the large preview card.
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }) {
@@ -29,7 +31,7 @@ export default function RootLayout({ children }) {
     // Browser extensions (e.g. Stencil-based ones) add attributes such as
     // class="hydrated" to <html> before React loads. This silences that
     // mismatch for <html>'s own attributes only; children are still checked.
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-GB" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans`}>
         <Navbar />
         {children}

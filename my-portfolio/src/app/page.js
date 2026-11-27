@@ -63,7 +63,12 @@ export const metadata = {
     card: "summary_large_image",
     title: "3D CAD Modelling Services UK: SLDPRT, STEP | Dream InReality",
     description,
-    images: ["/og-image.jpg"],
+    images: [
+      {
+        url: "/og-image.jpg",
+        alt: "Dream InReality impossible-cube logo, rendered",
+      },
+    ],
   },
   alternates: {
     canonical: "/",
