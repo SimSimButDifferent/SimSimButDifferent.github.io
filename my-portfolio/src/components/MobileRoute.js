@@ -17,7 +17,7 @@ import { mobileRoute } from "@/lib/meander.mjs";
 // each stage text block data-meander-text, in the same order.
 
 // Gap kept between the bottom of a stage's text and the start of the crossing.
-const TURN_GAP = 16;
+const TURN_GAP = 8;
 
 function measure(section) {
   const box = section.getBoundingClientRect();

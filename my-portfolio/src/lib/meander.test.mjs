@@ -39,15 +39,15 @@ test("mobileRoute runs down each gutter, then crosses to the next station", () =
       { x: 332, top: 700, bottom: 756, turn: 1100 },
     ]),
     [
-      "M180 100 C180 150 28 150 28 200",
-      "M28 256 L28 600 C28 650 332 650 332 700",
+      "M180 100 C180 185 28 115 28 200",
+      "M28 256 L28 600 C28 685 332 615 332 700",
       "M332 756 L332 1100",
     ]
   );
 });
 test("mobileRoute rounds, never runs upwards, and handles no stations", () => {
   assert.deepEqual(mobileRoute({ x: 0.4, y: 0.6 }, [{ x: 10.5, top: 21, bottom: 40.2, turn: 30 }]), [
-    "M0 1 C0 11 11 11 11 21",
+    "M0 1 C0 18 11 4 11 21",
     "M11 40 L11 40",
   ]);
   assert.deepEqual(mobileRoute({ x: 0, y: 0 }, []), []);

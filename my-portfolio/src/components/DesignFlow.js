@@ -67,7 +67,7 @@ function MobileStation({ stage, stationOnLeft }) {
   return (
     <div
       aria-hidden="true"
-      className={`mb-6 flex items-center justify-between lg:hidden ${
+      className={`mb-6 mt-12 flex items-center justify-between lg:hidden ${
         stationOnLeft ? "" : "flex-row-reverse"
       }`}
     >

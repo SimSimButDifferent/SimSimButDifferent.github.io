@@ -34,6 +34,12 @@ export function travelMs(from, to) {
   return to > from ? FORWARD_MS : BACK_MS;
 }
 
+// Handle length of the mobile crossings, as a share of the crossing's height.
+// At 0.5 the handles meet in the middle and the line bends at a ~12px radius
+// at each end; longer handles spread the bend into a broad sweep. Must stay
+// under 1, or the curve doubles back upwards.
+const SWEEP = 0.85;
+
 // The static route below lg. Stations alternate left and right with the stage
 // text underneath, so each segment leaves the previous station (or the
 // header) straight down, runs down the gutter beside that stage's text to its
@@ -51,9 +57,9 @@ export function mobileRoute(start, stations) {
   let turn = y;
   const paths = stations.map((s) => {
     const to = { x: r(s.x), y: r(s.top) };
-    const mid = r((turn + to.y) / 2);
+    const reach = r((to.y - turn) * SWEEP);
     const run = turn > y ? ` L${x} ${turn}` : "";
-    const d = `M${x} ${y}${run} C${x} ${mid} ${to.x} ${mid} ${to.x} ${to.y}`;
+    const d = `M${x} ${y}${run} C${x} ${turn + reach} ${to.x} ${to.y - reach} ${to.x} ${to.y}`;
     x = to.x;
     y = r(s.bottom);
     turn = Math.max(y, r(s.turn));
