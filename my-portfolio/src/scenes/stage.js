@@ -160,6 +160,13 @@ export async function mountScene(canvas, slug) {
   if (!load) throw new Error(`No scroll scene registered for "${slug}"`);
   const { create } = await load();
 
+  // Probe on a throwaway canvas: when WebGL is unavailable, three.js logs a
+  // console.error before throwing, which the Next dev overlay reports.
+  const probe = document.createElement("canvas");
+  const gl = probe.getContext("webgl2") || probe.getContext("webgl");
+  if (!gl) throw new Error("WebGL unavailable");
+  gl.getExtension("WEBGL_lose_context")?.loseContext();
+
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true,
