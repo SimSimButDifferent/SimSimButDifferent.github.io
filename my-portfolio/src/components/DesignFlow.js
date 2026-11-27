@@ -156,12 +156,12 @@ export default function DesignFlow({ stages }) {
           Product development timeline
         </h2>
         <p className="mx-auto max-w-[70ch] text-muted-inverse">
-          Eight stages from a first sketch to parts coming off the line. Join at
-          whichever stage your project has reached.
+          From your initial ideas and sketches, all the way to the
+          manufacturing line. Join at whichever stage your project requires.
         </p>
       </header>
 
-      <ol className="mt-20 lg:mt-0">
+      <ol className="mt-8 lg:mt-0">
         {stages.map((stage, index) => {
           const textOnLeft = index % 2 === 0;
           return (
